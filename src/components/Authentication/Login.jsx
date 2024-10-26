@@ -19,8 +19,8 @@ const Login = () => {
   };
 
   const predefinedUser = {
-    email: "Rowdyvicky@gmail.com",
-    password: "Jobsguru@625",
+    email: "admin@gmail.com",
+    password: "pass@123",
   };
 
   const [formValues, setFormValues] = useState({
