@@ -38,7 +38,7 @@ const SalePage = () => {
       discount: "Up to 40% Off",
       items: "1200+ Items",
       featured: ["iPhone 15", "Samsung S24", "Google Pixel 8"],
-      startingPrice: "$299",
+      startingPrice: "₹12000",
     },
     {
       name: "Smartwatches",
@@ -46,7 +46,7 @@ const SalePage = () => {
       discount: "Up to 35% Off",
       items: "800+ Items",
       featured: ["Apple Watch", "Galaxy Watch", "Fitbit"],
-      startingPrice: "$149",
+      startingPrice: "₹2000",
     },
     {
       name: "Laptops",
@@ -55,7 +55,7 @@ const SalePage = () => {
       discount: "Up to 30% Off",
       items: "500+ Items",
       featured: ["MacBook Air", "Dell XPS", "HP Spectre"],
-      startingPrice: "$499",
+      startingPrice: "₹20000",
     },
     {
       name: "Headphones",
@@ -64,7 +64,7 @@ const SalePage = () => {
       discount: "Up to 50% Off",
       items: "1000+ Items",
       featured: ["AirPods Pro", "Sony WH-1000XM5", "Bose QC"],
-      startingPrice: "$89",
+      startingPrice: "₹10000",
     },
     {
       name: "Cameras",
@@ -73,7 +73,7 @@ const SalePage = () => {
       discount: "Up to 25% Off",
       items: "300+ Items",
       featured: ["Sony A7", "Canon EOS", "Fujifilm X-T5"],
-      startingPrice: "$399",
+      startingPrice: "₹300000",
     },
     {
       name: "Gaming",
@@ -81,15 +81,15 @@ const SalePage = () => {
       discount: "Up to 45% Off",
       items: "400+ Items",
       featured: ["PS5", "Xbox Series X", "Nintendo Switch"],
-      startingPrice: "$249",
+      startingPrice: "₹65000",
     },
   ];
 
   const flashDeals = [
     {
       name: "AirPods Pro",
-      price: "$199",
-      originalPrice: "$249",
+      price: "₹10900",
+      originalPrice: "₹20900",
       rating: 4.8,
       reviews: 2456,
       image:
@@ -97,8 +97,8 @@ const SalePage = () => {
     },
     {
       name: "Samsung 4K TV",
-      price: "$599",
-      originalPrice: "$899",
+      price: "₹15900",
+      originalPrice: "₹23900",
       rating: 4.7,
       reviews: 1823,
       image:
@@ -106,8 +106,8 @@ const SalePage = () => {
     },
     {
       name: "iPad Air",
-      price: "$449",
-      originalPrice: "$599",
+      price: "₹30900",
+      originalPrice: "₹40900",
       rating: 4.9,
       reviews: 3241,
       image:
@@ -116,39 +116,51 @@ const SalePage = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full overflow-auto">
       <div className="relative w-full h-full">
         <img
           src={img}
           alt="Festival Sale Banner"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white backdrop-brightness-50">
-          <h1 className="text-6xl font-bold mb-4">Festive Season Sale</h1>
-          <p className="text-2xl mb-6">Incredible Deals on Premium Tech</p>
-          <div className="flex gap-4 mb-8">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white backdrop-brightness-50 p-4">
+          <h1 className="text-sm md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4 text-center">
+            Festive Season Sale
+          </h1>
+          <p className="text-sm md:text-xl lg:text-2xl mb-2 md:mb-6 text-center">
+            Incredible Deals on Premium Tech
+          </p>
+          <div className="flex gap-2 md:gap-4 mb-2 md:mb-8">
             <div className="text-center">
-              <div className="text-4xl font-bold">{timeLeft.hours}</div>
-              <div className="text-sm">Hours</div>
+              <div className="text-sm md:text-4xl font-bold">
+                {timeLeft.hours}
+              </div>
+              <div className="text-xs md:text-sm">Hours</div>
             </div>
-            <div className="text-4xl font-bold">:</div>
+            <div className="text-sm md:text-4xl font-bold">:</div>
             <div className="text-center">
-              <div className="text-4xl font-bold">{timeLeft.minutes}</div>
-              <div className="text-sm">Minutes</div>
+              <div className="text-sm md:text-4xl font-bold">
+                {timeLeft.minutes}
+              </div>
+              <div className="text-xs md:text-sm">Minutes</div>
             </div>
-            <div className="text-4xl font-bold">:</div>
+            <div className="text-sm md:text-4xl font-bold">:</div>
             <div className="text-center">
-              <div className="text-4xl font-bold">{timeLeft.seconds}</div>
-              <div className="text-sm">Seconds</div>
+              <div className="text-sm md:text-4xl font-bold">
+                {timeLeft.seconds}
+              </div>
+              <div className="text-xs md:text-sm">Seconds</div>
             </div>
           </div>
-          <Button className="text-lg px-8 py-6">Shop Now</Button>
+          <Button className="text-xs mb-1 md:text-lg p-2 md:px-6 md:py-4 lg:px-8 lg:py-6">
+            Shop Now
+          </Button>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-semibold flex items-center gap-2">
+          <h2 className="text-lg md:text-3xl font-semibold flex items-center gap-2">
             <Clock className="w-8 h-8" /> Flash Deals
           </h2>
           <Button variant="outline">View All</Button>
@@ -159,15 +171,14 @@ const SalePage = () => {
               key={deal.name}
               className="hover:shadow-lg transition-shadow duration-300"
             >
-              
-                <Suspense fallback={<div>Loading...</div>}>
-                  <LazyImage
-                    src={deal.image}
-                    alt={deal.name}
-                    className="w-full h-48 object-cover mb-4 rounded"
-                  />
-                </Suspense>
-                <CardContent className="p-4">
+              <Suspense fallback={<div>Loading...</div>}>
+                <LazyImage
+                  src={deal.image}
+                  alt={deal.name}
+                  className="w-full h-48 object-cover mb-4 rounded"
+                />
+              </Suspense>
+              <CardContent className="p-4">
                 <h3 className="text-xl font-semibold">{deal.name}</h3>
                 <div className="flex items-center gap-2 my-2">
                   <span className="text-2xl font-bold text-red-600">
@@ -192,7 +203,7 @@ const SalePage = () => {
       </div>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-semibold flex items-center gap-2">
+          <h2 className="text-lg md:text-3xl font-semibold flex items-center gap-2">
             <TrendingUp className="w-8 h-8" /> Top Categories
           </h2>
           <Button variant="outline">View All Categories</Button>

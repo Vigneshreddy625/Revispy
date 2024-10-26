@@ -14,7 +14,7 @@ const trendingItems = [
     id: 1,
     title: "Smart TVS",
     description: "Noise-cancelling, wireless, and high-fidelity sound quality.",
-    price: 199.99,
+    price: 19999.99,
     image:
       "https://www.livemint.com/lm-img/img/2024/05/02/1600x900/75_inch_smart_tv_1714649551876_1714649561405.jpg",
     isNew: true,
@@ -23,7 +23,7 @@ const trendingItems = [
     id: 2,
     title: "Modern Desk Lamp",
     description: "Minimalistic and adjustable, perfect for any workspace.",
-    price: 89.99,
+    price: 890.99,
     image:
       "https://thedecorkart.com/cdn/shop/articles/Choosing_a_Compact_Study_Table_Lamp.jpg?v=1719574946",
     isNew: false,
@@ -32,7 +32,7 @@ const trendingItems = [
     id: 3,
     title: "Leather Backpack",
     description: "Spacious and durable, made with premium materials to carry.",
-    price: 149.99,
+    price: 1490.99,
     image:
       "https://craftandglory.in/cdn/shop/files/SON000021.jpg?v=1711024390&width=1946",
     isNew: true,
@@ -41,7 +41,7 @@ const trendingItems = [
     id: 4,
     title: "Wireless Charging Pad",
     description: "Fast charging with elegant design for any device.",
-    price: 59.99,
+    price: 5999.99,
     image:
       "https://images.dailyobjects.com/marche/product-images/1809/trinity-wireless-charging-station-images/Trinity-Wireless-Charging-Station-4th.jpg?tr=cm-pad_crop,v-3,w-412,h-490,dpr-2,q-60",
     isNew: false,
@@ -50,7 +50,7 @@ const trendingItems = [
     id: 5,
     title: "Smart Watch",
     description: "Track your fitness and stay connected in style.",
-    price: 299.99,
+    price: 29999.99,
     image:
       "https://cdn.mos.cms.futurecdn.net/FkGweMeB7hdPgaSFQdgsfj-1200-80.jpg",
     isNew: true,
@@ -59,7 +59,7 @@ const trendingItems = [
     id: 6,
     title: "Portable Speaker",
     description: "Premium sound quality in a compact design.",
-    price: 129.99,
+    price: 12999.99,
     image:
       "https://assets.bose.com/content/dam/cloudassets/Bose_DAM/Web/consumer_electronics/global/products/speakers/SLMAX-SPEAKERWIRELESS/product_silo_images/aem_pdp_SLMPS_gallery_black_600x511_x2_1.jpg/jcr:content/renditions/cq5dam.web.1920.1920.jpeg",
     isNew: false,
@@ -107,7 +107,7 @@ export default function TrendingPage() {
                           />
                         </Suspense>
 
-                        <div className="absolute top-2 right-2 bg-white bg-opacity-90 px-3 py-1 rounded">
+                        <div className="absolute top-2 right-2 bg-white text-black bg-opacity-90 px-3 py-1 rounded">
                           {item.isNew && (
                             <span className="text-xs uppercase tracking-widest font-semibold text-b">
                               New
@@ -126,7 +126,7 @@ export default function TrendingPage() {
                         </p>
                         <div className="flex justify-between items-center">
                           <span className="text-lg font-medium">
-                            ${item.price.toFixed(2)}
+                          ₹{item.price.toFixed(2)}
                           </span>
                           <button className="px-4 py-2 border rounded-md font-medium hover:shadow-lg transition">
                             Add to Cart
