@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+
+const LazyImage = React.lazy(() => import('./LazyImage'));
 
 const Home = () => {
   const featuredProducts = [
@@ -35,11 +37,9 @@ const Home = () => {
               key={category.name}
               className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer hover:scale-105 transform transition"
             >
-              <img
-                src={category.image}
-                alt={category.name}
-                className="w-full h-48 object-cover"
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <LazyImage src={category.image} alt={category.name} className="w-full h-48 object-cover" />
+              </Suspense>
               <div className="absolute inset-0 flex items-end p-4 backdrop-brightness-50">
                 <h3 className="text-xl font-semibold">{category.name}</h3>
               </div>
@@ -61,19 +61,17 @@ const Home = () => {
               <Card key={product.id} className="group hover:shadow-2xl transition-shadow duration-300">
                 <CardContent className="p-0">
                   <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <LazyImage src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
+                    </Suspense>
                   </div>
                   <div className="p-3">
                     <div className="flex justify-between">
-                    <h3 className="text-lg font-medium mb-2">{product.name}</h3>
-                    <span className="inline-flex items-center px-2 py-1 text-sm font-medium rounded-full">
+                      <h3 className="text-lg font-medium mb-2">{product.name}</h3>
+                      <span className="inline-flex items-center px-2 py-1 text-sm font-medium rounded-full">
                         {product.discount}
                       </span>
-                      </div>
+                    </div>
                     <div className="flex justify-between items-center">
                       <p className="text-xl font-semibold">{product.price}</p>
                       <Button size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -99,11 +97,13 @@ const Home = () => {
               </Button>
             </div>
             <div className="w-full md:w-1/2 lg:w-2/5">
-              <img
-                src="https://www.cardexpert.in/wp-content/uploads/2022/08/Weekly-offers.gif"
-                alt="Deal of the Day"
-                className="w-full h-auto rounded-lg shadow"
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <LazyImage
+                  src="https://www.cardexpert.in/wp-content/uploads/2022/08/Weekly-offers.gif"
+                  alt="Deal of the Day"
+                  className="w-full h-auto rounded-lg shadow"
+                />
+              </Suspense>
             </div>
           </div>
         </div>

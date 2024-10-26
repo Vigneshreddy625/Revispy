@@ -9,6 +9,8 @@ import ConfirmOTP from './components/Authentication/OTP';
 import ProtectedRoute from './components/ProtectedRoute';
 import Categories from './components/Categories';
 import Home from './components/Home';
+import SalePage from './components/Sale';
+import TrendingPage from './components/Trending';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +25,8 @@ function App() {
               <Route path="home" element={<Home/>}/>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
+              <Route path="sale" element={<SalePage />} />
+              <Route path="/trending" element={<TrendingPage/>}/>
               <Route path="confirm-otp" element={<ConfirmOTP />} />
               <Route
                 path="categories"
