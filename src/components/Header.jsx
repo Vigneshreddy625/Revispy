@@ -18,7 +18,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/home");
   };
 
   const toggleMobileMenu = () => {
