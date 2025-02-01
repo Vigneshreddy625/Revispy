@@ -41,7 +41,7 @@ const VerifyEmail = () => {
   }
 
   return (
-    <div className="md:w-full flex items-center justify-center">
+    <div className="min-h-screen md:w-full flex items-center justify-center">
       <div className="rounded-2xl p-8 w-full max-w-md shadow-sm border border-gray-300">
         <h1 className="text-xl font-semibold text-center mb-2">
           Verify your email

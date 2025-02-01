@@ -7,6 +7,24 @@ export default {
   ],
   theme: {
   	extend: {
+		keyframes: {
+			ripple: {
+			  '0%': {
+				opacity: 0,
+				transform: 'scale(0.75)',
+			  },
+			  '50%': {
+				opacity: 0.5,
+			  },
+			  '100%': {
+				opacity: 0,
+				transform: 'scale(1.5)',
+			  },
+			},
+		  },
+		  animation: {
+			ripple: 'ripple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+		  },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
