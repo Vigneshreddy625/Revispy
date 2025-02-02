@@ -3,7 +3,7 @@
     "short_name": "MVR",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
+    "background_color": "#0000",
     "lang": "en",
     "scope": "/",
     "description": "An one step destination for your career",
