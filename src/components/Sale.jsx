@@ -175,18 +175,23 @@ const SalePage = () => {
                 <LazyImage
                   src={deal.image}
                   alt={deal.name}
-                  className="w-full h-48 object-cover mb-4 rounded"
+                  className="w-full h-52 object-cover rounded-t"
                 />
               </Suspense>
               <CardContent className="p-4">
                 <h3 className="text-xl font-semibold">{deal.name}</h3>
-                <div className="flex items-center gap-2 my-2">
-                  <span className="text-2xl font-bold text-red-600">
-                    {deal.price}
-                  </span>
-                  <span className="text-gray-500 line-through">
-                    {deal.originalPrice}
-                  </span>
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-2 my-2">
+                    <span className="text-2xl font-bold text-red-600">
+                      {deal.price}
+                    </span>
+                    <span className="text-gray-500 line-through">
+                      {deal.originalPrice}
+                    </span>
+                  </div>
+                  <Button variant="outline" size="icon">
+                    <Heart className="w-4 h-4" />
+                  </Button>
                 </div>
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -218,10 +223,10 @@ const SalePage = () => {
                 <LazyImage
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-48 object-cover rounded-t-lg"
+                  className="w-full h-52 object-cover rounded-t-lg"
                 />
               </Suspense>
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-semibold mb-2">
@@ -237,11 +242,8 @@ const SalePage = () => {
                       Starting from {category.startingPrice}
                     </p>
                   </div>
-                  <Button variant="outline" size="icon">
-                    <Heart className="w-4 h-4" />
-                  </Button>
                 </div>
-                <div className="mt-4">
+                <div className="mt-2">
                   <p className="text-sm text-gray-500 mb-2">
                     Featured Products:
                   </p>

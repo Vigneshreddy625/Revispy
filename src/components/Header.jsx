@@ -83,23 +83,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full border-b shadow-sm">
-      {/* {showAnnouncement && (
-        <div className="bg-primary text-primary-foreground py-2 px-4">
-          <div className="flex items-center justify-center">
-            <p className="text-sm font-medium">
-              🎉 Get 10% off on your first order! Use code WELCOME10
-            </p>
-            <button
-              onClick={() => setShowAnnouncement(false)}
-              className="ml-4 hover:opacity-80"
-              aria-label="Close announcement"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      )} */}
+    <header className="w-full border-b shadow-md">
 
       <div className="container mx-auto p-3.5">
         <div className="flex items-center justify-between gap-4">

@@ -13,6 +13,7 @@ const Home = lazy(() => import('./components/Home'));
 const SalePage = lazy(() => import('./components/Sale'));
 const TrendingPage = lazy(() => import('./components/Trending'));
 const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
+const Cart = lazy(() => import('./components/Cart'));
 
 
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="sale" element={<SalePage />} />
+                <Route path="cart" element={<Cart />} />
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
                 <Route
