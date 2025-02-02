@@ -82,14 +82,14 @@ const Cart = () => {
                     <div className="flex items-center border border-gray-300 dark:border-gray-600">
                       <button 
                         onClick={() => updateQuantity(item.id, item.qty - 1)}
-                        className="p-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="px-2 py-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         -
                       </button>
-                      <span className="p-1">{item.qty}</span>
+                      <span className="px-2 py-1">{item.qty}</span>
                       <button 
                         onClick={() => updateQuantity(item.id, item.qty + 1)}
-                        className="p-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="px-2 py-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         +
                       </button>
@@ -135,7 +135,7 @@ const Cart = () => {
           <div className="flex">
             <input
               type="text"
-              className="flex-grow p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700"
+              className="flex-grow p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none"
             />
             <button className="px-4 py-2 bg-black dark:bg-gray-900 text-white text-sm">
               APPLY

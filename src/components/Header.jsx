@@ -84,17 +84,14 @@ const Header = () => {
 
   return (
     <header className="w-full border-b shadow-md">
-
       <div className="container mx-auto p-3.5">
         <div className="flex items-center justify-between gap-4">
-          <Link 
-            to="/home"
-          >
-          {isDarkMode  ? (
-            <img src={logo2} alt="logo" className="w-14 h-12" />
-          ) : (
-            <img src={logo} alt="logo" className="w-14 h-12" />
-          )}
+          <Link to="/home">
+            {isDarkMode ? (
+              <img src={logo2} alt="logo" className="w-14 h-12" loading="lazy" />
+            ) : (
+              <img src={logo} alt="logo" className="w-14 h-12" loading="lazy" />
+            )}
           </Link>
 
           <NavigationMenu className="hidden lg:flex lg:ml-20">

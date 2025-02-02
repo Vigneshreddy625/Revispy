@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <main>
-      <section className="text-center py-20">
+      <section className="text-center pt-20">
         <h1 className="text-4xl font-bold tracking-wide">Summer Collection 2024</h1>
         <p className="text-lg mt-4">Up to 50% off on selected items</p>
         <Button size="lg" className="mt-6 border transition">
@@ -58,7 +58,7 @@ const Home = () => {
         </Button>
       </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-16">
+        <section className="max-w-7xl mx-auto px-4 pt-16">
         <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-semibold">Shop by category</h2>
               <Button variant="outline">View All</Button>
@@ -85,7 +85,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="pt-16">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-semibold">Featured Products</h2>
@@ -132,7 +132,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-16">
+        <section className="max-w-7xl mx-auto px-4 pt-16 pb-4">
           <div className="relative overflow-hidden rounded-2xl border shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
               <div className="text-center md:text-left mb-6 md:mb-0">
