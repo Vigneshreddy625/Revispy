@@ -7,7 +7,7 @@
     "lang": "en",
     "scope": "/",
     "description": "An one step destination for your career",
-    "theme_color": "#ffffff",
+    "theme_color": "#0000",
     "orientation": "any",
     "icons": [
       { "src": "/logo2.png", "sizes": "192x192", "type": "image/png" },
