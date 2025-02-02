@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Heart } from 'lucide-react';
@@ -21,6 +21,32 @@ const Home = () => {
     { name: "Beauty", image: "https://cdn.logojoy.com/wp-content/uploads/20191023114758/AdobeStock_224061283-min.jpeg", subcategories: ["Skincare", "Makeup", "Haircare", "Fragrances"] },
   ];
 
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 24,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        const { hours, minutes, seconds } = prevTime;
+        if (seconds > 0) {
+          return { ...prevTime, seconds: seconds - 1 };
+        } else if (minutes > 0) {
+          return { ...prevTime, minutes: minutes - 1, seconds: 59 };
+        } else if (hours > 0) {
+          return { ...prevTime, hours: hours - 1, minutes: 59, seconds: 59 };
+        } else {
+          clearInterval(timer);
+          return { hours: 0, minutes: 0, seconds: 0 };
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen">
       <main>
@@ -33,7 +59,10 @@ const Home = () => {
       </section>
 
         <section className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-2xl font-semibold mb-8">Shop by Category</h2>
+        <div className="flex justify-between items-center mb-8">
+              <h2 className="text-2xl font-semibold">Shop by category</h2>
+              <Button variant="outline">View All</Button>
+            </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
               <div
@@ -110,16 +139,16 @@ const Home = () => {
                 <h2 className="text-3xl font-bold mb-4">Deal of the Day</h2>
                 <p className="text-lg mb-4">Get 40% off on selected items</p>
                 <div className="flex space-x-4 justify-center md:justify-start mb-6">
-                  <div className="text-center">
-                    <span className="block text-3xl font-bold">24</span>
+                <div className="text-center">
+                    <span className="block text-3xl font-bold">{timeLeft.hours}</span>
                     <span className="text-sm">Hours</span>
                   </div>
                   <div className="text-center">
-                    <span className="block text-3xl font-bold">45</span>
+                    <span className="block text-3xl font-bold">{timeLeft.minutes}</span>
                     <span className="text-sm">Minutes</span>
                   </div>
                   <div className="text-center">
-                    <span className="block text-3xl font-bold">30</span>
+                    <span className="block text-3xl font-bold">{timeLeft.seconds}</span>
                     <span className="text-sm">Seconds</span>
                   </div>
                 </div>

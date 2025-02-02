@@ -3,6 +3,9 @@ import { Search, ShoppingCart, LogOut, LogIn, Menu, X, Bell, User } from "lucide
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ToggleMode from "./Darkmode/ToggleMode";
 import { useAuth } from "../authContext/useAuth";
+import logo from "../assets/logo.png";
+import logo2 from "../assets/logo2.png";
+import { useTheme } from "./Darkmode/Theme-provider";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -37,12 +40,19 @@ const Header = () => {
   const [cartCount, setCartCount] = useState(0);
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const {theme, setTheme} = useTheme();
+  useEffect(() => {
+    setIsDarkMode(theme === 'dark');
+  }, [theme]);  
+  
 
   useEffect(() => {
     setCartCount(3);
   }, []);
 
   const handleLogout = () => {
+    
     logout();
     navigate("/home");
   };
@@ -61,8 +71,9 @@ const Header = () => {
       path: "/categories",
       subItems: [
         { label: "Electronics", path: "/categories/electronics" },
-        { label: "Clothing", path: "/categories/clothing" },
-        { label: "Home & Garden", path: "/categories/home" },
+        { label: "Fashion", path: "/categories/clothing" },
+        { label: "Beauty", path: "/categories/beauty" },
+        { label: "Home", path: "/categories/home" },
       ],
     },
     { label: "Sale", path: "/sale" },
@@ -72,7 +83,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full border-b">
+    <header className="w-full border-b shadow-sm">
       {/* {showAnnouncement && (
         <div className="bg-primary text-primary-foreground py-2 px-4">
           <div className="flex items-center justify-center">
@@ -94,12 +105,15 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4">
           <Link 
             to="/home"
-            className="text-xl font-bold hover:opacity-80 transition-opacity"
           >
-            ECOMMERCE
+          {isDarkMode  ? (
+            <img src={logo2} alt="logo" className="w-14 h-12" />
+          ) : (
+            <img src={logo} alt="logo" className="w-14 h-12" />
+          )}
           </Link>
 
-          <NavigationMenu className="hidden lg:flex">
+          <NavigationMenu className="hidden lg:flex lg:ml-20">
             <NavigationMenuList>
               {navigationItems.map((item) => (
                 <NavigationMenuItem key={item.path}>
@@ -107,13 +121,13 @@ const Header = () => {
                     <>
                       <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-48 gap-2 p-4">
+                        <ul className="grid w-48">
                           {item.subItems.map((subItem) => (
                             <li key={subItem.path}>
                               <NavigationMenuLink asChild>
                                 <Link
                                   to={subItem.path}
-                                  className="block p-2 hover:bg-accent rounded-md"
+                                  className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
                                 >
                                   {subItem.label}
                                 </Link>

@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react'
 
 function Footer() {
   return (
-    <footer className="border-t py-12">
+    <footer className="border-t py-12 shadow-sm">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
@@ -50,18 +50,18 @@ function Footer() {
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
                 <MapPin className="h-5 w-5 " />
-                <span>1234 Street Name, City Name</span>
+                <span>Srinagar colony, Ongole</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="h-5 w-5 " />
-                <span>support@store.com</span>
+                <span>support@mvr.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="h-5 w-5 " />
                 <span>(123) 456-7890</span>
               </li>
               <li className="flex items-center space-x-2">
-                <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+                <span>Mon - sat: 9:00 AM - 6:00 PM</span>
               </li>
             </ul>
           </div>
