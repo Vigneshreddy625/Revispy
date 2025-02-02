@@ -143,6 +143,7 @@ const Header = () => {
               size="icon"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search"
+              className="hidden md:flex"
             >
               <Search className="h-4 w-4" />
             </Button>
@@ -196,7 +197,7 @@ const Header = () => {
               </Button>
             )}
 
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="lg:hidden"
@@ -208,7 +209,7 @@ const Header = () => {
               ) : (
                 <Menu className="h-6 w-6" />
               )}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
