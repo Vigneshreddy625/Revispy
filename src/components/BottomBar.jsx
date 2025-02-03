@@ -141,21 +141,15 @@ function BottomBar() {
                   role="button"
                 >
                   <div className={`${
-                    isActive ? "text-pink-500" : "text-gray-600 hover:text-gray-200"
+                    isActive ? "dark:text-white text-black" : " hover:text-gray-200"
                   }`}>
                     {isActive ? activeIcon : icon}
                   </div>
                   <span className={`text-xs mt-1 ${
-                    isActive ? "text-pink-500" : "text-gray-600"
+                    isActive ? "dark:text-white text-black" : ""
                   }`}>
                     {label}
                   </span>
-                  <ReactTooltip
-                    id={id}
-                    place="top"
-                    content={tooltip}
-                    className="z-50"
-                  />
                 </div>
               </Link>
             );

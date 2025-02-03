@@ -104,7 +104,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full border-b shadow-md">
+    <header className="w-full border-b dark:border-gray-600 shadow-md">
       <div className="container mx-auto p-3.5">
         <div className="flex items-center justify-between gap-4">
           <Link to="/home">
