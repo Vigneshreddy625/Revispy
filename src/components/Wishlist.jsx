@@ -115,18 +115,18 @@ const Wishlist = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {wishlistItems.map((item) => (
           <div 
             key={item.id} 
-            className="border dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+            className="border dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300"
           >
             <div className="relative">
               <Suspense fallback={<ImagePlaceholder />}>
                 <LazyImage
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-64 object-cover bg-transparent border-b dark:border-gray-600 rounded-t-lg"
+                  className="w-full h-64 object-cover bg-transparent border-b dark:border-gray-600"
                   isOutOfStock={!item.inStock}
                 />
               </Suspense>
@@ -165,10 +165,10 @@ const Wishlist = () => {
                 <span className="text-sm font-medium">Rs.{item.price}</span>
                 {item.originalPrice > item.price && (
                   <>
-                    <span className="ml-2 text-sm text-gray-500 line-through">
+                    <span className="hidden md:inline-block ml-2 text-sm text-gray-500 line-through">
                       Rs.{item.originalPrice}
                     </span>
-                    <span className="ml-2 text-sm text-red-500">
+                    <span className="hidden md:inline-block ml-2 text-sm text-red-500">
                       {item.discount}
                     </span>
                   </>
@@ -176,7 +176,7 @@ const Wishlist = () => {
               </div>
             </div>
               <button
-                className={`mt-4 py-2 w-full border-t dark:border-gray-600 text-sm font-medium rounded-b
+                className={`mt-4 py-2 w-full border-t dark:border-gray-600 text-sm font-medium
                   ${
                     item.inStock
                       ? 'text-pink-500 hover:bg-pink-20 0 dark:hover:bg-pink-300'

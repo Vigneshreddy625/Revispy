@@ -58,7 +58,7 @@ const SalePage = () => {
         "https://media.croma.com/image/upload/v1607605440/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/231421_n3yvmu.png",
       discount: "Up to 50% Off",
       items: "1000+ Items",
-      featured: ["AirPods Pro", "Sony WH-1000XM5", "Bose QC"],
+      featured: ["AirPods Pro", "Sony WH-100XM5", "Bose QC"],
       startingPrice: "₹10000",
     },
     {
@@ -169,7 +169,7 @@ const SalePage = () => {
                     className="w-full h-48 object-cover rounded-t"
                   />
                 </Suspense>
-                <Badge className="absolute top-2 right-2 bg-red-600">
+                <Badge className="absolute top-2 right-2 bg-red-600 text-white">
                   {deal.discount}% OFF
                 </Badge>
                 {deal.stockLeft < 20 && (
@@ -207,10 +207,10 @@ const SalePage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 bg-white">
+      <div className="max-w-7xl mx-auto px-4 py-8 ">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl md:text-2xl font-semibold flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-blue-600" /> Top Categories
+            <TrendingUp className="w-5 h-5 md:w-6 md:h-6" /> Top Categories
           </h2>
           <Button variant="outline" size="sm">
             View All
