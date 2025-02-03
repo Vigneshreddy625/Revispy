@@ -8,6 +8,7 @@ import {
   X,
   Bell,
   User,
+  Heart,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ToggleMode from "./Darkmode/ToggleMode";
@@ -105,7 +106,7 @@ const Header = () => {
 
   return (
     <header className="w-full border-b dark:border-gray-600 shadow-md">
-      <div className="container mx-auto p-3.5">
+      <div className="container mx-auto p-2">
         <div className="flex items-center justify-between gap-4">
           <Link to="/home">
             {isDarkMode ? (
@@ -187,6 +188,17 @@ const Header = () => {
                 <Search className="h-4 w-4" />
               </Button>
             )}
+
+            <Link to="/wishlist">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="wishlist"
+                className="flex"
+              >
+                <Heart className="h-4 w-4" />
+              </Button>
+            </Link>
 
             {!isMobile && (
               <Link to="/cart">

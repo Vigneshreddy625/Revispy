@@ -14,6 +14,7 @@ const SalePage = lazy(() => import('./components/Sale'));
 const TrendingPage = lazy(() => import('./components/Trending'));
 const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
 const Cart = lazy(() => import('./components/Cart'));
+const Wishlist = lazy(() => import('./components/Wishlist'));
 const Search = lazy(() => import('./components/Search'));
 const PageNotFound = lazy(() => import('./components/PNF'));
 
@@ -46,6 +47,7 @@ function App() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="sale" element={<SalePage />} />
                 <Route path="cart" element={<Cart />} />
+                <Route path="wishlist" element={<Wishlist />} />
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
                 <Route

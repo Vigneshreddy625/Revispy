@@ -2,31 +2,26 @@ import React, { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Clock, Star, TrendingUp, Heart } from "lucide-react";
+import { Clock, Star, TrendingUp, Heart, Filter, Search, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import img from "/Sale.png";
 const LazyImage = React.lazy(() => import("./LazyImage"));
 
 const SalePage = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 48,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timeLeft, setTimeLeft] = useState({ hours: 48, minutes: 0, seconds: 0 });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [showFilters, setShowFilters] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        }
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
         return prev;
       });
     }, 1000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -92,6 +87,7 @@ const SalePage = () => {
       originalPrice: "₹20900",
       rating: 4.8,
       reviews: 2456,
+      discount: 48,
       image:
         "https://m-cdn.phonearena.com/images/hub/274-wide-two_1200/Apple-AirPods-Pro-3-release-date-predictions-price-specs-and-must-know-features.jpg",
     },
@@ -101,6 +97,7 @@ const SalePage = () => {
       originalPrice: "₹23900",
       rating: 4.7,
       reviews: 1823,
+      discount: 33,
       image:
         "https://img.global.news.samsung.com/in/wp-content/uploads/2024/09/Newsroom-Cover_DU8000_1000x563.jpg",
     },
@@ -110,150 +107,150 @@ const SalePage = () => {
       originalPrice: "₹40900",
       rating: 4.9,
       reviews: 3241,
+      discount: 24,
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNltlyQxZDUKgHcMIJXp_IDyn4MYNNQoVbJA&s",
     },
+    
   ];
 
+  const handleAddToCart = () => {
+    setCartCount(prev => prev + 1);
+  };
+
   return (
-    <div className="w-full overflow-auto">
-      <div className="relative w-full h-full">
+    <div className="w-full min-h-screen ">
+      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
         <img
           src={img}
           alt="Festival Sale Banner"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white backdrop-brightness-50 p-4">
-          <h1 className="text-sm md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4 text-center">
+          <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-2 md:mb-4 text-center">
             Festive Season Sale
           </h1>
-          <p className="text-sm md:text-xl lg:text-2xl mb-2 md:mb-6 text-center">
+          <p className="text-sm md:text-xl mb-4 text-center">
             Incredible Deals on Premium Tech
           </p>
-          <div className="flex gap-2 md:gap-4 mb-2 md:mb-8">
-            <div className="text-center">
-              <div className="text-sm md:text-4xl font-bold">
-                {timeLeft.hours}
-              </div>
-              <div className="text-xs md:text-sm">Hours</div>
-            </div>
-            <div className="text-sm md:text-4xl font-bold">:</div>
-            <div className="text-center">
-              <div className="text-sm md:text-4xl font-bold">
-                {timeLeft.minutes}
-              </div>
-              <div className="text-xs md:text-sm">Minutes</div>
-            </div>
-            <div className="text-sm md:text-4xl font-bold">:</div>
-            <div className="text-center">
-              <div className="text-sm md:text-4xl font-bold">
-                {timeLeft.seconds}
-              </div>
-              <div className="text-xs md:text-sm">Seconds</div>
-            </div>
+          <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6 bg-black/30 p-3 rounded-lg">
+            <TimeBlock label="Hours" value={timeLeft.hours} />
+            <TimeBlock label="Minutes" value={timeLeft.minutes} />
+            <TimeBlock label="Seconds" value={timeLeft.seconds} />
           </div>
-          <Button className="text-xs mb-1 md:text-lg p-2 md:px-6 md:py-4 lg:px-8 lg:py-6">
+          <Button className="text-sm md:text-base px-6 py-2 md:px-8 md:py-3 bg-red-600 hover:bg-red-700">
             Shop Now
           </Button>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-lg md:text-3xl font-semibold flex items-center gap-2">
-            <Clock className="w-8 h-8" /> Flash Deals
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg md:text-2xl font-semibold flex items-center gap-2">
+            <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" /> Flash Deals
           </h2>
-          <Button variant="outline">View All</Button>
+          <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm">
+            View All
+          </Button>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {flashDeals.map((deal) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {flashDeals.map((deal, index) => (
             <Card
               key={deal.name}
-              className="hover:shadow-lg transition-shadow duration-300"
+              className="hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
             >
-              <Suspense fallback={<div>Loading...</div>}>
-                <LazyImage
-                  src={deal.image}
-                  alt={deal.name}
-                  className="w-full h-52 object-cover rounded-t"
-                />
-              </Suspense>
-              <CardContent className="p-4">
-                <h3 className="text-xl font-semibold">{deal.name}</h3>
-                <div className="flex justify-between items-start">
-                  <div className="flex items-center gap-2 my-2">
-                    <span className="text-2xl font-bold text-red-600">
-                      {deal.price}
-                    </span>
-                    <span className="text-gray-500 line-through">
+              <div className="relative">
+                <Suspense fallback={<div className="w-full h-48 bg-gray-200 animate-pulse" />}>
+                  <LazyImage
+                    src={deal.image}
+                    alt={deal.name}
+                    className="w-full h-48 object-cover rounded-t"
+                  />
+                </Suspense>
+                <Badge className="absolute top-2 right-2 bg-red-600">
+                  {deal.discount}% OFF
+                </Badge>
+                {deal.stockLeft < 20 && (
+                  <Badge className="absolute top-2 right-2 bg-yellow-600">
+                    Only {deal.stockLeft} left
+                  </Badge>
+                )}
+              </div>
+              <CardContent className="p-3">
+                <h3 className="text-lg font-semibold mb-2">{deal.name}</h3>
+                <div className="flex justify-between items-center mb-2">
+                  <div>
+                    <span className="text-xl font-bold">{deal.price}</span>
+                    <span className="text-sm text-gray-500 line-through ml-2">
                       {deal.originalPrice}
                     </span>
                   </div>
-                  <Button variant="outline" size="icon">
+                  <Button variant="ghost" size="sm">
                     <Heart className="w-4 h-4" />
                   </Button>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 text-sm">
                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
                   <span>{deal.rating}</span>
                   <span className="text-gray-500">({deal.reviews})</span>
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button className="w-full">Add to Cart</Button>
+                <Button className="w-full" onClick={handleAddToCart}>
+                  Add to Cart
+                </Button>
               </CardFooter>
             </Card>
           ))}
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-lg md:text-3xl font-semibold flex items-center gap-2">
-            <TrendingUp className="w-8 h-8" /> Top Categories
+
+      <div className="max-w-7xl mx-auto px-4 py-8 bg-white">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl md:text-2xl font-semibold flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-blue-600" /> Top Categories
           </h2>
-          <Button variant="outline">View All Categories</Button>
+          <Button variant="outline" size="sm">
+            View All
+          </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((category) => (
             <Card
               key={category.name}
-              className="hover:shadow-lg transition-shadow duration-300"
+              className="hover:shadow-lg transition-all duration-300"
             >
-              <Suspense fallback={<div>Loading...</div>}>
-                <LazyImage
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-52 object-cover rounded-t-lg"
-                />
-              </Suspense>
+              <div className="relative">
+                <Suspense fallback={<div className="w-full h-40 bg-gray-200 animate-pulse" />}>
+                  <LazyImage
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-40 object-cover rounded-t"
+                  />
+                </Suspense>
+                {category.trending && (
+                  <Badge className="absolute top-2 right-2 bg-blue-600">
+                    Trending
+                  </Badge>
+                )}
+              </div>
               <CardContent className="p-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mb-2">
-                      {category.items}
-                    </p>
-                    <Badge variant="secondary" className="mb-4">
-                      {category.discount}
-                    </Badge>
-                    <p className="text-sm font-medium">
-                      Starting from {category.startingPrice}
-                    </p>
-                  </div>
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-semibold">{category.name}</h3>
+                  <Badge variant="secondary">{category.discount}</Badge>
                 </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500 mb-2">
-                    Featured Products:
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {category.featured.map((item) => (
-                      <Badge key={item} variant="outline">
-                        {item}
-                      </Badge>
-                    ))}
-                  </div>
+                <p className="text-sm text-gray-500 mb-2">{category.items}</p>
+                <p className="text-sm font-medium mb-2">
+                  Starting from {category.startingPrice}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {category.featured.map((item) => (
+                    <Badge key={item} variant="outline" className="text-xs">
+                      {item}
+                    </Badge>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -263,5 +260,12 @@ const SalePage = () => {
     </div>
   );
 };
+
+const TimeBlock = ({ label, value }) => (
+  <div className="text-center p-2 bg-black/20 rounded">
+    <div className="text-xl md:text-3xl font-bold">{value.toString().padStart(2, '0')}</div>
+    <div className="text-xs md:text-sm">{label}</div>
+  </div>
+);
 
 export default SalePage;

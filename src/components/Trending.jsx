@@ -142,7 +142,7 @@ export default function TrendingPage() {
                       </CardTitle>
                     </CardHeader>
 
-                    <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
+                    <CardContent className="space-y-2 flex-grow flex flex-col justify-between">
                       <p className="text-sm opacity-75 leading-snug">
                         {item.description}
                       </p>

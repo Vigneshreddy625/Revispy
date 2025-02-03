@@ -45,7 +45,7 @@ function SearchPage ()  {
       <div className="py-3 px-4">
         <section className="mb-2">
           <h2 className="text-md font-bold mb-4 text-gray-800 dark:text-gray-200">Recent Searches</h2>
-          <div className="flex gap-4 overflow-x-auto pb-2 search-scrollbar">
+          <div className="flex overflow-x-auto pb-2 search-scrollbar">
             {recentSearches.map((item) => (
               <div key={item.id} className="flex flex-col items-center min-w-[80px]">
                 <img
@@ -61,8 +61,8 @@ function SearchPage ()  {
           </div>
         </section>
 
-        <section className="mb-2">
-          <h2 className="text-md font-bold mb-2 text-gray-800 dark:text-gray-200">Related Searches</h2>
+        <section className="mb-4">
+          <h2 className="text-md font-bold mb-3 text-gray-800 dark:text-gray-200">Related Searches</h2>
           <div className="grid grid-cols-2 gap-3">
             {relatedSearches.map((item) => (
               <div
@@ -81,7 +81,7 @@ function SearchPage ()  {
         </section>
 
         <section>
-          <h2 className="text-md font-bold mb-2 text-gray-800 dark:text-gray-200">
+          <h2 className="text-md font-bold mb-3 text-gray-800 dark:text-gray-200">
             Recommended Stores For You
           </h2>
           <div className="grid grid-cols-3 gap-4">

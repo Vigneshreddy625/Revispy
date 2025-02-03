@@ -6,7 +6,6 @@ const Cart = () => {
       id: 1,
       name: 'FERGUS STRAP AUTOMATIC 42MM',
       itemNo: '798483117334',
-      size: 'OS',
       color: 'SILVER/BLACK/TAN',
       qty: 1,
       price: 297.50,
@@ -17,7 +16,6 @@ const Cart = () => {
       id: 2,
       name: 'NEW Q ZIPPERS HUGE HILLIER HOBO',
       itemNo: '888877826172',
-      size: '1SZ',
       color: 'BLACK MULTI',
       qty: 1,
       price: 598.00,
@@ -27,7 +25,6 @@ const Cart = () => {
       id: 3,
       name: 'BAKER 36MM',
       itemNo: '798483929149',
-      size: 'OS',
       color: 'BLACK',
       qty: 1,
       price: 195.00,
@@ -72,54 +69,49 @@ const Cart = () => {
                 className="w-10 h-10 md:w-20 md:h-20 object-cover"
               />
               <div className="flex-grow">
-                <h3 className="sm:text-xs md:font-medium md:text-lg text-gray-900 dark:text-white">{item.name}</h3>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  <p>ITEM NO: {item.itemNo}</p>
-                  <p>SIZE: {item.size}</p>
-                  <p>COLOR: {item.color}</p>
+                <h3 className="sm:text-xs md:font-medium md:text-md text-gray-900 dark:text-white">{item.name}</h3>
+                <div className="text-sm text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 mt-1">
+                  <p className='text-xs mb-1'>ITEM NO: {item.itemNo}</p>
+                  <p className='text-xs mb-1'>COLOR: {item.color}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <span>QTY:</span>
                     <div className="flex items-center border border-gray-300 dark:border-gray-600">
                       <button 
                         onClick={() => updateQuantity(item.id, item.qty - 1)}
-                        className="px-2 py-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="px-1  text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         -
                       </button>
-                      <span className="px-2 py-1">{item.qty}</span>
+                      <span className="px-1">{item.qty}</span>
                       <button 
                         onClick={() => updateQuantity(item.id, item.qty + 1)}
-                        className="px-2 py-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="px-1 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         +
                       </button>
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-4 mt-2 text-sm">
+                <div className="flex mt-2 text-xs">
                   <button 
                     onClick={() => removeItem(item.id)}
-                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                    className="text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50"
                   >
                     REMOVE
-                  </button>
-                  <span className="text-gray-300 dark:text-gray-600">|</span>
-                  <button className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                    EDIT
                   </button>
                 </div>
               </div>
               <div className="hidden md:flex flex-col items-end mr-6">
                   {item.originalPrice && (
                     <span className="text-gray-400 line-through text-sm">
-                      ${item.originalPrice.toFixed(2)}
+                      Rs.{item.originalPrice.toFixed(2)}
                     </span>
                   )}
-                  <span className="text-gray-900 dark:text-white">${item.price.toFixed(2)}</span>
+                  <span className="text-gray-900 dark:text-white">Rs.{item.price.toFixed(2)}</span>
                 </div>
               <div className="text-right flex flex-col items-end gap-2">
                 <div className="text-gray-900 dark:text-white">
-                  ${(item.price * item.qty).toFixed(2)}
+                  Rs.{(item.price * item.qty).toFixed(2)}
                 </div>
               </div>
             </div>

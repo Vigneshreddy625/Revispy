@@ -20,7 +20,7 @@ function Signup() {
   const labelClass = "peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 flex items-center";
 
   return (
-    <div className="lg:min-h-screen w-full flex items-center justify-center p-4">
+    <div className="lg:min-h-screen w-full md:min-w-96 flex items-center justify-center p-4">
       <div className="w-full max-w-md flex flex-col border border-gray-400 justify-center items-center p-6 rounded-lg transition-all duration-500">
         <h1 className="text-2xl font-bold text-center mb-4">Signup</h1>
         
