@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from 'react';
+import { useState, useCallback, lazy, Suspense, useEffect } from 'react';
 import { ThemeProvider } from './components/Darkmode/Theme-provider';
 import { AuthProvider } from './authContext/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -14,12 +14,24 @@ const SalePage = lazy(() => import('./components/Sale'));
 const TrendingPage = lazy(() => import('./components/Trending'));
 const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
 const Cart = lazy(() => import('./components/Cart'));
-
-
+const Search = lazy(() => import('./components/Search'));
+const PageNotFound = lazy(() => import('./components/PNF'));
 
 function App() {
   const [count, setCount] = useState(0);
   const handleSetCount = useCallback((value) => setCount(value), []);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -44,7 +56,12 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="*" element={<PageNotFound />} />
               </Route>
+              {isMobile && (
+                <Route path='search' element={<Search />} />
+              )}
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>
         </Router>

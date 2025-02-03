@@ -58,7 +58,7 @@ const Cart = () => {
         <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
           <span className="text-sm text-gray-500 dark:text-gray-400">PRODUCT</span>
           <div className="flex gap-16">
-            <span className="text-sm text-gray-500 dark:text-gray-400">PRICE</span>
+            <span className="hidden md:flex text-sm text-gray-500 dark:text-gray-400">PRICE</span>
             <span className="text-sm text-gray-500 dark:text-gray-400">TOTAL</span>
           </div>
         </div>
@@ -109,7 +109,7 @@ const Cart = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-col items-end mr-6">
+              <div className="hidden md:flex flex-col items-end mr-6">
                   {item.originalPrice && (
                     <span className="text-gray-400 line-through text-sm">
                       ${item.originalPrice.toFixed(2)}

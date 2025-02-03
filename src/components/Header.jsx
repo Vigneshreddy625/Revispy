@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Search, ShoppingCart, LogOut, LogIn, Menu, X, Bell, User } from "lucide-react";
+import {
+  Search,
+  ShoppingCart,
+  LogOut,
+  LogIn,
+  Menu,
+  X,
+  Bell,
+  User,
+} from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ToggleMode from "./Darkmode/ToggleMode";
 import { useAuth } from "../authContext/useAuth";
@@ -24,12 +33,7 @@ import {
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,22 +41,34 @@ const Header = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const {theme, setTheme} = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
   useEffect(() => {
-    setIsDarkMode(theme === 'dark');
-  }, [theme]);  
-  
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsDarkMode(theme === "dark");
+  }, [theme]);
 
   useEffect(() => {
     setCartCount(3);
   }, []);
 
   const handleLogout = () => {
-    
     logout();
     navigate("/home");
   };
@@ -63,6 +79,11 @@ const Header = () => {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
       setIsSearchOpen(false);
     }
+  };
+
+  const handleMobileSearch = () => {
+    setIsMobileSearchOpen(true);
+    navigate("/search");
   };
 
   const navigationItems = [
@@ -88,7 +109,12 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4">
           <Link to="/home">
             {isDarkMode ? (
-              <img src={logo2} alt="logo" className="w-14 h-12" loading="lazy" />
+              <img
+                src={logo2}
+                alt="logo"
+                className="w-14 h-12"
+                loading="lazy"
+              />
             ) : (
               <img src={logo} alt="logo" className="w-14 h-12" loading="lazy" />
             )}
@@ -100,7 +126,9 @@ const Header = () => {
                 <NavigationMenuItem key={item.path}>
                   {item.subItems ? (
                     <>
-                      <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+                      <NavigationMenuTrigger>
+                        {item.label}
+                      </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-48">
                           {item.subItems.map((subItem) => (
@@ -137,30 +165,44 @@ const Header = () => {
 
           <div className="flex items-center gap-2">
             <ToggleMode />
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsSearchOpen(true)}
-              aria-label="Search"
-              className="hidden md:flex"
-            >
-              <Search className="h-4 w-4" />
-            </Button>
 
-            <Link to="/cart">
-              <Button variant="ghost" size="icon" className="relative">
-                <ShoppingCart className="h-4 w-4" />
-                {cartCount > 0 && (
-                  <Badge
-                    variant="destructive"
-                    className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs"
-                  >
-                    {cartCount}
-                  </Badge>
-                )}
+            {!isMobile ? (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Search"
+                className="flex"
+              >
+                <Search className="h-4 w-4" />
               </Button>
-            </Link>
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => handleMobileSearch()}
+                aria-label="Search"
+                className="flex"
+              >
+                <Search className="h-4 w-4" />
+              </Button>
+            )}
+
+            {!isMobile && (
+              <Link to="/cart">
+                <Button variant="ghost" size="icon" className="relative">
+                  <ShoppingCart className="h-4 w-4" />
+                  {cartCount > 0 && (
+                    <Badge
+                      variant="destructive"
+                      className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs"
+                    >
+                      {cartCount}
+                    </Badge>
+                  )}
+                </Button>
+              </Link>
+            )}
 
             {isAuthenticated ? (
               <DropdownMenu>
