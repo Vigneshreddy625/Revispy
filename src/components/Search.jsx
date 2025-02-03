@@ -42,16 +42,16 @@ function SearchPage ()  {
         </div>
       </div>
 
-      <div className="p-4">
-        <section className="mb-4">
-          <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">Recent Searches</h2>
+      <div className="py-3 px-4">
+        <section className="mb-2">
+          <h2 className="text-md font-bold mb-4 text-gray-800 dark:text-gray-200">Recent Searches</h2>
           <div className="flex gap-4 overflow-x-auto pb-2 search-scrollbar">
             {recentSearches.map((item) => (
               <div key={item.id} className="flex flex-col items-center min-w-[80px]">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-14 h-14 rounded-full mb-2 border dark:border-gray-600 bg-white dark:bg-transparent"
+                  className="w-14 h-14 rounded-full mb-1 border dark:border-gray-600 bg-white dark:bg-transparent"
                 />
                 <p className="text-sm text-center text-gray-600 dark:text-gray-300 line-clamp-2">
                   {item.title}
@@ -61,18 +61,18 @@ function SearchPage ()  {
           </div>
         </section>
 
-        <section className="mb-4">
-          <h2 className="text-lg font-bold mb-2 text-gray-800 dark:text-gray-200">Related Searches</h2>
+        <section className="mb-2">
+          <h2 className="text-md font-bold mb-2 text-gray-800 dark:text-gray-200">Related Searches</h2>
           <div className="grid grid-cols-2 gap-3">
             {relatedSearches.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center gap-3 p-3 border dark:border-gray-600 bg-gray-50 dark:bg-transparent rounded-lg"
+                className="flex items-center gap-3 px-2 border dark:border-gray-600 bg-gray-50 dark:bg-transparent rounded-lg"
               >
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-12 h-12 rounded-lg bg-white dark:bg-gray-700"
+                  className="w-12 h-12 bg-white dark:bg-gray-700"
                 />
                 <p className="text-xs text-gray-700 dark:text-gray-300">{item.title}</p>
               </div>
@@ -81,21 +81,21 @@ function SearchPage ()  {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold mb-2 text-gray-800 dark:text-gray-200">
+          <h2 className="text-md font-bold mb-2 text-gray-800 dark:text-gray-200">
             Recommended Stores For You
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {recommendedStores.map((store) => (
               <div
                 key={store.id}
-                className="border dark:border-gray-600 bg-white dark:bg-transparent px-2 py-4 rounded-lg flex flex-col items-center"
+                className="border dark:border-gray-600 bg-white dark:bg-transparent rounded-lg flex flex-col items-center"
               >
                 <img
                   src={store.image}
                   alt={store.title}
-                  className="w-32 h-32 object-cover rounded-lg mb-2 bg-gray-100 dark:bg-gray-700"
+                  className="w-full h-32 object-cover mb-1 bg-gray-100 dark:bg-gray-700"
                 />
-                <p className="text-gray-600 dark:text-gray-300">{store.title}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-1">{store.title}</p>
               </div>
             ))}
           </div>
