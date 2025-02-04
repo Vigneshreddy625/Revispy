@@ -3,6 +3,9 @@ import { ThemeProvider } from './components/Darkmode/Theme-provider';
 import { AuthProvider } from './authContext/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+const Addresses = lazy(() => import('./components/Profile/Addresses'));
+const Profile = lazy(() => import('./components/Profile/Profile'));
+const Account = lazy(() => import('./components/Account'));
 const Layout = lazy(() => import('./components/Layout'));
 const Login = lazy(() => import('./components/Authentication/Login'));
 const Signup = lazy(() => import('./components/Authentication/Signup'));
@@ -48,6 +51,14 @@ function App() {
                 <Route path="sale" element={<SalePage />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="wishlist" element={<Wishlist />} />
+                <Route path='account' element={<Account />} >
+                  <Route path="overview" element={<div>Overview</div>} />
+                  <Route path="orders" element={<div>Orders</div>} />
+                  <Route path="profile" element={<Profile/>} />
+                  <Route path="savedcards" element={<div>Saved Cards</div>} />
+                  <Route path="addresses" element={<Addresses/>} />
+                  <Route path="delete" element={<div>Delete</div>} />
+                </Route>
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
                 <Route

@@ -230,6 +230,9 @@ const Header = () => {
                   <DropdownMenuItem onClick={() => navigate("/orders")}>
                     Orders
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/account")}>
+                    Account
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/wishlist")}>
                     Wishlist
                   </DropdownMenuItem>

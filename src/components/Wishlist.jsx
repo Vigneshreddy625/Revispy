@@ -156,7 +156,7 @@ const Wishlist = () => {
               )}
             </div>
 
-            <div className="mt-4">
+            <div className="md:mt-4">
                 <div className="px-4 py-2">
               <h3 className="text-sm text-center font-medium truncate">
                 {item.name}
@@ -176,7 +176,7 @@ const Wishlist = () => {
               </div>
             </div>
               <button
-                className={`mt-4 py-2 w-full border-t dark:border-gray-600 text-sm font-medium
+                className={`md:mt-4 py-2 w-full border-t dark:border-gray-600 text-sm font-medium
                   ${
                     item.inStock
                       ? 'text-pink-500 hover:bg-pink-20 0 dark:hover:bg-pink-300'
