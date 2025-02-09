@@ -107,8 +107,8 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="px-4 py-4 md:py-8">
+      <div className="hidden md:flex items-center justify-between mb-8">
         <div className="flex w-full items-center justify-center md:justify-normal">
           <h1 className="text-xl font-medium">My Wishlist</h1>
           <span className="ml-2 text-gray-500 dark:text-gray-300">({wishlistItems.length} items)</span>
@@ -126,7 +126,7 @@ const Wishlist = () => {
                 <LazyImage
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-64 object-cover bg-transparent border-b dark:border-gray-600"
+                  className="w-full h-56 md:h-64 object-cover bg-transparent border-b dark:border-gray-600"
                   isOutOfStock={!item.inStock}
                 />
               </Suspense>

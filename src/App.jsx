@@ -3,6 +3,7 @@ import { ThemeProvider } from './components/Darkmode/Theme-provider';
 import { AuthProvider } from './authContext/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+const Delete = lazy(() => import('./components/Profile/Delete'));
 const Addresses = lazy(() => import('./components/Profile/Addresses'));
 const Profile = lazy(() => import('./components/Profile/Profile'));
 const Account = lazy(() => import('./components/Account'));
@@ -57,7 +58,7 @@ function App() {
                   <Route path="profile" element={<Profile/>} />
                   <Route path="savedcards" element={<div>Saved Cards</div>} />
                   <Route path="addresses" element={<Addresses/>} />
-                  <Route path="delete" element={<div>Delete</div>} />
+                  <Route path="delete" element={<Delete/>} />
                 </Route>
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
