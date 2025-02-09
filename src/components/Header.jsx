@@ -165,18 +165,17 @@ const Header = () => {
           </NavigationMenu>
 
           <div className="flex items-center gap-2">
-            <ToggleMode />
-
             {!isMobile ? (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsSearchOpen(true)}
-                aria-label="Search"
-                className="flex"
-              >
-                <Search className="h-4 w-4" />
-              </Button>
+              <div className="relative flex items-center border border-gray-300 dark:border-gray-600 rounded-md px-2  transition">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full px-2 py-1 bg-transparent focus:outline-none"
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Search className="h-5 w-5 text-gray-500 cursor-pointer" onClick={() => handleSearch()} />
+            </div>            
+            
             ) : (
               <Button
                 variant="ghost"
@@ -215,6 +214,8 @@ const Header = () => {
                 </Button>
               </Link>
             )}
+
+            <ToggleMode />
 
             {isAuthenticated ? (
               <DropdownMenu>
@@ -311,24 +312,6 @@ const Header = () => {
           </nav>
         )}
       </div>
-
-      <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-        <DialogContent className="sm:max-w-[600px]">
-          <DialogHeader>
-            <DialogTitle>Search Products</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSearch} className="flex gap-2">
-            <Input
-              type="search"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1"
-            />
-            <Button type="submit">Search</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
     </header>
   );
 };
