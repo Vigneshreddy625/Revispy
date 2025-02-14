@@ -9,6 +9,8 @@ import {
   Bell,
   User,
   Heart,
+  Car,
+  ShoppingBagIcon,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ToggleMode from "./Darkmode/ToggleMode";
@@ -42,23 +44,16 @@ const Header = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { theme, setTheme } = useTheme();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -75,16 +70,11 @@ const Header = () => {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
       setIsSearchOpen(false);
     }
-  };
-
-  const handleMobileSearch = () => {
-    setIsMobileSearchOpen(true);
-    navigate("/search");
   };
 
   const navigationItems = [
@@ -105,104 +95,112 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full border-b dark:border-gray-600 shadow-md">
-      <div className="container mx-auto p-2">
-        <div className="flex items-center justify-between gap-4">
-          <Link to="/home">
-            {isDarkMode ? (
-              <img
-                src={logo2}
-                alt="logo"
-                className="w-14 h-12"
-                loading="lazy"
-              />
-            ) : (
-              <img src={logo} alt="logo" className="w-14 h-12" loading="lazy" />
-            )}
-          </Link>
+    <div className="sticky top-0 z-50 bg-background">
+      <header className="border-b dark:border-gray-600">
+        <div className="container mx-auto">
+          <div className="flex items-center h-16 px-4">
+            <div className="flex items-center gap-8">
+              <Link to="/home" className="flex-shrink-0">
+                <img
+                  src={isDarkMode ? logo2 : logo}
+                  alt="logo"
+                  className="w-14 h-12 object-contain"
+                  loading="lazy"
+                />
+              </Link>
+              <nav className="hidden lg:flex items-center space-x-6">
+                <NavigationMenu>
+                  <NavigationMenuList className="gap-2">
+                    {navigationItems.map((item) => (
+                      <NavigationMenuItem key={item.path}>
+                        {item.subItems ? (
+                          <>
+                            <NavigationMenuTrigger className="text-sm font-medium">
+                              {item.label}
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                              <ul className="grid w-48 p-2">
+                                {item.subItems.map((subItem) => (
+                                  <li key={subItem.path}>
+                                    <NavigationMenuLink asChild>
+                                      <Link
+                                        to={subItem.path}
+                                        className="block px-3 py-2 text-sm rounded hover:bg-accent hover:text-accent-foreground"
+                                      >
+                                        {subItem.label}
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            </NavigationMenuContent>
+                          </>
+                        ) : (
+                          <Link
+                            to={item.path}
+                            className={`text-sm font-medium px-3 py-2 rounded transition-colors ${
+                              location.pathname === item.path
+                                ? "text-primary"
+                                : "hover:text-primary"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+                      </NavigationMenuItem>
+                    ))}
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </nav>
+            </div>
+            <div className="flex-grow max-w-xl mx-8">
+              {!isMobile && (
+                <form onSubmit={handleSearch} className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    className="w-full px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                  >
+                    <Search className="h-5 w-5 text-gray-500" />
+                  </button>
+                </form>
+              )}
+            </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+              {isMobile && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => navigate("/search")}
+                  className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Search className="h-5 w-5" />
+                </Button>
+              )}
 
-          <NavigationMenu className="hidden lg:flex lg:ml-20">
-            <NavigationMenuList>
-              {navigationItems.map((item) => (
-                <NavigationMenuItem key={item.path}>
-                  {item.subItems ? (
-                    <>
-                      <NavigationMenuTrigger>
-                        {item.label}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-48">
-                          {item.subItems.map((subItem) => (
-                            <li key={subItem.path}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to={subItem.path}
-                                  className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
-                                >
-                                  {subItem.label}
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      className={`px-3 py-2 text-sm ${
-                        location.pathname === item.path
-                          ? "text-primary font-semibold"
-                          : "hover:text-primary"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          <div className="flex items-center gap-2">
-            {!isMobile ? (
-              <div className="relative flex items-center border border-gray-300 dark:border-gray-600 rounded-md px-2  transition">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full px-2 py-1 bg-transparent focus:outline-none"
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <Search className="h-5 w-5 text-gray-500 cursor-pointer" onClick={() => handleSearch()} />
-            </div>            
-            
-            ) : (
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => handleMobileSearch()}
-                aria-label="Search"
-                className="flex"
+                className="hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <Search className="h-4 w-4" />
+                <Link to="/wishlist">
+                  <Heart className="h-5 w-5" />
+                </Link>
               </Button>
-            )}
 
-            <Link to="/wishlist">
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="wishlist"
-                className="flex"
+                className="relative hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <Heart className="h-4 w-4" />
-              </Button>
-            </Link>
-
-            {!isMobile && (
-              <Link to="/cart">
-                <Button variant="ghost" size="icon" className="relative">
-                  <ShoppingCart className="h-4 w-4" />
+                <Link to="/cart">
+                  <ShoppingCart className="h-5 w-5" />
                   {cartCount > 0 && (
                     <Badge
                       variant="destructive"
@@ -211,108 +209,96 @@ const Header = () => {
                       {cartCount}
                     </Badge>
                   )}
-                </Button>
-              </Link>
-            )}
-
-            <ToggleMode />
-
-            {isAuthenticated ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <User className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem onClick={() => navigate("/profile")}>
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/orders")}>
-                    Orders
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/account")}>
-                    Account
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/wishlist")}>
-                    Wishlist
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => navigate("/login")}
-                aria-label="Login"
-              >
-                <LogIn className="h-4 w-4" />
+                </Link>
               </Button>
-            )}
 
-            {/* <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
+              <ToggleMode />
+
+              {isAuthenticated ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      <User className="h-5 w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <div className="px-2 py-1.5 text-sm font-medium">
+                      My Account
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => navigate("/account")}
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => navigate("/orders")}
+                    >
+                      <ShoppingBagIcon className="h-4 w-4 mr-2" />
+                      Orders
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => navigate("/wishlist")}
+                    >
+                      <Heart className="h-4 w-4 mr-2" />
+                      Wishlist
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="cursor-pointer text-red-500 hover:text-red-600"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
-                <Menu className="h-6 w-6" />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => navigate("/login")}
+                  className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <LogIn className="h-5 w-5" />
+                </Button>
               )}
-            </Button> */}
+            </div>
           </div>
         </div>
-
-        {isMobileMenuOpen && (
-          <nav className="lg:hidden mt-4 border-t pt-4">
-            <ul className="space-y-4">
-              {navigationItems.map((item) => (
-                <li key={item.path}>
-                  {item.subItems ? (
-                    <div className="space-y-2">
-                      <p className="font-medium">{item.label}</p>
-                      <ul className="ml-4 space-y-2">
-                        {item.subItems.map((subItem) => (
-                          <li key={subItem.path}>
-                            <Link
-                              to={subItem.path}
-                              className="text-sm hover:text-primary"
-                              onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                              {subItem.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      className={`text-sm ${
-                        location.pathname === item.path
-                          ? "text-primary font-semibold"
-                          : "hover:text-primary"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-      </div>
-    </header>
+      </header>
+      {/* <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+        <DialogContent className="sm:max-w-xl">
+          <DialogHeader>
+            <DialogTitle>Search Products</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSearch} className="relative mt-2">
+            <Input
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pr-10"
+            />
+            <Button
+              type="submit"
+              size="icon"
+              variant="ghost"
+              className="absolute right-0 top-0 h-full"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog> */}
+    </div>
   );
 };
 

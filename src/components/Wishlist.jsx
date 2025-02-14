@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 
-// Lazy loaded image component
 const LazyImage = React.lazy(() => Promise.resolve({
   default: ({ src, alt, className, isOutOfStock }) => (
     <img
@@ -107,7 +106,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="px-4 py-4 md:py-8">
+    <div className="px-4 py-8">
       <div className="hidden md:flex items-center justify-between mb-8">
         <div className="flex w-full items-center justify-center md:justify-normal">
           <h1 className="text-xl font-medium">My Wishlist</h1>

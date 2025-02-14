@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Edit from "../Addresses/Edit";
+import DeleteAddress from "../Addresses/Remove";
 
 export default function Addresses() {
   const [edit, setEdit] = useState(false);
+  const [deleteAddress, setDeleteAddress] = useState(false);
 
   return (
     <div className="flex flex-col items-center">
@@ -34,7 +36,7 @@ export default function Addresses() {
               <button className="w-1/2 text-sm text-blue-600 font-semibold border-r" onClick={() => setEdit(true)}>
                 EDIT
               </button>
-              <button className="w-1/2 text-sm text-blue-600 font-semibold">
+              <button className="w-1/2 text-sm text-blue-600 font-semibold" onClick={() => setDeleteAddress(true)}>
                 REMOVE
               </button>
             </div>
@@ -51,6 +53,7 @@ export default function Addresses() {
       </div>
 
       <Edit isOpen={edit} onClose={() => setEdit(false)} />
+        <DeleteAddress isOpen={deleteAddress} onClose={() => setDeleteAddress(false)} />
     </div>
   );
 }

@@ -101,7 +101,7 @@ const Edit = ({ isOpen, onClose }) => {
         <label className="text-sm text-gray-500 dark:text-gray-400">{label}</label>
         <div className="mt-1">
           {isLoading ? (
-            <div className="w-full h-6 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
+            <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg" />
           ) : (
             <input
               type={type}
@@ -134,7 +134,7 @@ const Edit = ({ isOpen, onClose }) => {
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        className="w-full max-w-xl bg-white dark:bg-black rounded-2xl shadow-lg overflow-hidden border dark:border-gray-600"
+        className="w-full max-w-[300px] sm:max-w-md md:max-w-xl h-[90vh] md:h-auto bg-white dark:bg-black rounded-2xl shadow-lg overflow-hidden border dark:border-gray-600"
       >
         <div className="relative h-14 bg-gradient-to-r from-pink-500 to-purple-600 dark:from-pink-600 dark:to-purple-700">
           <button
@@ -150,13 +150,13 @@ const Edit = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className="p-6 pt-12">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <div className="p-6 pt-12 overflow-auto max-h-[calc(90vh-8rem)] md:max-h-none">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Edit Delivery Address
           </h2>
 
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <EditableField 
                 icon={User} 
                 label="Full Name" 
@@ -172,25 +172,14 @@ const Edit = ({ isOpen, onClose }) => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative">
-                <label className="text-sm text-gray-500 dark:text-gray-400">Pincode</label>
-                <div className="mt-1 relative">
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleInputChange}
-                    className="w-full p-3 pl-10 bg-gray-50 dark:bg-gray-800 border border-gray-200 
-                             dark:border-gray-700 rounded-xl text-gray-900 dark:text-white 
-                             focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 
-                             focus:border-transparent transition-all"
-                    maxLength="6"
-                    placeholder="Enter 6-digit pincode"
-                  />
-                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <EditableField 
+                icon={MapPin} 
+                label="Pincode" 
+                name="pincode" 
+                value={formData.pincode} 
+                type="text"
+              />
               <EditableField 
                 icon={Map} 
                 label="State" 
@@ -207,7 +196,7 @@ const Edit = ({ isOpen, onClose }) => {
               value={formData.streetAddress} 
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <EditableField 
                 icon={Building} 
                 label="Locality/Town" 
@@ -226,17 +215,17 @@ const Edit = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className="p-2 bg-gray-50 dark:bg-gray-800/50 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <div className="p-4  bg-gray-50 dark:bg-gray-800/50 flex flex-row gap-3 justify-end">
           <button
             onClick={onClose}
-            className="px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 
-                     hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 
+                     hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
           >
             Cancel
           </button>
           <button
-            className="px-4 py-2.5 text-sm font-medium bg-gradient-to-r from-pink-500 to-purple-600 
-                     hover:from-pink-600 hover:to-purple-700 text-white rounded-md
+            className="w-full sm:w-auto px-4 py-2.5 text-sm font-medium bg-gradient-to-r from-pink-500 to-purple-600 
+                     hover:from-pink-600 hover:to-purple-700 text-white rounded-lg
                      transform transition-all active:scale-95 focus:outline-none
                      focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
           >
