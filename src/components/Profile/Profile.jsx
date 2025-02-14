@@ -9,7 +9,7 @@ export default function Profile() {
         <h2 className="text-lg font-semibold border-b pb-4 mb-4 dark:border-gray-600">Profile Details</h2>
         <div className="space-y-6">
           <ProfileItem label="Full Name" value="Vignesh Reddy" />
-          <ProfileItem label="Mobile Number" value="9381964889" />
+          <ProfileItem label="Mobile Number" value="9381XXXXXX" />
           <ProfileItem label="Email ID" value="vigneshreddy625@gmail.com" />
           <ProfileItem label="Gender" value="MALE" />
           <ProfileItem label="Date of Birth" value="- not added -" />

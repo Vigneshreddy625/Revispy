@@ -92,34 +92,6 @@ const Edit = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
-  const EditableField = ({ icon: Icon, label, name, value, isLoading, type = "text" }) => (
-    <div className="flex items-start space-x-3">
-      <div className="mt-1">
-        <Icon className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-      </div>
-      <div className="flex-1">
-        <label className="text-sm text-gray-500 dark:text-gray-400">{label}</label>
-        <div className="mt-1">
-          {isLoading ? (
-            <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg" />
-          ) : (
-            <input
-              type={type}
-              name={name}
-              value={value}
-              onChange={handleInputChange}
-              className="w-full p-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 
-                       dark:border-gray-700 rounded-lg text-gray-900 dark:text-white 
-                       focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 
-                       focus:border-transparent transition-all"
-              placeholder={`Enter ${label}`}
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-
   if (!isOpen) return null;
 
   return (
@@ -157,77 +129,153 @@ const Edit = ({ isOpen, onClose }) => {
 
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <EditableField 
-                icon={User} 
-                label="Full Name" 
-                name="fullName" 
-                value={formData.fullName} 
-              />
-              <EditableField 
-                icon={Phone} 
-                label="Mobile Number" 
-                name="mobileNumber" 
-                value={formData.mobileNumber} 
-                type="tel"
-              />
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <User className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">Full Name</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                    placeholder="Enter Full Name"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <Phone className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">Mobile Number</label>
+                  <input
+                    type="tel"
+                    name="mobileNumber"
+                    value={formData.mobileNumber}
+                    onChange={handleInputChange}
+                    className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                    placeholder="Enter Mobile Number"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <EditableField 
-                icon={MapPin} 
-                label="Pincode" 
-                name="pincode" 
-                value={formData.pincode} 
-                type="text"
-              />
-              <EditableField 
-                icon={Map} 
-                label="State" 
-                name="state" 
-                value={formData.state} 
-                isLoading={loading} 
-              />
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <MapPin className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">Pincode</label>
+                  <input
+                    type="text"
+                    name="pincode"
+                    value={formData.pincode}
+                    onChange={handleInputChange}
+                    className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                    placeholder="Enter Pincode"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <Map className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">State</label>
+                  {loading ? (
+                    <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
+                  ) : (
+                    <input
+                      type="text"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                      placeholder="Enter State"
+                    />
+                  )}
+                </div>
+              </div>
             </div>
 
-            <EditableField 
-              icon={Home} 
-              label="Street Address" 
-              name="streetAddress" 
-              value={formData.streetAddress} 
-            />
+            <div className="flex items-start space-x-3">
+              <div className="mt-1">
+                <Home className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+              </div>
+              <div className="flex-1">
+                <label className="text-sm text-gray-500 dark:text-gray-400">Street Address</label>
+                <input
+                  type="text"
+                  name="streetAddress"
+                  value={formData.streetAddress}
+                  onChange={handleInputChange}
+                  className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                  placeholder="Enter Street Address"
+                />
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <EditableField 
-                icon={Building} 
-                label="Locality/Town" 
-                name="city" 
-                value={formData.city} 
-                isLoading={loading} 
-              />
-              <EditableField 
-                icon={Building} 
-                label="City/District" 
-                name="district" 
-                value={formData.district} 
-                isLoading={loading} 
-              />
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <Building className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">Locality/Town</label>
+                  {loading ? (
+                    <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
+                  ) : (
+                    <input
+                      type="text"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                      placeholder="Enter Locality/Town"
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="mt-1">
+                  <Building className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm text-gray-500 dark:text-gray-400">City/District</label>
+                  {loading ? (
+                    <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
+                  ) : (
+                    <input
+                      type="text"
+                      name="district"
+                      value={formData.district}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all"
+                      placeholder="Enter City/District"
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="p-4  bg-gray-50 dark:bg-gray-800/50 flex flex-row gap-3 justify-end">
+        <div className="p-4 bg-gray-50 dark:bg-gray-800/50 flex flex-row gap-3 justify-end">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 
-                     hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
           >
             Cancel
           </button>
           <button
-            className="w-full sm:w-auto px-4 py-2.5 text-sm font-medium bg-gradient-to-r from-pink-500 to-purple-600 
-                     hover:from-pink-600 hover:to-purple-700 text-white rounded-lg
-                     transform transition-all active:scale-95 focus:outline-none
-                     focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+            className="w-full sm:w-auto px-4 py-2.5 text-sm font-medium bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transform transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
           >
             Save Changes
           </button>

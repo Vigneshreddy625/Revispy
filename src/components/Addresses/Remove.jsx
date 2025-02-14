@@ -81,7 +81,7 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
                   ongole, Andhra Pradesh - 523001
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Mobile: 9381xxxxxx
+                  Mobile: 9381XXXXXX
                 </p>
               </div>
             </div>

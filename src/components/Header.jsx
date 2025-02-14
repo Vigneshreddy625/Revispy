@@ -89,7 +89,6 @@ const Header = () => {
       ],
     },
     { label: "Sale", path: "/sale" },
-    { label: "Clearance", path: "/clearance" },
     { label: "New Stock", path: "/newstock" },
     { label: "Trending", path: "/trending" },
   ];
@@ -98,7 +97,7 @@ const Header = () => {
     <div className="sticky top-0 z-50 bg-background">
       <header className="border-b dark:border-gray-600">
         <div className="container mx-auto">
-          <div className="flex items-center h-16 px-4">
+          <div className="flex items-center justify-between h-16 px-4">
             <div className="flex items-center gap-8">
               <Link to="/home" className="flex-shrink-0">
                 <img
@@ -153,7 +152,7 @@ const Header = () => {
                 </NavigationMenu>
               </nav>
             </div>
-            <div className="flex-grow max-w-xl mx-8">
+            <div className="flex-grow max-w-3xl mx-8">
               {!isMobile && (
                 <form onSubmit={handleSearch} className="relative">
                   <input
@@ -232,7 +231,7 @@ const Header = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="cursor-pointer"
-                      onClick={() => navigate("/account")}
+                      onClick={() => navigate("/account/profile")}
                     >
                       <User className="h-4 w-4 mr-2" />
                       Profile
