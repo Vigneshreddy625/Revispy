@@ -193,6 +193,7 @@ const Header = () => {
                 </Link>
               </Button>
 
+              {!isMobile && (
               <Button
                 variant="ghost"
                 size="icon"
@@ -210,6 +211,7 @@ const Header = () => {
                   )}
                 </Link>
               </Button>
+              )}
 
               <ToggleMode />
 
