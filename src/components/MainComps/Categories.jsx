@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { faker } from '@faker-js/faker';
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "../ui/checkbox";
 import {
   Pagination,
   PaginationContent,
@@ -9,7 +9,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "./ui/pagination";
+} from "../ui/pagination";
 
 const generateInterests = () => {
   return Array.from({ length: 50 }, () => ({
