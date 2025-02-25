@@ -127,9 +127,8 @@ const Orders = () => {
   };
 
   return (
-    <div className="max-w-lg px-4 text-xs">
-      {/* Header with tabs */}
-      <div className="sticky top-0 bg-white z-10 pb-2">
+    <div className="max-w-2xl px-4 text-xs">
+      <div className="sticky top-0 bg-white dark:bg-black z-10 pb-2">
         <div className="flex justify-between items-center mb-3 border-b pb-2">
           <div>
             <h1 className="text-base font-bold">My Orders</h1>
@@ -156,7 +155,7 @@ const Orders = () => {
               )}
             </div>
             <button 
-              className="flex items-center gap-1 px-3 py-1 border rounded-md hover:bg-gray-100"
+              className="flex items-center gap-1 px-3 py-1 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-xs"
               onClick={() => setFilterOpen(!filterOpen)}
             >
               <Filter className="w-3 h-3" />
@@ -165,37 +164,35 @@ const Orders = () => {
           </div>
         </div>
 
-        {/* Order Tabs */}
         <div className="flex space-x-1 mb-3 overflow-x-auto pb-1 no-scrollbar">
           <button 
-            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'all' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'}`}
+            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'all' ? 'bg-gray-900 text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-800'}`}
             onClick={() => setActiveTab('all')}
           >
             All Orders
           </button>
           <button 
-            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'processing' ? 'bg-yellow-500 text-white' : 'bg-gray-100 text-gray-800'}`}
+            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'processing' ? 'bg-yellow-500 text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-800'}`}
             onClick={() => setActiveTab('processing')}
           >
             Processing
           </button>
           <button 
-            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'transit' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}
+            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'transit' ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-800'}`}
             onClick={() => setActiveTab('transit')}
           >
             In Transit
           </button>
           <button 
-            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'delivered' ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-800'}`}
+            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap ${activeTab === 'delivered' ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-800'}`}
             onClick={() => setActiveTab('delivered')}
           >
             Delivered
           </button>
         </div>
 
-        {/* Filter Panel */}
         {filterOpen && (
-          <div className="mb-3 p-3 border rounded-lg bg-gray-50">
+          <div className="mb-3 p-3 border rounded-lg ">
             <div className="flex justify-between items-center mb-2">
               <h3 className="font-medium">Sort & Filter</h3>
               <button onClick={() => setFilterOpen(false)}>
@@ -207,25 +204,25 @@ const Orders = () => {
                 <p className="text-xs text-gray-500 mb-1">Sort by:</p>
                 <div className="flex flex-wrap gap-2">
                   <button 
-                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'recent' ? 'bg-gray-800 text-white' : 'bg-white border'}`}
+                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'recent' ? 'bg-gray-800 dark:bg-gray-700 text-white' : 'bg-white dark:bg-gray-600 border'}`}
                     onClick={() => setSortBy('recent')}
                   >
                     Most Recent
                   </button>
                   <button 
-                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'oldest' ? 'bg-gray-800 text-white' : 'bg-white border'}`}
+                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'oldest' ? 'bg-gray-800 dark:bg-gray-700 text-white' : 'bg-white dark:bg-gray-600 '}`}
                     onClick={() => setSortBy('oldest')}
                   >
                     Oldest First
                   </button>
                   <button 
-                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'price-high' ? 'bg-gray-800 text-white' : 'bg-white border'}`}
+                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'price-high' ? 'bg-gray-800 dark:bg-gray-700 text-white' : 'bg-white dark:bg-gray-600 border'}`}
                     onClick={() => setSortBy('price-high')}
                   >
                     Price: High to Low
                   </button>
                   <button 
-                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'price-low' ? 'bg-gray-800 text-white' : 'bg-white border'}`}
+                    className={`px-3 py-1 rounded-full text-xs ${sortBy === 'price-low' ? 'bg-gray-800 dark:bg-gray-700 text-white' : 'bg-white dark:bg-gray-600 border'}`}
                     onClick={() => setSortBy('price-low')}
                   >
                     Price: Low to High
@@ -237,12 +234,10 @@ const Orders = () => {
         )}
       </div>
 
-      {/* Order Cards */}
       <div className="space-y-3">
         {sortedOrders.length > 0 ? (
           sortedOrders.map((order, idx) => (
             <div key={idx} className="border rounded-lg shadow-sm p-3 hover:shadow-md transition">
-              {/* Order Header */}
               <div className="flex justify-between items-start mb-2">
                 <div className="flex items-center gap-2">
                   {getStatusIcon(order.status)}
@@ -261,8 +256,7 @@ const Orders = () => {
                 </div>
               </div>
 
-              {/* Product Info */}
-              <div className="flex items-center justify-between border rounded-md p-2 bg-gray-50">
+              <div className="flex items-center justify-between border rounded-md p-2 ">
                 <div className="flex items-center gap-3">
                   <img src={order.img} alt={order.title} className="w-16 h-16 object-cover rounded" />
                   <div>
@@ -274,8 +268,7 @@ const Orders = () => {
                 <ChevronRight className="w-4 h-4 text-gray-400" />
               </div>
 
-              {/* Delivery Info */}
-              <div className="mt-2 p-2 bg-gray-50 rounded-md">
+              <div className="mt-2 p-2 rounded-md">
                 <p className="text-xs text-gray-700">{order.deliveryDetails}</p>
                 {order.trackingId && (
                   <p className="text-xs text-gray-500">Tracking: {order.trackingId}</p>
@@ -288,7 +281,6 @@ const Orders = () => {
                 )}
               </div>
 
-              {/* Actions */}
               <div className="flex justify-between items-center mt-3 pt-2 border-t">
                 <div>
                   {order.status === 'Delivered' && (
