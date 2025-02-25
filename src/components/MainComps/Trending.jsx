@@ -97,7 +97,7 @@ export default function TrendingPage() {
     <div className="lg:min-h-screen flex flex-col justify-center items-center px-4 py-8 space-y-8">
       <section className="text-center">
         <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight">
-          Trending Now
+          Trending Today
         </h1>
         <p className="text-base sm:text-lg md:text-xl mt-2 opacity-80 max-w-md mx-auto">
           Explore our most popular picks loved by our community.

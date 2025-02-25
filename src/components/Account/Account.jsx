@@ -63,7 +63,7 @@ function Account() {
             </div>
           </div>
         </div>
-        <div className="m-4 flex-1 w-[600px] max-h-[600px]">
+        <div className="m-4 flex-1 w-[600px] max-h-[600px] overflow-auto">
           <Outlet />
         </div>
       </div>

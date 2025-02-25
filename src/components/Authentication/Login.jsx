@@ -10,13 +10,7 @@ const Login = () => {
 
   const passwordRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-    if (passwordRef.current) {
-      passwordRef.current.type = showPassword ? "password" : "text";
-    }
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   const predefinedUser = {
     email: "admin@gmail.com",
@@ -28,7 +22,23 @@ const Login = () => {
     password: "",
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    general: ""
+  });
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+    if (passwordRef.current) {
+      passwordRef.current.type = showPassword ? "password" : "text";
+    }
+  };
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,18 +46,65 @@ const Login = () => {
       ...formValues,
       [name]: value,
     });
+    
+    // Clear errors when user starts typing
+    if (errors[name] || errors.general) {
+      setErrors({
+        ...errors,
+        [name]: "",
+        general: ""
+      });
+    }
   };
 
-  const handleLogin = () => {
-    const { email, password } = formValues;
-    if (
-      email === predefinedUser.email &&
-      password === predefinedUser.password
-    ) {
-      login();
-      navigate("/categories");
-    } else {
-      setError("Invalid email or password");
+  const handleLogin = async (e) => {
+    if (e) e.preventDefault();
+    
+    // Validate form
+    let newErrors = {};
+    let isValid = true;
+    
+    if (!formValues.email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!validateEmail(formValues.email)) {
+      newErrors.email = "Please enter a valid email";
+      isValid = false;
+    }
+    
+    if (!formValues.password) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    }
+    
+    if (!isValid) {
+      setErrors({...errors, ...newErrors});
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const { email, password } = formValues;
+      if (email === predefinedUser.email && password === predefinedUser.password) {
+        login();
+        navigate("/categories");
+      } else {
+        setErrors({
+          ...errors,
+          general: "Invalid email or password"
+        });
+      }
+    } catch (error) {
+      setErrors({
+        ...errors,
+        general: "Login failed. Please try again."
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,7 +112,7 @@ const Login = () => {
     <div className="lg:min-h-screen w-full md:min-w-96 flex items-center justify-center p-4">
       <div className="w-full max-w-sm p-6 border-2 rounded-lg transition-all duration-500">
         <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-        <div className="w-full">
+        <form onSubmit={handleLogin} className="w-full">
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="email"
@@ -63,7 +120,9 @@ const Login = () => {
               onChange={handleChange}
               name="email"
               id="floating_first_name"
-              className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className={`block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.email ? "border-red-500" : ""
+              }`}
               placeholder=" "
               required
             />
@@ -74,13 +133,16 @@ const Login = () => {
               <FaEnvelope className="inline mr-2 mb-1" />
               Email
             </label>
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               id="floating_password"
-              className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className={`block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.password ? "border-red-500" : ""
+              }`}
               placeholder=" "
               value={formValues.password}
               ref={passwordRef}
@@ -98,17 +160,50 @@ const Login = () => {
               type="button"
               onClick={handlePasswordVisibility}
               className="absolute top-4 right-0"
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
           </div>
-          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+          
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+              />
+              <label htmlFor="remember-me" className="ml-2 text-xs text-gray-600">
+                Remember me
+              </label>
+            </div>
+            <Link to="/forgot-password" className="text-xs text-blue-600 hover:underline">
+              Forgot password?
+            </Link>
+          </div>
+          
+          {errors.general && <p className="text-red-500 text-sm mb-2">{errors.general}</p>}
+          
           <Button
-            onClick={handleLogin}
+            type="submit"
+            disabled={isLoading}
             className="w-full px-5 py-2.5 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none transition-transform transform hover:scale-105 my-2"
           >
-            Log In
+            {isLoading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Logging in...
+              </span>
+            ) : (
+              "Log In"
+            )}
           </Button>
+          
           <hr className="my-2 text-black" />
           <div className="flex justify-center items-center my-2">
             <label className="ml-2 text-sm font-medium">
@@ -118,7 +213,7 @@ const Login = () => {
               Signup
             </Link>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
