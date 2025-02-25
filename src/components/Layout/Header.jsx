@@ -13,11 +13,11 @@ import {
   ShoppingBagIcon,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import ToggleMode from "./Darkmode/ToggleMode";
-import { useAuth } from "../authContext/useAuth";
-import logo from "../assets/logo.png";
-import logo2 from "../assets/logo2.png";
-import { useTheme } from "./Darkmode/Theme-provider";
+import ToggleMode from "../Darkmode/ToggleMode";
+import { useAuth } from "../../authContext/useAuth";
+import logo from "../../assets/logo.png";
+import logo2 from "../../assets/logo2.png";
+import { useTheme } from "../Darkmode/Theme-provider";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -25,18 +25,18 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuLink,
-} from "./ui/navigation-menu";
+} from "../ui/navigation-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-import { Input } from "./ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { Input } from "../ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 const Header = () => {
   const navigate = useNavigate();

@@ -3,25 +3,25 @@ import { ThemeProvider } from './components/Darkmode/Theme-provider';
 import { AuthProvider } from './authContext/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-const Orders = lazy(() => import('./components/Orders'));
+const Orders = lazy(() => import('./components/Account/Orders'));
 const Delete = lazy(() => import('./components/Profile/Delete'));
 const Addresses = lazy(() => import('./components/Profile/Addresses'));
 const Profile = lazy(() => import('./components/Profile/Profile'));
-const Account = lazy(() => import('./components/Account'));
-const Layout = lazy(() => import('./components/Layout'));
+const Account = lazy(() => import('./components/Account/Account'));
+const Layout = lazy(() => import('./components/Layout/Layout'));
 const Login = lazy(() => import('./components/Authentication/Login'));
 const Signup = lazy(() => import('./components/Authentication/Signup'));
 const ConfirmOTP = lazy(() => import('./components/Authentication/OTP'));
-const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'));
-const Categories = lazy(() => import('./components/Categories'));
-const Home = lazy(() => import('./components/Home'));
-const SalePage = lazy(() => import('./components/Sale'));
-const TrendingPage = lazy(() => import('./components/Trending'));
-const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
-const Cart = lazy(() => import('./components/Cart'));
-const Wishlist = lazy(() => import('./components/Wishlist'));
-const Search = lazy(() => import('./components/Search'));
-const PageNotFound = lazy(() => import('./components/PNF'));
+const ProtectedRoute = lazy(() => import('./components/Items/ProtectedRoute'));
+const Categories = lazy(() => import('./components/MainComps/Categories'));
+const Home = lazy(() => import('./components/MainComps/Home'));
+const SalePage = lazy(() => import('./components/MainComps/Sale'));
+const TrendingPage = lazy(() => import('./components/MainComps/Trending'));
+const LoadingScreen = lazy(() => import('./components/Items/LoadingScreen'));
+const Cart = lazy(() => import('./components/HeaderComps/Cart'));
+const Wishlist = lazy(() => import('./components/HeaderComps/Wishlist'));
+const Search = lazy(() => import('./components/HeaderComps/Search'));
+const PageNotFound = lazy(() => import('./components/Items/PNF'));
 
 function App() {
   const [count, setCount] = useState(0);

@@ -1,5 +1,5 @@
 import React from 'react';
-import oops from "../assets/oops1.png";
+import oops from "../../assets/oops1.png";
 
 const PageNotFound = () => {
   return (

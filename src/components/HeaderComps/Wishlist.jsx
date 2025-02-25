@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { Button } from '../ui/button';
 
 const LazyImage = React.lazy(() => Promise.resolve({
   default: ({ src, alt, className, isOutOfStock }) => (
@@ -107,11 +108,12 @@ const Wishlist = () => {
 
   return (
     <div className="px-4 py-8">
-      <div className="hidden md:flex items-center justify-between mb-8">
-        <div className="flex w-full items-center justify-center md:justify-normal">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex w-full md:justify-normal">
           <h1 className="text-xl font-medium">My Wishlist</h1>
           <span className="ml-2 text-gray-500 dark:text-gray-300">({wishlistItems.length} items)</span>
         </div>
+        <Button className="ml-2">Move all to bag</Button>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">

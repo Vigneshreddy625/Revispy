@@ -1,13 +1,13 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
-const LazyImage = React.lazy(() => import("./LazyImage"));
+} from "../ui/carousel";
+const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const trendingItems = [
   {
