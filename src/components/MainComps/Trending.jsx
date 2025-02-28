@@ -8,7 +8,8 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import Product from "../Modals/Product";
-import { Star } from "lucide-react";
+import { Heart, Eye, ShoppingCart} from "lucide-react";
+import {Button} from "../ui/button";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const trendingItems = [
@@ -257,6 +258,16 @@ export default function TrendingPage() {
     setIsModalOpen(false);
   };
 
+  const [wishlist, setWishlist] = useState([]);
+  
+    const toggleWishlist = (productId) => {
+      if (wishlist.includes(productId)) {
+        setWishlist(wishlist.filter(id => id !== productId));
+      } else {
+        setWishlist([...wishlist, productId]);
+      }
+    };
+
   const handleAddToCart = (productDetails) => {
     console.log("Adding to cart:", productDetails);
   };
@@ -280,56 +291,85 @@ export default function TrendingPage() {
           {chunks.map((chunk, index) => (
             <CarouselItem key={index}>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
-                {chunk.map((item) => (
-                  <Card 
-                    key={item.id} 
-                    className="shadow-lg rounded-lg overflow-hidden flex flex-col h-full"
-                  >
-                    <div className="relative z-10">
-                      <Suspense 
-                        fallback={
-                          <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
-                        }
-                      >
-                        <LazyImage
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-48 sm:h-56 object-cover"
-                        />
-                      </Suspense>
-
-                      {item.isNew && (
-                        <div className="absolute top-2 right-2 bg-white text-black bg-opacity-90 px-3 py-1 rounded">
-                          <span className="text-xs uppercase tracking-widest font-semibold">
-                            New
-                          </span>
+                {chunk.map((product) => (
+                  <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                  <CardContent className="p-0">
+                    <div className="relative overflow-hidden">
+                      <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
+                        <div className="w-full h-64 overflow-hidden">
+                          <LazyImage 
+                            src={product.image} 
+                            alt={product.title} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                          />
                         </div>
-                      )}
-                    </div>
-
-                    <CardHeader className="flex-none">
-                      <CardTitle className="text-lg sm:text-xl font-semibold leading-tight">
-                        {item.title}
-                      </CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="space-y-2 flex-grow flex flex-col justify-between">
-                      <p className="text-sm opacity-75 leading-snug">
-                        {item.description}
-                      </p>
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
-                        <span className="text-lg font-medium">
-                          ₹{item.price.toFixed(2)}
+                      </Suspense>
+                      {product.discount && (
+                        <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-medium rounded">
+                          {product.discount}
                         </span>
+                      )}
+                      {product.isNew && (
+                        <span className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs font-medium rounded">
+                          NEW
+                        </span>
+                      )}
+                      <div className="absolute -right-12 top-14 group-hover:right-2 transition-all duration-300 flex flex-col gap-2">
                         <button 
-                          className="w-full sm:w-auto px-4 py-2 border rounded-md font-medium hover:shadow-lg transition bg-black hover:bg-gray-700 dark:bg-neutral-900 text-white dark:hover:bg-gray-600"
-                          onClick={() => openModal(item)}
+                          className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                          onClick={() => toggleWishlist(product.id)}
                         >
-                          Details
+                          <Heart className="h-5 w-5" fill={wishlist.includes(product.id) ? "red" : "none"} color={wishlist.includes(product.id) ? "red" : "currentColor"} />
+                        </button>
+                        <button 
+                          className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                          onClick={() => openModal(product)}
+                        >
+                          <Eye className="h-5 w-5" />
+                        </button>
+                        <button 
+                          className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          <ShoppingCart className="h-5 w-5" />
                         </button>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>{product.title}</h3>
+                      {product.isBestSeller && (
+                        <span className="mb-1 text-xs font-medium rounded">
+                          (BEST SELLER)
+                        </span>
+                      )}
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <div className="flex text-yellow-400">
+                          {'★'.repeat(Math.floor(product.rating))}
+                          {'☆'.repeat(5 - Math.floor(product.rating))}
+                        </div>
+                        <span className="text-sm ml-2 text-gray-600 dark:text-gray-400">({product.reviews})</span>
+                        {product.stockStatus === "Limited Stock" && (
+                        <div className="ml-2">
+                          <p className="text-xs text-amber-600 font-medium">Only {product.stockQuantity} left!</p>
+                        </div>
+                      )}
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <p className="text-xl font-semibold">₹{product.price}</p>
+                        {product.originalPrice && (
+                          <p className="text-sm text-gray-500 line-through">₹{product.originalPrice}</p>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <Button size="sm" className="w-full" onClick={() => handleAddToCart(product)}>
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
                 ))}
               </div>
             </CarouselItem>

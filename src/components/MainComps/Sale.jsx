@@ -1,20 +1,11 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import { 
   Clock, Star, TrendingUp, Heart, Filter, Search, ShoppingCart, 
-  ChevronLeft, ChevronRight, ArrowUpDown, X, Check, SlidersHorizontal
+  ChevronLeft, ChevronRight, ArrowUpDown, X, Check, SlidersHorizontal, Eye
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 import {
   Popover,
   PopoverContent,
@@ -27,10 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Slider } from "../ui/slider";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import img from "/Sale.png";
+import Product from "../Modals/Product";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const SalePage = () => {
@@ -118,39 +109,122 @@ const SalePage = () => {
 
   const flashDeals = [
     {
-      name: "AirPods Pro",
-      price: "₹10900",
-      originalPrice: "₹20900",
+      id: 1,
+      title: "AirPods Pro",
+      description: "Get the best deal on AirPods Pro with an amazing 48% discount!",
+      price: 10900,
+      originalPrice: 20900,
+      discount: "48% OFF",
+      image: "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
+      isNew: false,
+      isBestSeller: true,
       rating: 4.8,
       reviews: 2456,
-      discount: 48,
+      stockStatus: "In Stock",
+      stockQuantity: 15,
       category: "Headphones",
-      image:
-        "https://m-cdn.phonearena.com/images/hub/274-wide-two_1200/Apple-AirPods-Pro-3-release-date-predictions-price-specs-and-must-know-features.jpg",
+      brand: "Apple",
+      colors: [{ name: "White", value: "white", hex: "#FFFFFF" }],
+      sizes: ["Standard"],
+      features: [
+        "Active Noise Cancellation",
+        "Wireless Charging",
+        "Sweat and Water Resistant",
+        "Transparency Mode"
+      ],
+      shipping: "Free shipping on orders over ₹500",
+      returns: "7-day easy returns and exchanges",
+      images: [
+        "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
+        "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/25565108/2024/2/14/7ae663c5-76ff-403d-94e6-7b8ad49a4f7e1707887395147-Apple-AirPods-Pro-2nd-Generation-with-MagSafe-Case-USB-C-ANC-6.jpg",
+        "https://www.jiomart.com/images/product/original/491630480/apple-mwp22hn-a-wireless-airpods-pro-with-wireless-charging-case-white-digital-o491630480-p590039498-1-202009260644.jpeg?im=Resize=(1000,1000)"
+      ]
     },
     {
-      name: "Samsung 4K TV",
-      price: "₹15900",
-      originalPrice: "₹23900",
+      id: 2,
+      title: "Samsung 4K TV",
+      description: "Crystal clear 4K resolution with smart features.",
+      price: 15900,
+      originalPrice: 23900,
+      discount: "33% OFF",
+      image: "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
+      isNew: false,
+      isBestSeller: false,
       rating: 4.7,
       reviews: 1823,
-      discount: 33,
+      stockStatus: "In Stock",
+      stockQuantity: 10,
       category: "TVs",
-      image:
-        "https://img.global.news.samsung.com/in/wp-content/uploads/2024/09/Newsroom-Cover_DU8000_1000x563.jpg",
+      brand: "Samsung",
+      colors: [{ name: "Black", value: "black", hex: "#000000" }],
+      sizes: ["43\"", "50\"", "55\""],
+      features: [
+        "4K Ultra HD Resolution",
+        "Smart TV Features",
+        "Multiple HDMI Ports",
+        "Voice Control"
+      ],
+      shipping: "Free shipping",
+      returns: "30-day easy returns and exchanges",
+      images: [
+        "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
+        "https://vasanthandco.in/UploadedFiles/productimages/20241119034503-Untitled-2.png"
+      ]
     },
     {
-      name: "iPad Air",
-      price: "₹30900",
-      originalPrice: "₹40900",
+      id: 3,
+      title: "iPad Pro",
+      description: "Get the best deal on iPad Air with an amazing 24% discount!",
+      price: 30900,
+      originalPrice: 40900,
+      discount: "24% OFF",
+      image: "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
+      isNew: false,
+      isBestSeller: true,
       rating: 4.9,
       reviews: 3241,
-      discount: 24,
+      stockStatus: "In Stock",
+      stockQuantity: 12,
       category: "Tablets",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNltlyQxZDUKgHcMIJXp_IDyn4MYNNQoVbJA&s",
-    },
-  ];
+      brand: "Apple",
+      colors: [{ name: "Silver", value: "silver", hex: "#C0C0C0" }],
+      sizes: ["10.9-inch"],
+      features: [
+        "Liquid Retina Display",
+        "A14 Bionic Chip",
+        "Apple Pencil Support",
+        "All-day Battery Life"
+      ],
+      shipping: "Free shipping on orders over ₹500",
+      returns: "7-day easy returns and exchanges",
+      images: [
+        "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
+        "https://laptopvang.com/wp-content/uploads/2024/06/ipad-pro-m4-13-inch-5g.jpg",
+        "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms-2/2024/05/p-91122368-ipad-pro-review-2024.jpg"
+      ]
+    }
+];
+
+   const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [wishlist, setWishlist] = useState([]);
+
+    const toggleWishlist = (productId) => {
+      if (wishlist.includes(productId)) {
+        setWishlist(wishlist.filter(id => id !== productId));
+      } else {
+        setWishlist([...wishlist, productId]);
+      }
+    };
+
+    const openModal = (product) => {
+      setSelectedItem(product);
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
 
   const handleAddToCart = (item) => {
     setCart(prev => [...prev, { ...item, id: Date.now() }]);
@@ -191,31 +265,33 @@ const SalePage = () => {
     activeFilters.categories.length +
     (activeFilters.discountMin > 0 ? 1 : 0);
 
-  const filteredFlashDeals = flashDeals.filter(deal => {
-    const price = parseInt(deal.price.replace("₹", ""));
-    const matchesSearch = deal.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesPrice = price >= activeFilters.minPrice && price <= activeFilters.maxPrice;
-    const matchesRating = deal.rating >= activeFilters.minRating;
-    const matchesCategory = 
-      activeFilters.categories.length === 0 || 
-      activeFilters.categories.includes(deal.category);
-    const matchesDiscount = deal.discount >= activeFilters.discountMin;
-    
-    return matchesSearch && matchesPrice && matchesRating && matchesCategory && matchesDiscount;
-  }).sort((a, b) => {
-    switch (sortBy) {
-      case "priceLow":
-        return parseInt(a.price.replace("₹", "")) - parseInt(b.price.replace("₹", ""));
-      case "priceHigh":
-        return parseInt(b.price.replace("₹", "")) - parseInt(a.price.replace("₹", ""));
-      case "rating":
-        return b.rating - a.rating;
-      case "discount":
-        return b.discount - a.discount;
-      default:
-        return 0;
-    }
-  });
+    const filteredFlashDeals = flashDeals
+    .filter(deal => {
+      const matchesSearch = deal.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesPrice = deal.price >= activeFilters.minPrice && deal.price <= activeFilters.maxPrice;
+      const matchesRating = deal.rating >= activeFilters.minRating;
+      const matchesCategory = 
+        activeFilters.categories.length === 0 || 
+        activeFilters.categories.includes(deal.category);
+      const matchesDiscount = parseInt(deal.discount) >= activeFilters.discountMin;
+  
+      return matchesSearch && matchesPrice && matchesRating && matchesCategory && matchesDiscount;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "priceLow":
+          return a.price - b.price;
+        case "priceHigh":
+          return b.price - a.price;
+        case "rating":
+          return b.rating - a.rating;
+        case "discount":
+          return parseInt(b.discount) - parseInt(a.discount);
+        default:
+          return 0;
+      }
+    });
+  
 
   const paginatedCategories = categories.slice(
     (currentPage - 1) * itemsPerPage,
@@ -460,59 +536,85 @@ const SalePage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredFlashDeals.map((deal) => (
-              <Card
-                key={deal.name}
-                className="hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-              >
-                <div className="relative">
-                  <Suspense fallback={<div className="w-full h-48 bg-gray-200 animate-pulse" />}>
-                    <LazyImage
-                      src={deal.image}
-                      alt={deal.name}
-                      className="w-full h-48 object-cover rounded-t"
-                    />
-                  </Suspense>
-                  <Badge className="absolute top-2 right-2 bg-red-600 text-white">
-                    {deal.discount}% OFF
-                  </Badge>
-                  {deal.stockLeft < 20 && (
-                    <Badge className="absolute top-2 right-2 bg-yellow-600">
-                      Only {deal.stockLeft} left
-                    </Badge>
-                  )}
-                </div>
-                <CardContent className="p-3">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-lg font-semibold">{deal.name}</h3>
-                    <Badge variant="outline" className="text-xs">{deal.category}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center mb-2">
-                    <div>
-                      <span className="text-xl font-bold">{deal.price}</span>
-                      <span className="text-sm text-gray-500 line-through ml-2">
-                        {deal.originalPrice}
-                      </span>
+            {filteredFlashDeals.map((product) => (
+              <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+              <CardContent className="p-0">
+                <div className="relative overflow-hidden">
+                  <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
+                    <div className="w-full h-64 overflow-hidden">
+                      <LazyImage 
+                        src={product.image} 
+                        alt={product.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                      />
                     </div>
-                    <Button variant="ghost" size="sm">
-                      <Heart className="w-4 h-4" />
+                  </Suspense>
+                  {product.discount && (
+                    <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-medium rounded">
+                      {product.discount}
+                    </span>
+                  )}
+                  {product.isNew && (
+                    <span className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs font-medium rounded">
+                      NEW
+                    </span>
+                  )}
+                  <div className="absolute -right-12 top-14 group-hover:right-2 transition-all duration-300 flex flex-col gap-2">
+                    <button 
+                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                      onClick={() => toggleWishlist(product.id)}
+                    >
+                      <Heart className="h-5 w-5" fill={wishlist.includes(product.id) ? "red" : "none"} color={wishlist.includes(product.id) ? "red" : "currentColor"} />
+                    </button>
+                    <button 
+                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                      onClick={() => openModal(product)}
+                    >
+                      <Eye className="h-5 w-5" />
+                    </button>
+                    <button 
+                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      <ShoppingCart className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>{product.title}</h3>
+                  {product.isBestSeller && (
+                    <span className="mb-1 text-xs font-medium rounded">
+                      (BEST SELLER)
+                    </span>
+                  )}
+                  </div>
+                  <div className="flex items-center mb-2">
+                    <div className="flex text-yellow-400">
+                      {'★'.repeat(Math.floor(product.rating))}
+                      {'☆'.repeat(5 - Math.floor(product.rating))}
+                    </div>
+                    <span className="text-sm ml-2 text-gray-600 dark:text-gray-400">({product.reviews})</span>
+                    {product.stockStatus === "Limited Stock" && (
+                    <div className="ml-2">
+                      <p className="text-xs text-amber-600 font-medium">Only {product.stockQuantity} left!</p>
+                    </div>
+                  )}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-xl font-semibold">₹{product.price}</p>
+                    {product.originalPrice && (
+                      <p className="text-sm text-gray-500 line-through">₹{product.originalPrice}</p>
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <Button size="sm" className="w-full" onClick={() => handleAddToCart(product)}>
+                      Add to Cart
                     </Button>
                   </div>
-                  <div className="flex items-center gap-1 text-sm">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span>{deal.rating}</span>
-                    <span className="text-gray-500">({deal.reviews})</span>
-                  </div>
-                </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Button 
-                    className="w-full" 
-                    onClick={() => handleAddToCart(deal)}
-                  >
-                    Add to Cart
-                  </Button>
-                </CardFooter>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
             ))}
           </div>
         )}
@@ -583,6 +685,12 @@ const SalePage = () => {
             </Card>
           ))}
         </div>
+        <Product
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        product={selectedItem}
+        onAddToCart={handleAddToCart}
+      />
       </div>
     </div>
   );

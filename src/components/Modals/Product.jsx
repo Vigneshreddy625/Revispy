@@ -151,7 +151,7 @@ const Product = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl h-screen lg:max-h-[85vh] overflow-y-auto p-0 border dark:border-gray-600">
+      <DialogContent className="max-w-4xl h-screen lg:max-h-[85vh] overflow-y-auto p-0 border">
         <DialogHeader className="px-6 pt-6">
           <DialogTitle className="text-2xl font-bold">{product.title}</DialogTitle>
           <DialogDescription>
@@ -172,7 +172,7 @@ const Product = ({
                 </Lens>
               </Suspense>
               
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {/* <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                 {product.images.map((_, index) => (
                   <button
                     key={index}
@@ -181,7 +181,7 @@ const Product = ({
                     aria-label={`View image ${index + 1}`}
                   />
                 ))}
-              </div>
+              </div> */}
             </div>
             
             <div className="flex gap-2">

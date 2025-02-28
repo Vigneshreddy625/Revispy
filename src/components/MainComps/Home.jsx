@@ -385,11 +385,6 @@ const Home = () => {
                           NEW
                         </span>
                       )}
-                      {product.isBestSeller && (
-                        <span className="absolute top-10 left-2 bg-amber-500 text-white px-2 py-1 text-xs font-medium rounded">
-                          BEST SELLER
-                        </span>
-                      )}
                       <div className="absolute -right-12 top-14 group-hover:right-2 transition-all duration-300 flex flex-col gap-2">
                         <button 
                           className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
@@ -412,7 +407,14 @@ const Home = () => {
                       </div>
                     </div>
                     <div className="p-4">
+                      <div className="flex justify-between items-center">
                       <h3 className="text-lg font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>{product.title}</h3>
+                      {product.isBestSeller && (
+                        <span className="mb-1 text-xs font-medium rounded">
+                          (BEST SELLER)
+                        </span>
+                      )}
+                      </div>
                       <div className="flex items-center mb-2">
                         <div className="flex text-yellow-400">
                           {'★'.repeat(Math.floor(product.rating))}
