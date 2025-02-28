@@ -294,13 +294,13 @@ export default function TrendingPage() {
                 {chunk.map((product) => (
                   <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
                   <CardContent className="p-0">
-                    <div className="relative overflow-hidden">
+                    <div className="relative overflow-hidden" onClick={() => openModal(product)}>
                       <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
                         <div className="w-full h-64 overflow-hidden">
                           <LazyImage 
                             src={product.image} 
                             alt={product.title} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                            className="w-full h-full object-cover cursor-pointer group-hover:scale-110 transition-transform duration-500" 
                           />
                         </div>
                       </Suspense>
