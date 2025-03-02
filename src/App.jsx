@@ -63,14 +63,15 @@ function App() {
                 </Route>
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
-                <Route
+                {/* <Route
                   path="categories"
                   element={
                     <ProtectedRoute>
                       <Categories />
                     </ProtectedRoute>
                   }
-                />
+                /> */}
+                <Route path="/categories" element={<Categories />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
               {isMobile && (

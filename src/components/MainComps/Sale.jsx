@@ -1,16 +1,24 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { 
-  Clock, Star, TrendingUp, Heart, Filter, Search, ShoppingCart, 
-  ChevronLeft, ChevronRight, ArrowUpDown, X, Check, SlidersHorizontal, Eye
+import {
+  Clock,
+  Star,
+  TrendingUp,
+  Heart,
+  Filter,
+  Search,
+  ShoppingCart,
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpDown,
+  X,
+  Check,
+  SlidersHorizontal,
+  Eye,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Select,
   SelectContent,
@@ -22,10 +30,15 @@ import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import img from "/Sale.png";
 import Product from "../Modals/Product";
+import ProductCard from "../Product/ProductCard";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const SalePage = () => {
-  const [timeLeft, setTimeLeft] = useState({ hours: 48, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 48,
+    minutes: 0,
+    seconds: 0,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState([]);
@@ -43,8 +56,10 @@ const SalePage = () => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        if (prev.minutes > 0)
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0)
+          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
         clearInterval(timer);
         return prev;
       });
@@ -111,11 +126,13 @@ const SalePage = () => {
     {
       id: 1,
       title: "AirPods Pro",
-      description: "Get the best deal on AirPods Pro with an amazing 48% discount!",
+      description:
+        "Get the best deal on AirPods Pro with an amazing 48% discount!",
       price: 10900,
       originalPrice: 20900,
       discount: "48% OFF",
-      image: "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
+      image:
+        "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
       isNew: false,
       isBestSeller: true,
       rating: 4.8,
@@ -130,15 +147,15 @@ const SalePage = () => {
         "Active Noise Cancellation",
         "Wireless Charging",
         "Sweat and Water Resistant",
-        "Transparency Mode"
+        "Transparency Mode",
       ],
       shipping: "Free shipping on orders over ₹500",
       returns: "7-day easy returns and exchanges",
       images: [
         "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
         "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/25565108/2024/2/14/7ae663c5-76ff-403d-94e6-7b8ad49a4f7e1707887395147-Apple-AirPods-Pro-2nd-Generation-with-MagSafe-Case-USB-C-ANC-6.jpg",
-        "https://www.jiomart.com/images/product/original/491630480/apple-mwp22hn-a-wireless-airpods-pro-with-wireless-charging-case-white-digital-o491630480-p590039498-1-202009260644.jpeg?im=Resize=(1000,1000)"
-      ]
+        "https://www.jiomart.com/images/product/original/491630480/apple-mwp22hn-a-wireless-airpods-pro-with-wireless-charging-case-white-digital-o491630480-p590039498-1-202009260644.jpeg?im=Resize=(1000,1000)",
+      ],
     },
     {
       id: 2,
@@ -147,7 +164,8 @@ const SalePage = () => {
       price: 15900,
       originalPrice: 23900,
       discount: "33% OFF",
-      image: "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
+      image:
+        "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
       isNew: false,
       isBestSeller: false,
       rating: 4.7,
@@ -157,28 +175,30 @@ const SalePage = () => {
       category: "TVs",
       brand: "Samsung",
       colors: [{ name: "Black", value: "black", hex: "#000000" }],
-      sizes: ["43\"", "50\"", "55\""],
+      sizes: ['43"', '50"', '55"'],
       features: [
         "4K Ultra HD Resolution",
         "Smart TV Features",
         "Multiple HDMI Ports",
-        "Voice Control"
+        "Voice Control",
       ],
       shipping: "Free shipping",
       returns: "30-day easy returns and exchanges",
       images: [
         "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
-        "https://vasanthandco.in/UploadedFiles/productimages/20241119034503-Untitled-2.png"
-      ]
+        "https://vasanthandco.in/UploadedFiles/productimages/20241119034503-Untitled-2.png",
+      ],
     },
     {
       id: 3,
       title: "iPad Pro",
-      description: "Get the best deal on iPad Air with an amazing 24% discount!",
+      description:
+        "Get the best deal on iPad Air with an amazing 24% discount!",
       price: 30900,
       originalPrice: 40900,
       discount: "24% OFF",
-      image: "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
+      image:
+        "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
       isNew: false,
       isBestSeller: true,
       rating: 4.9,
@@ -193,45 +213,45 @@ const SalePage = () => {
         "Liquid Retina Display",
         "A14 Bionic Chip",
         "Apple Pencil Support",
-        "All-day Battery Life"
+        "All-day Battery Life",
       ],
       shipping: "Free shipping on orders over ₹500",
       returns: "7-day easy returns and exchanges",
       images: [
         "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
         "https://laptopvang.com/wp-content/uploads/2024/06/ipad-pro-m4-13-inch-5g.jpg",
-        "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms-2/2024/05/p-91122368-ipad-pro-review-2024.jpg"
-      ]
+        "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms-2/2024/05/p-91122368-ipad-pro-review-2024.jpg",
+      ],
+    },
+  ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
+
+  const toggleWishlist = (productId) => {
+    if (wishlist.includes(productId)) {
+      setWishlist(wishlist.filter((id) => id !== productId));
+    } else {
+      setWishlist([...wishlist, productId]);
     }
-];
+  };
 
-   const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [wishlist, setWishlist] = useState([]);
+  const openModal = (product) => {
+    setSelectedItem(product);
+    setIsModalOpen(true);
+  };
 
-    const toggleWishlist = (productId) => {
-      if (wishlist.includes(productId)) {
-        setWishlist(wishlist.filter(id => id !== productId));
-      } else {
-        setWishlist([...wishlist, productId]);
-      }
-    };
-
-    const openModal = (product) => {
-      setSelectedItem(product);
-      setIsModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleAddToCart = (item) => {
-    setCart(prev => [...prev, { ...item, id: Date.now() }]);
+    setCart((prev) => [...prev, { ...item, id: Date.now() }]);
   };
 
   const handleRemoveFromCart = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id));
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleClearFilters = () => {
@@ -247,35 +267,48 @@ const SalePage = () => {
   };
 
   const handleCategoryToggle = (category) => {
-    setActiveFilters(prev => {
+    setActiveFilters((prev) => {
       const newCategories = prev.categories.includes(category)
-        ? prev.categories.filter(c => c !== category)
+        ? prev.categories.filter((c) => c !== category)
         : [...prev.categories, category];
-      
+
       return { ...prev, categories: newCategories };
     });
   };
 
-  const uniqueCategories = [...new Set(flashDeals.map(deal => deal.category))];
-  
-  const activeFilterCount = 
+  const uniqueCategories = [
+    ...new Set(flashDeals.map((deal) => deal.category)),
+  ];
+
+  const activeFilterCount =
     (activeFilters.minPrice > 0 ? 1 : 0) +
     (activeFilters.maxPrice < 50000 ? 1 : 0) +
     (activeFilters.minRating > 0 ? 1 : 0) +
     activeFilters.categories.length +
     (activeFilters.discountMin > 0 ? 1 : 0);
 
-    const filteredFlashDeals = flashDeals
-    .filter(deal => {
-      const matchesSearch = deal.title.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesPrice = deal.price >= activeFilters.minPrice && deal.price <= activeFilters.maxPrice;
+  const filteredFlashDeals = flashDeals
+    .filter((deal) => {
+      const matchesSearch = deal.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesPrice =
+        deal.price >= activeFilters.minPrice &&
+        deal.price <= activeFilters.maxPrice;
       const matchesRating = deal.rating >= activeFilters.minRating;
-      const matchesCategory = 
-        activeFilters.categories.length === 0 || 
+      const matchesCategory =
+        activeFilters.categories.length === 0 ||
         activeFilters.categories.includes(deal.category);
-      const matchesDiscount = parseInt(deal.discount) >= activeFilters.discountMin;
-  
-      return matchesSearch && matchesPrice && matchesRating && matchesCategory && matchesDiscount;
+      const matchesDiscount =
+        parseInt(deal.discount) >= activeFilters.discountMin;
+
+      return (
+        matchesSearch &&
+        matchesPrice &&
+        matchesRating &&
+        matchesCategory &&
+        matchesDiscount
+      );
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -291,7 +324,6 @@ const SalePage = () => {
           return 0;
       }
     });
-  
 
   const paginatedCategories = categories.slice(
     (currentPage - 1) * itemsPerPage,
@@ -302,7 +334,11 @@ const SalePage = () => {
   return (
     <div className="w-full min-h-screen">
       <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
-        <img src={img} alt="Festival Sale Banner" className="w-full h-full object-cover" />
+        <img
+          src={img}
+          alt="Festival Sale Banner"
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white backdrop-brightness-50 p-4">
           <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-2 md:mb-4 text-center">
             Festive Season Sale
@@ -326,200 +362,260 @@ const SalePage = () => {
           <h2 className="text-lg md:text-2xl font-semibold flex items-center gap-2">
             <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" /> Flash Deals
           </h2>
-          
+
           <div className="flex flex-col items-center gap-2 w-auto md:w-auto">
             <div className="flex items-center gap-2">
-            <div className="relative flex-grow max-w-xs">
-              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                type="text"
-                placeholder="Search deals..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 pr-2 py-1 border rounded w-full bg-transparent"
-              />
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
-                >
-                  <X className="w-4 h-4 text-gray-500 hover:text-gray-700" />
-                </button>
-              )}
-            </div>
+              <div className="relative flex-grow max-w-xs">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Search deals..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-8 pr-2 py-1 border rounded w-full bg-transparent"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-2 top-1/2 -translate-y-1/2"
+                  >
+                    <X className="w-4 h-4 text-gray-500 hover:text-gray-700" />
+                  </button>
+                )}
+              </div>
 
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-48">
-                <div className="flex items-center gap-2">
-                  <ArrowUpDown className="w-4 h-4" />
-                  <SelectValue placeholder="Sort by" />
-                </div>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="default">Relevance</SelectItem>
-                <SelectItem value="priceLow">Price: Low to High</SelectItem>
-                <SelectItem value="priceHigh">Price: High to Low</SelectItem>
-                <SelectItem value="rating">Highest Rated</SelectItem>
-                <SelectItem value="discount">Biggest Discount</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <SlidersHorizontal className="w-4 h-4" />
-                  Filters
-                  {activeFilterCount > 0 && (
-                    <Badge className="ml-1 bg-red-500 text-white h-5 w-5 rounded-full p-0 flex items-center justify-center">
-                      {activeFilterCount}
-                    </Badge>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 p-4">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-medium">Filters</h3>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={handleClearFilters}
-                      className="h-8 text-xs"
-                    >
-                      Clear All
-                    </Button>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-48">
+                  <div className="flex items-center gap-2">
+                    <ArrowUpDown className="w-4 h-4" />
+                    <SelectValue placeholder="Sort by" />
                   </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium">Price Range</h4>
-                    <div className="flex items-center justify-between gap-4">
-                      <input
-                        type="number"
-                        min="0"
-                        max={activeFilters.maxPrice}
-                        value={activeFilters.minPrice}
-                        onChange={(e) => setActiveFilters(prev => ({ ...prev, minPrice: parseInt(e.target.value) || 0 }))}
-                        className="w-full p-1 border bg-transparent rounded text-sm"
-                        placeholder="Min"
-                      />
-                      <span>to</span>
-                      <input
-                        type="number"
-                        min={activeFilters.minPrice}
-                        value={activeFilters.maxPrice}
-                        onChange={(e) => setActiveFilters(prev => ({ ...prev, maxPrice: parseInt(e.target.value) || 0 }))}
-                        className="w-full p-1 border rounded bg-transparent text-sm"
-                        placeholder="Max"
-                      />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="default">Relevance</SelectItem>
+                  <SelectItem value="priceLow">Price: Low to High</SelectItem>
+                  <SelectItem value="priceHigh">Price: High to Low</SelectItem>
+                  <SelectItem value="rating">Highest Rated</SelectItem>
+                  <SelectItem value="discount">Biggest Discount</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="gap-2">
+                    <SlidersHorizontal className="w-4 h-4" />
+                    Filters
+                    {activeFilterCount > 0 && (
+                      <Badge className="ml-1 bg-red-500 text-white h-5 w-5 rounded-full p-0 flex items-center justify-center">
+                        {activeFilterCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-4">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-medium">Filters</h3>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleClearFilters}
+                        className="h-8 text-xs"
+                      >
+                        Clear All
+                      </Button>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium">Price Range</h4>
+                      <div className="flex items-center justify-between gap-4">
+                        <input
+                          type="number"
+                          min="0"
+                          max={activeFilters.maxPrice}
+                          value={activeFilters.minPrice}
+                          onChange={(e) =>
+                            setActiveFilters((prev) => ({
+                              ...prev,
+                              minPrice: parseInt(e.target.value) || 0,
+                            }))
+                          }
+                          className="w-full p-1 border bg-transparent rounded text-sm"
+                          placeholder="Min"
+                        />
+                        <span>to</span>
+                        <input
+                          type="number"
+                          min={activeFilters.minPrice}
+                          value={activeFilters.maxPrice}
+                          onChange={(e) =>
+                            setActiveFilters((prev) => ({
+                              ...prev,
+                              maxPrice: parseInt(e.target.value) || 0,
+                            }))
+                          }
+                          className="w-full p-1 border rounded bg-transparent text-sm"
+                          placeholder="Max"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium">Min. Rating</h4>
+                      <Select
+                        value={activeFilters.minRating.toString()}
+                        onValueChange={(val) =>
+                          setActiveFilters((prev) => ({
+                            ...prev,
+                            minRating: parseFloat(val),
+                          }))
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Any Rating" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Any Rating</SelectItem>
+                          <SelectItem value="3">3+ Stars</SelectItem>
+                          <SelectItem value="4">4+ Stars</SelectItem>
+                          <SelectItem value="4.5">4.5+ Stars</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium">Min. Discount</h4>
+                      <Select
+                        value={activeFilters.discountMin.toString()}
+                        onValueChange={(val) =>
+                          setActiveFilters((prev) => ({
+                            ...prev,
+                            discountMin: parseInt(val),
+                          }))
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Any Discount" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Any Discount</SelectItem>
+                          <SelectItem value="10">10% or more</SelectItem>
+                          <SelectItem value="20">20% or more</SelectItem>
+                          <SelectItem value="30">30% or more</SelectItem>
+                          <SelectItem value="40">40% or more</SelectItem>
+                          <SelectItem value="50">50% or more</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium">Categories</h4>
+                      <div className="space-y-2 max-h-32 overflow-y-auto">
+                        {uniqueCategories.map((category) => (
+                          <div
+                            key={category}
+                            className="flex items-center space-x-2"
+                          >
+                            <Checkbox
+                              id={`category-${category}`}
+                              checked={activeFilters.categories.includes(
+                                category
+                              )}
+                              onCheckedChange={() =>
+                                handleCategoryToggle(category)
+                              }
+                            />
+                            <Label
+                              htmlFor={`category-${category}`}
+                              className="text-sm cursor-pointer"
+                            >
+                              {category}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium">Min. Rating</h4>
-                    <Select 
-                      value={activeFilters.minRating.toString()} 
-                      onValueChange={(val) => setActiveFilters(prev => ({ ...prev, minRating: parseFloat(val) }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Any Rating" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0">Any Rating</SelectItem>
-                        <SelectItem value="3">3+ Stars</SelectItem>
-                        <SelectItem value="4">4+ Stars</SelectItem>
-                        <SelectItem value="4.5">4.5+ Stars</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium">Min. Discount</h4>
-                    <Select 
-                      value={activeFilters.discountMin.toString()} 
-                      onValueChange={(val) => setActiveFilters(prev => ({ ...prev, discountMin: parseInt(val) }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Any Discount" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0">Any Discount</SelectItem>
-                        <SelectItem value="10">10% or more</SelectItem>
-                        <SelectItem value="20">20% or more</SelectItem>
-                        <SelectItem value="30">30% or more</SelectItem>
-                        <SelectItem value="40">40% or more</SelectItem>
-                        <SelectItem value="50">50% or more</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium">Categories</h4>
-                    <div className="space-y-2 max-h-32 overflow-y-auto">
-                      {uniqueCategories.map(category => (
-                        <div key={category} className="flex items-center space-x-2">
-                          <Checkbox 
-                            id={`category-${category}`}
-                            checked={activeFilters.categories.includes(category)}
-                            onCheckedChange={() => handleCategoryToggle(category)}
-                          />
-                          <Label htmlFor={`category-${category}`} className="text-sm cursor-pointer">
-                            {category}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </PopoverContent>
-            </Popover>
+                </PopoverContent>
+              </Popover>
             </div>
             {activeFilterCount > 0 && (
               <div className="flex flex-wrap gap-2 mt-2 w-full">
                 {activeFilters.minPrice > 0 && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     Min: ₹{activeFilters.minPrice}
-                    <X 
-                      className="w-3 h-3 ml-1 cursor-pointer" 
-                      onClick={() => setActiveFilters(prev => ({ ...prev, minPrice: 0 }))}
+                    <X
+                      className="w-3 h-3 ml-1 cursor-pointer"
+                      onClick={() =>
+                        setActiveFilters((prev) => ({ ...prev, minPrice: 0 }))
+                      }
                     />
                   </Badge>
                 )}
-                
+
                 {activeFilters.maxPrice < 50000 && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     Max: ₹{activeFilters.maxPrice}
-                    <X 
-                      className="w-3 h-3 ml-1 cursor-pointer" 
-                      onClick={() => setActiveFilters(prev => ({ ...prev, maxPrice: 50000 }))}
+                    <X
+                      className="w-3 h-3 ml-1 cursor-pointer"
+                      onClick={() =>
+                        setActiveFilters((prev) => ({
+                          ...prev,
+                          maxPrice: 50000,
+                        }))
+                      }
                     />
                   </Badge>
                 )}
-                
+
                 {activeFilters.minRating > 0 && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     {activeFilters.minRating}+ Stars
-                    <X 
-                      className="w-3 h-3 ml-1 cursor-pointer" 
-                      onClick={() => setActiveFilters(prev => ({ ...prev, minRating: 0 }))}
+                    <X
+                      className="w-3 h-3 ml-1 cursor-pointer"
+                      onClick={() =>
+                        setActiveFilters((prev) => ({ ...prev, minRating: 0 }))
+                      }
                     />
                   </Badge>
                 )}
-                
+
                 {activeFilters.discountMin > 0 && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     {activeFilters.discountMin}%+ Off
-                    <X 
-                      className="w-3 h-3 ml-1 cursor-pointer" 
-                      onClick={() => setActiveFilters(prev => ({ ...prev, discountMin: 0 }))}
+                    <X
+                      className="w-3 h-3 ml-1 cursor-pointer"
+                      onClick={() =>
+                        setActiveFilters((prev) => ({
+                          ...prev,
+                          discountMin: 0,
+                        }))
+                      }
                     />
                   </Badge>
                 )}
-                
-                {activeFilters.categories.map(category => (
-                  <Badge key={category} variant="secondary" className="flex items-center gap-1">
+
+                {activeFilters.categories.map((category) => (
+                  <Badge
+                    key={category}
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     {category}
-                    <X 
-                      className="w-3 h-3 ml-1 cursor-pointer" 
+                    <X
+                      className="w-3 h-3 ml-1 cursor-pointer"
                       onClick={() => handleCategoryToggle(category)}
                     />
                   </Badge>
@@ -531,90 +627,24 @@ const SalePage = () => {
 
         {filteredFlashDeals.length === 0 ? (
           <div className="text-center py-10  rounded-lg">
-            <div className="text-gray-500 mb-2">No products match your filters</div>
-            <Button variant="outline" onClick={handleClearFilters}>Clear Filters</Button>
+            <div className="text-gray-500 mb-2">
+              No products match your filters
+            </div>
+            <Button variant="outline" onClick={handleClearFilters}>
+              Clear Filters
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredFlashDeals.map((product) => (
-              <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
-              <CardContent className="p-0">
-                <div className="relative overflow-hidden" onClick={() => openModal(product)}>
-                  <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
-                    <div className="w-full h-64 overflow-hidden">
-                      <LazyImage 
-                        src={product.image} 
-                        alt={product.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform cursor-pointer duration-500" 
-                      />
-                    </div>
-                  </Suspense>
-                  {product.discount && (
-                    <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-medium rounded">
-                      {product.discount}
-                    </span>
-                  )}
-                  {product.isNew && (
-                    <span className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs font-medium rounded">
-                      NEW
-                    </span>
-                  )}
-                  <div className="absolute -right-12 top-14 group-hover:right-2 transition-all duration-300 flex flex-col gap-2">
-                    <button 
-                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
-                      onClick={() => toggleWishlist(product.id)}
-                    >
-                      <Heart className="h-5 w-5" fill={wishlist.includes(product.id) ? "red" : "none"} color={wishlist.includes(product.id) ? "red" : "currentColor"} />
-                    </button>
-                    <button 
-                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
-                      onClick={() => openModal(product)}
-                    >
-                      <Eye className="h-5 w-5" />
-                    </button>
-                    <button 
-                      className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 text-gray-700"
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      <ShoppingCart className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>{product.title}</h3>
-                  {product.isBestSeller && (
-                    <span className="mb-1 text-xs font-medium rounded">
-                      (BEST SELLER)
-                    </span>
-                  )}
-                  </div>
-                  <div className="flex items-center mb-2">
-                    <div className="flex text-yellow-400">
-                      {'★'.repeat(Math.floor(product.rating))}
-                      {'☆'.repeat(5 - Math.floor(product.rating))}
-                    </div>
-                    <span className="text-sm ml-2 text-gray-600 dark:text-gray-400">({product.reviews})</span>
-                    {product.stockStatus === "Limited Stock" && (
-                    <div className="ml-2">
-                      <p className="text-xs text-amber-600 font-medium">Only {product.stockQuantity} left!</p>
-                    </div>
-                  )}
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <p className="text-xl font-semibold">₹{product.price}</p>
-                    {product.originalPrice && (
-                      <p className="text-sm text-gray-500 line-through">₹{product.originalPrice}</p>
-                    )}
-                  </div>
-                  <div className="mt-3">
-                    <Button size="sm" className="w-full" onClick={() => handleAddToCart(product)}>
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              <ProductCard
+                key={product.id}
+                product={product}
+                openModal={openModal}
+                toggleWishlist={toggleWishlist}
+                wishlist={wishlist}
+                handleAddToCart={handleAddToCart}
+              />
             ))}
           </div>
         )}
@@ -629,16 +659,20 @@ const SalePage = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            <span>{currentPage} / {totalPages}</span>
+            <span>
+              {currentPage} / {totalPages}
+            </span>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
             >
               <ChevronRight className="w-4 h-4" />
@@ -652,7 +686,11 @@ const SalePage = () => {
               className="hover:shadow-lg transition-all duration-300"
             >
               <div className="relative">
-                <Suspense fallback={<div className="w-full h-40 bg-gray-200 animate-pulse" />}>
+                <Suspense
+                  fallback={
+                    <div className="w-full h-40 bg-gray-200 animate-pulse" />
+                  }
+                >
                   <LazyImage
                     src={category.image}
                     alt={category.name}
@@ -686,11 +724,11 @@ const SalePage = () => {
           ))}
         </div>
         <Product
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        product={selectedItem}
-        onAddToCart={handleAddToCart}
-      />
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          product={selectedItem}
+          onAddToCart={handleAddToCart}
+        />
       </div>
     </div>
   );
@@ -698,7 +736,9 @@ const SalePage = () => {
 
 const TimeBlock = ({ label, value }) => (
   <div className="text-center p-2 bg-black/20 rounded">
-    <div className="text-xl md:text-3xl font-bold">{value.toString().padStart(2, '0')}</div>
+    <div className="text-xl md:text-3xl font-bold">
+      {value.toString().padStart(2, "0")}
+    </div>
     <div className="text-xs md:text-sm">{label}</div>
   </div>
 );

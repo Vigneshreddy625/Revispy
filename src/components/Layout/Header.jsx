@@ -35,14 +35,11 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Input } from "../ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, logout, user } = useAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
@@ -81,12 +78,6 @@ const Header = () => {
     {
       label: "Categories",
       path: "/categories",
-      subItems: [
-        { label: "Electronics", path: "/categories/electronics" },
-        { label: "Fashion", path: "/categories/clothing" },
-        { label: "Beauty", path: "/categories/beauty" },
-        { label: "Home", path: "/categories/home" },
-      ],
     },
     { label: "Sale", path: "/sale" },
     { label: "New Stock", path: "/newstock" },
@@ -112,40 +103,16 @@ const Header = () => {
                   <NavigationMenuList className="gap-2">
                     {navigationItems.map((item) => (
                       <NavigationMenuItem key={item.path}>
-                        {item.subItems ? (
-                          <>
-                            <NavigationMenuTrigger className="text-sm font-medium">
-                              {item.label}
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                              <ul className="grid w-48 p-2">
-                                {item.subItems.map((subItem) => (
-                                  <li key={subItem.path}>
-                                    <NavigationMenuLink asChild>
-                                      <Link
-                                        to={subItem.path}
-                                        className="block px-3 py-2 text-sm rounded hover:bg-accent hover:text-accent-foreground"
-                                      >
-                                        {subItem.label}
-                                      </Link>
-                                    </NavigationMenuLink>
-                                  </li>
-                                ))}
-                              </ul>
-                            </NavigationMenuContent>
-                          </>
-                        ) : (
-                          <Link
-                            to={item.path}
-                            className={`text-sm font-medium px-3 py-2 rounded transition-colors ${
-                              location.pathname === item.path
-                                ? "text-primary"
-                                : "hover:text-primary"
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
-                        )}
+                        <Link
+                          to={item.path}
+                          className={`text-sm font-medium px-3 py-2 rounded transition-colors ${
+                            location.pathname === item.path
+                              ? "text-primary"
+                              : "hover:text-primary"
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
                       </NavigationMenuItem>
                     ))}
                   </NavigationMenuList>
@@ -194,23 +161,23 @@ const Header = () => {
               </Button>
 
               {!isMobile && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <Link to="/cart">
-                  <ShoppingCart className="h-5 w-5" />
-                  {cartCount > 0 && (
-                    <Badge
-                      variant="destructive"
-                      className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs"
-                    >
-                      {cartCount}
-                    </Badge>
-                  )}
-                </Link>
-              </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Link to="/cart">
+                    <ShoppingCart className="h-5 w-5" />
+                    {cartCount > 0 && (
+                      <Badge
+                        variant="destructive"
+                        className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs"
+                      >
+                        {cartCount}
+                      </Badge>
+                    )}
+                  </Link>
+                </Button>
               )}
 
               <ToggleMode />
