@@ -3,7 +3,8 @@ const featuredProducts = [
   {
     id: 1,
     title: "Marshall Headphones",
-    description: "Noise-cancelling, wireless, and high-fidelity sound quality.",
+    description:
+      "Noise-cancelling, wireless, and high-fidelity sound quality.",
     price: 12999.99,
     originalPrice: 15999.99,
     discount: "35% OFF",
@@ -17,17 +18,24 @@ const featuredProducts = [
     stockQuantity: 15,
     category: "Electronics",
     brand: "SoundPro",
-    colors: [{ name: "Black", value: "black", hex: "#000000" }],
+    colors: [
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "Silver", value: "silver", hex: "#C0C0C0" },
+    ],
     sizes: ["Standard"],
     features: [
       "High-fidelity sound",
       "Noise cancellation",
       "Wireless connectivity",
+      "Long battery life",
+      "Comfortable fit",
     ],
     shipping: "Free shipping on orders over $50",
     returns: "30-day easy returns and exchanges",
     images: [
       "https://media.croma.com/image/upload/v1723054217/Croma%20Assets/Communication/Headphones%20and%20Earphones/Images/227824_0_fcnxfv.png",
+      "https://x.imastudent.com/content/0023420_marshall-monitor-ii-anc-wireless-headphones_500.jpeg",
+      "https://mahajanelectronics.com/cdn/shop/files/712irsQ0gdL._SL1500.jpg?v=1728136536&width=1500",
     ],
   },
   {
@@ -39,7 +47,7 @@ const featuredProducts = [
     originalPrice: 109999.99,
     discount: "18% OFF",
     image:
-      "https://images.samsung.com/is/image/samsung/p6pim/in/qa65q70bakxxl/gallery/in-qled-q70b-qa65q70bakxxl-531161788?$650_519_PNG$",
+      "https://images.samsung.com/is/image/samsung/p6pim/in/ua43t5410akxxl/gallery/in-fhd-t5310-ua43t5410akxxl-532972634?$684_547_PNG$",
     isNew: true,
     isBestSeller: false,
     rating: 4.7,
@@ -59,97 +67,117 @@ const featuredProducts = [
     shipping: "Free shipping",
     returns: "14-day easy returns and exchanges",
     images: [
-      "https://images.samsung.com/is/image/samsung/p6pim/in/qa65q70bakxxl/gallery/in-qled-q70b-qa65q70bakxxl-531161788?$650_519_PNG$",
+      "https://images.samsung.com/is/image/samsung/p6pim/in/ua43t5410akxxl/gallery/in-fhd-t5310-ua43t5410akxxl-532972634?$684_547_PNG$",
+      "https://jamesandco.in/wp-content/uploads/2024/09/in-qled-q60d-qa55q60daulxl-539976106.jpg",
+      "https://img.us.news.samsung.com/us/wp-content/uploads/2019/01/14103848/Samsung-TV_iTunes-Movies-and-TV-shows.jpg"
     ],
   },
   {
     id: 8,
-    title: "Apple MacBook Pro M3",
-    description:
-      "Powerful laptop with M3 chip, ideal for professionals and creatives.",
-    price: 129999.99,
-    originalPrice: 149999.99,
-    discount: "13% OFF",
+    title: "Apple Watch Pro",
+    description: "Track your fitness and stay connected in style.",
+    price: 19999.99,
+    originalPrice: 24599.99,
+    discount: "20% OFF",
     image:
-      "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-pro-space-black-select-202310?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1697311054290",
+      "https://www.jiomart.com/images/product/original/rvhjzhyxio/clubclassy-t500-smart-watch-full-screen-waterproof-touch-display-bluetooth-calling-fitpro-t500-smart-watches-fitness-tracker-compatible-with-all-android-amp-ios-black-product-images-orvhjzhyxio-p606648963-3-202312101651.jpg",
     isNew: true,
-    isBestSeller: true,
-    rating: 4.9,
-    reviews: 286,
-    stockStatus: "Limited Stock",
-    stockQuantity: 8,
-    category: "Electronics",
-    brand: "Apple",
-    colors: [{ name: "Space Gray", value: "gray", hex: "#5E5E5E" }],
-    sizes: ["14 inch"],
-    features: ["M3 Chip", "16GB RAM", "512GB SSD", "Retina Display"],
-    shipping: "Free shipping",
-    returns: "14-day easy returns and exchanges",
-    images: [
-      "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-pro-space-black-select-202310?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1697311054290",
-    ],
-  },
-  {
-    id: 9,
-    title: "Canon EOS R5 Camera",
-    description: "Professional mirrorless camera with 45MP full-frame sensor.",
-    price: 339999.99,
-    originalPrice: 369999.99,
-    discount: "8% OFF",
-    image:
-      "https://in.canon/media/image/2020/07/09/e90976e2414a459bb23f2c4c43f79155_EOS+R5_Front_RF24-105mm.png",
-    isNew: false,
-    isBestSeller: true,
-    rating: 4.8,
-    reviews: 174,
-    stockStatus: "In Stock",
-    stockQuantity: 6,
-    category: "Electronics",
-    brand: "Canon",
-    colors: [{ name: "Black", value: "black", hex: "#000000" }],
-    sizes: ["Standard"],
-    features: [
-      "45MP Full-frame sensor",
-      "8K video recording",
-      "In-body stabilization",
-      "Dual card slots",
-    ],
-    shipping: "Free shipping",
-    returns: "14-day easy returns",
-    images: [
-      "https://in.canon/media/image/2020/07/09/e90976e2414a459bb23f2c4c43f79155_EOS+R5_Front_RF24-105mm.png",
-    ],
-  },
-  {
-    id: 10,
-    title: "Bose Home Speaker 500",
-    description:
-      "Premium wireless smart speaker with immersive sound and voice control.",
-    price: 29999.99,
-    originalPrice: 34999.99,
-    discount: "14% OFF",
-    image:
-      "https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/speakers/home_speaker_500/product_silo_images/HS500_Black_Hero.psd/jcr:content/renditions/cq5dam.web.600.600.png",
-    isNew: false,
     isBestSeller: false,
-    rating: 4.6,
-    reviews: 215,
+    rating: 4.2,
+    reviews: 95,
     stockStatus: "In Stock",
     stockQuantity: 20,
     category: "Electronics",
-    brand: "Bose",
-    colors: [{ name: "Silver", value: "silver", hex: "#C0C0C0" }],
-    sizes: ["Standard"],
+    brand: "TechFit",
+    colors: [
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "Silver", value: "silver", hex: "#C0C0C0" },
+    ],
+    sizes: ["40mm", "44mm"],
     features: [
-      "360° sound",
-      "Voice assistants",
-      "Wi-Fi and Bluetooth",
-      "Color LCD display",
+      "Heart Rate Monitor",
+      "GPS Tracking",
+      "Water Resistant",
+      "Always-on Display",
+      "Fitness App Integration",
     ],
     shipping: "Free shipping on orders over $50",
     returns: "30-day easy returns and exchanges",
     images: [
-      "https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/speakers/home_speaker_500/product_silo_images/HS500_Black_Hero.psd/jcr:content/renditions/cq5dam.web.600.600.png",
+      "https://www.jiomart.com/images/product/original/rvhjzhyxio/clubclassy-t500-smart-watch-full-screen-waterproof-touch-display-bluetooth-calling-fitpro-t500-smart-watches-fitness-tracker-compatible-with-all-android-amp-ios-black-product-images-orvhjzhyxio-p606648963-3-202312101651.jpg",
+      "https://static.toiimg.com/thumb/resizemode-4,msid-54128624,imgsize-500,width-800/54128624.jpg",
+      "https://play-lh.googleusercontent.com/WuL1L1ZwDcYOdRwtib2D95uZyP0Z4HojhjDyXUoWauXoq6Ec-qtlpcEyTkZIcj_Nbw8=w600-h300-pc0xffffff-pd",
+    ],
+  },
+  {
+    id: 5,
+    title: "Canon DSLR Camera",
+    description:
+      "Capture stunning photos with this professional-grade camera.",
+    price: 80999.99,
+    originalPrice: 89999.99,
+    discount: "18% OFF",
+    image:
+      "https://images-cdn.ubuy.co.in/65fe64a89de64a706c0120dc-canon-eos-5d-mark-iv-dslr-camera-with.jpg",
+    isNew: false,
+    isBestSeller: true,
+    rating: 4.9,
+    reviews: 203,
+    stockStatus: "Limited Stock",
+    stockQuantity: 5,
+    category: "Electronics",
+    brand: "PhotoPro",
+    colors: [{ name: "Black", value: "black", hex: "#000000" }],
+    sizes: ["Standard"],
+    features: [
+      "24.1MP Sensor",
+      "4K Video Recording",
+      "Dual Pixel Autofocus",
+      "Wi-Fi Connectivity",
+      "Long Battery Life",
+    ],
+    shipping: "Free shipping",
+    returns: "30-day easy returns and exchanges",
+    images: [
+      "https://images-cdn.ubuy.co.in/65fe64a89de64a706c0120dc-canon-eos-5d-mark-iv-dslr-camera-with.jpg",
+      "https://m.media-amazon.com/images/I/91mjRsCxynL.jpg",
+    ],
+  },
+  {
+    id: 10,
+    title: "Bose Speaker",
+    description: "Premium sound quality in a compact design.",
+    price: 12999,
+    originalPrice: 15999,
+    discount: "18% OFF",
+    image:
+      "https://assets.bose.com/content/dam/cloudassets/Bose_DAM/Web/consumer_electronics/global/products/speakers/SLMAX-SPEAKERWIRELESS/product_silo_images/aem_pdp_SLMPS_gallery_black_600x511_x2_1.jpg/jcr:content/renditions/cq5dam.web.1920.1920.jpeg",
+    isNew: false,
+    rating: 4.3,
+    reviews: 156,
+    stockStatus: "In Stock",
+    stockQuantity: 12,
+    category: "Electronics",
+    brand: "Bose",
+    colors: [
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "Blue", value: "blue", hex: "#0000FF" },
+      { name: "Red", value: "red", hex: "#FF0000" },
+    ],
+    sizes: ["Standard"],
+    features: [
+      "360° Sound",
+      "Waterproof Design",
+      "Bluetooth Connectivity",
+      "20-Hour Battery Life",
+      "Voice Assistant Support",
+    ],
+    shipping: "Free shipping on orders over ₹999",
+    returns: "30-day easy returns and exchanges",
+    images: [
+      "https://assets.bose.com/content/dam/cloudassets/Bose_DAM/Web/consumer_electronics/global/products/speakers/SLMAX-SPEAKERWIRELESS/product_silo_images/aem_pdp_SLMPS_gallery_black_600x511_x2_1.jpg/jcr:content/renditions/cq5dam.web.1920.1920.jpeg",
+      "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1730266533/Croma%20Assets/Entertainment/Speakers%20and%20Media%20Players/Images/307854_0_n3buu6.png",
+      "https://i.rtings.com/assets/products/y8VC5NUj/bose-soundlink-flex/design-small.jpg?format=auto",
     ],
   },
   {
@@ -161,7 +189,7 @@ const featuredProducts = [
     originalPrice: 9999.99,
     discount: "20% OFF",
     image:
-      "https://resource.logitech.com/content/dam/logitech/en/products/mice/mx-master-3s/gallery/mx-master-3s-mouse-top-pale-grey.png",
+      "https://m.media-amazon.com/images/I/61ni3t1ryQL.jpg",
     isNew: false,
     isBestSeller: true,
     rating: 4.7,
@@ -181,7 +209,8 @@ const featuredProducts = [
     shipping: "Free shipping on orders over $50",
     returns: "30-day easy returns and exchanges",
     images: [
-      "https://resource.logitech.com/content/dam/logitech/en/products/mice/mx-master-3s/gallery/mx-master-3s-mouse-top-pale-grey.png",
+      "https://m.media-amazon.com/images/I/61ni3t1ryQL.jpg",
+      "https://progearcambodia.com/wp-content/uploads/2022/07/71vujiFyAeL._AC_SL1500_-600x580.jpg",
     ],
   },
 
@@ -221,7 +250,7 @@ const featuredProducts = [
     originalPrice: 17999.99,
     discount: "17% OFF",
     image:
-      "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/96a5f085ef1c4e509ac9aeea010755ff_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg",
+      "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/5bce02940ad9422b99dead9100fd3f18_9366/ULTRABOOST_22_SHOES_Black_H01168_01_standard.jpg",
     isNew: false,
     isBestSeller: true,
     rating: 4.8,
@@ -274,6 +303,7 @@ const featuredProducts = [
     returns: "30-day easy returns",
     images: [
       "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/369579/01/sv01/fnd/IND/fmt/png/RS-X-Reinvention-Sneakers",
+      "https://images-static.nykaa.com/media/catalog/product/b/a/ba72af836957923_3.jpg?tr=w-500"
     ],
   },
   {
@@ -284,7 +314,7 @@ const featuredProducts = [
     originalPrice: 8499.99,
     discount: "18% OFF",
     image:
-      "https://assets.reebok.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fd8fd539bb72438e9671abf1007911b3_9366/Classic_Leather_Shoes_White_49797_01_standard.jpg",
+      "https://rukminim2.flixcart.com/image/750/900/xif0q/shoe/s/f/i/-original-imagwzzy24sjdh3g.jpeg?q=20&crop=false",
     isNew: false,
     isBestSeller: true,
     rating: 4.6,
@@ -299,7 +329,8 @@ const featuredProducts = [
     shipping: "Free shipping on orders over $50",
     returns: "30-day easy returns",
     images: [
-      "https://assets.reebok.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fd8fd539bb72438e9671abf1007911b3_9366/Classic_Leather_Shoes_White_49797_01_standard.jpg",
+      "https://rukminim2.flixcart.com/image/750/900/xif0q/shoe/s/f/i/-original-imagwzzy24sjdh3g.jpeg?q=20&crop=false",
+      "https://assets.ajio.com/medias/sys_master/root/20240226/szUZ/65dca17605ac7d77bb7acf7b/-1117Wx1400H-469604657-offwhite-MODEL.jpg"
     ],
   },
   {
@@ -327,6 +358,7 @@ const featuredProducts = [
     returns: "30-day easy returns",
     images: [
       "https://nb.scene7.com/is/image/NB/m990gl5_nb_02_i?$pdpflexf2$&wid=440&hei=440",
+      "https://image.goxip.com/qvEhtSqrEldv0551wUsF3MXB2Gg=/fit-in/500x500/filters:format(jpg):quality(80):fill(white)/https:%2F%2Fimages.stockx.com%2Fimages%2FNew-Balance-990-v5-Grey-GS-Product.jpg"
     ],
   },
   {
@@ -337,7 +369,7 @@ const featuredProducts = [
     price: 8999.99,
     originalPrice: 9999.99,
     discount: "10% OFF",
-    image: "https://images.birkenstock.com/images/1019115/1019115_side.jpg",
+    image: "https://www.birkenstock.in/cdn/shop/products/51793_8e6aa142-8e6b-45e5-838a-e02558667881.jpg",
     isNew: false,
     isBestSeller: true,
     rating: 4.7,
@@ -351,7 +383,9 @@ const featuredProducts = [
     features: ["Cork footbed", "Adjustable buckles", "Suede upper"],
     shipping: "Free shipping on orders over $50",
     returns: "14-day easy returns",
-    images: ["https://images.birkenstock.com/images/1019115/1019115_side.jpg"],
+    images: ["https://www.birkenstock.in/cdn/shop/products/51793_8e6aa142-8e6b-45e5-838a-e02558667881.jpg",
+      "https://cdn.shopify.com/s/files/1/0140/6042/1206/files/1027903_540x.jpg?v=1720522962"
+    ],
   },
 
   // HOME & FURNITURE CATEGORY - 6 products
@@ -363,7 +397,7 @@ const featuredProducts = [
     originalPrice: 24999.99,
     discount: "24% OFF",
     image:
-      "https://rukminim1.flixcart.com/image/416/416/ktyp8cw0/dining-set/1/k/q/4-seater-brown-117-5x71-1-5x75-mas-dng-a4-4-8-cft-urbanwood-original-imag76y2ehwzhb5u.jpeg?q=70",
+      "https://www.jangirdecor.in/cdn/shop/files/pixelcut-1_97.png?v=1699073670",
     isNew: false,
     isBestSeller: true,
     rating: 4.5,
@@ -378,7 +412,7 @@ const featuredProducts = [
     shipping: "Free delivery",
     returns: "7-day return policy",
     images: [
-      "https://rukminim1.flixcart.com/image/416/416/ktyp8cw0/dining-set/1/k/q/4-seater-brown-117-5x71-1-5x75-mas-dng-a4-4-8-cft-urbanwood-original-imag76y2ehwzhb5u.jpeg?q=70",
+      "https://www.jangirdecor.in/cdn/shop/files/pixelcut-1_97.png?v=1699073670",
     ],
   },
   {
@@ -390,7 +424,7 @@ const featuredProducts = [
     originalPrice: 65999.99,
     discount: "24% OFF",
     image:
-      "https://www.ikea.com/in/en/images/products/finnala-corner-sofa-5-seat-with-chaise-longue-gunnared-medium-grey__0814367_pe772427_s5.jpg",
+      "https://m.media-amazon.com/images/I/81DN7370ZuL.jpg",
     isNew: true,
     isBestSeller: true,
     rating: 4.7,
@@ -410,7 +444,8 @@ const featuredProducts = [
     shipping: "Free delivery and assembly",
     returns: "30-day return policy",
     images: [
-      "https://www.ikea.com/in/en/images/products/finnala-corner-sofa-5-seat-with-chaise-longue-gunnared-medium-grey__0814367_pe772427_s5.jpg",
+      "https://m.media-amazon.com/images/I/81DN7370ZuL.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuWL5rouaK8AeS1dQFE_DCQ98VVbAZ--FYkYA31xS6I9FojcBqOefWJxKLp1ftY-ilNiQ&usqp=CAU"
     ],
   },
   {
@@ -422,7 +457,7 @@ const featuredProducts = [
     originalPrice: 38999.99,
     discount: "15% OFF",
     image:
-      "https://www.ikea.com/au/en/images/products/malm-bed-frame-high-w-4-storage-boxes-white-luroey__1101959_pe866827_s5.jpg",
+      "https://m.media-amazon.com/images/I/51QMN0+8d2L.jpg",
     isNew: false,
     isBestSeller: false,
     rating: 4.6,
@@ -445,7 +480,8 @@ const featuredProducts = [
     shipping: "Free delivery and assembly",
     returns: "14-day return policy",
     images: [
-      "https://www.ikea.com/au/en/images/products/malm-bed-frame-high-w-4-storage-boxes-white-luroey__1101959_pe866827_s5.jpg",
+      "https://m.media-amazon.com/images/I/51QMN0+8d2L.jpg",
+      "https://images-cdn.ubuy.qa/652e63089655d672ab43a2b0-bed-frame-with-rgb-led-lights-headboard.jpg"
     ],
   },
   {
@@ -457,7 +493,7 @@ const featuredProducts = [
     originalPrice: 15999.99,
     discount: "19% OFF",
     image:
-      "https://www.ikea.com/in/en/images/products/ekenaeset-armchair-hillared-anthracite__0986079_pe816883_s5.jpg",
+      "https://m.media-amazon.com/images/I/81dcxsgGgYL.jpg",
     isNew: true,
     isBestSeller: true,
     rating: 4.7,
@@ -480,7 +516,8 @@ const featuredProducts = [
     shipping: "Free shipping",
     returns: "30-day return policy",
     images: [
-      "https://www.ikea.com/in/en/images/products/ekenaeset-armchair-hillared-anthracite__0986079_pe816883_s5.jpg",
+      "https://m.media-amazon.com/images/I/81dcxsgGgYL.jpg",
+      "https://m.media-amazon.com/images/I/816UuY34qpL.jpg"
     ],
   },
   {
@@ -491,7 +528,7 @@ const featuredProducts = [
     originalPrice: 10999.99,
     discount: "18% OFF",
     image:
-      "https://www.ikea.com/in/en/images/products/billy-bookcase-with-doors-dark-blue__0850024_pe725976_s5.jpg",
+      "https://i.ebayimg.com/images/g/8AYAAOSw8Nlcn4sA/s-l1200.jpg",
     isNew: false,
     isBestSeller: false,
     rating: 4.5,
@@ -514,7 +551,8 @@ const featuredProducts = [
     shipping: "Free shipping on orders over $50",
     returns: "14-day return policy",
     images: [
-      "https://www.ikea.com/in/en/images/products/billy-bookcase-with-doors-dark-blue__0850024_pe725976_s5.jpg",
+      "https://i.ebayimg.com/images/g/8AYAAOSw8Nlcn4sA/s-l1200.jpg",
+      "https://m.media-amazon.com/images/I/61IXKGVeMqL._AC_UF894,1000_QL80_.jpg"
     ],
   },
   {
@@ -526,7 +564,7 @@ const featuredProducts = [
     originalPrice: 19999.99,
     discount: "20% OFF",
     image:
-      "https://www.ikea.com/in/en/images/products/borgeby-coffee-table-black__0735092_pe739905_s5.jpg",
+      "https://easycraft.in/cdn/shop/files/PVD-coated-gold-base-coffee-table-with-marble-top.jpg?v=1708966020",
     isNew: true,
     isBestSeller: false,
     rating: 4.8,
@@ -548,7 +586,7 @@ const featuredProducts = [
     shipping: "Free white glove delivery",
     returns: "7-day return policy",
     images: [
-      "https://www.ikea.com/in/en/images/products/borgeby-coffee-table-black__0735092_pe739905_s5.jpg",
+      "https://easycraft.in/cdn/shop/files/PVD-coated-gold-base-coffee-table-with-marble-top.jpg?v=1708966020",
     ],
   },
 
@@ -560,7 +598,7 @@ const featuredProducts = [
     price: 6499.99,
     originalPrice: 7999.99,
     discount: "20% OFF",
-    image: "https://m.media-amazon.com/images/I/71O1O1gRdjL._SL1500_.jpg",
+    image: "https://www.perfumenetwork.in/cdn/shop/files/30Untitleddesign_2bbb659c-93cd-4723-952a-536e78489f10.png?v=1691563518",
     isNew: true,
     isBestSeller: false,
     rating: 4.6,
@@ -574,7 +612,9 @@ const featuredProducts = [
     features: ["Eau de Parfum", "Long-lasting fragrance"],
     shipping: "Free shipping",
     returns: "7-day return policy",
-    images: ["https://m.media-amazon.com/images/I/71O1O1gRdjL._SL1500_.jpg"],
+    images: ["https://www.perfumenetwork.in/cdn/shop/files/30Untitleddesign_2bbb659c-93cd-4723-952a-536e78489f10.png?v=1691563518",
+      "https://scentira.in/cdn/shop/files/2_3df3d901-745b-4853-9ca8-320d94cd7710.png?v=1715360242&width=1472"
+    ],
   },
   {
     id: 22,
@@ -724,13 +764,13 @@ const featuredProducts = [
 
   {
     id: 217,
-    title: "Nike Air Max 270",
-    description: "Stylish and comfortable sneakers with superior cushioning.",
-    price: 14999.99,
-    originalPrice: 16999.99,
+    title: "Nike Jacket",
+    description: "Lightweight and breathable jacket for everyday wear.",
+    price: 4999.99,
+    originalPrice: 5999.99,
     discount: "12% OFF",
     image:
-      "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/abc123/nike-air-max-270.jpg",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/254e755d-3429-4b11-8922-1aa78b1ea091/AS+M+NK+DF+FORM+HD+JKT.png",
     isNew: true,
     isBestSeller: true,
     rating: 4.8,
@@ -740,16 +780,19 @@ const featuredProducts = [
     category: "Clothing",
     brand: "Nike",
     colors: [{ name: "Black", value: "black", hex: "#000000" }],
-    sizes: ["US 8", "US 9", "US 10", "US 11"],
+    sizes: ["S", "M", "L", "XL"],
     features: [
-      "Breathable mesh upper",
-      "Responsive cushioning",
-      "Durable outsole",
+      "Polyester fabric",
+      "Zipper closure",
+      "Side pockets",
+      "Elastic cuffs",
     ],
     shipping: "Free shipping",
     returns: "30-day return policy",
     images: [
-      "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/abc123/nike-air-max-270.jpg",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/254e755d-3429-4b11-8922-1aa78b1ea091/AS+M+NK+DF+FORM+HD+JKT.png",
+      "https://i.pinimg.com/736x/eb/50/66/eb50666686fe94769c6488bb0e73f574.jpg",
+      
     ],
   },
   {
@@ -1269,7 +1312,7 @@ const featuredProducts = [
   },
   {
     id: 504,
-    title: "Fisher-Price Laugh & Learn Smart Stages Puppy",
+    title: "Fisher-Price Laugh Puppy",
     description:
       "Educational plush toy with interactive features for early learning.",
     price: 1499.99,
@@ -1351,13 +1394,13 @@ const featuredProducts = [
   },
   {
     id: 601,
-    title: "Nike Mercurial Superfly 8 Soccer Cleats",
+    title: "Nike Mercurial 8 Soccer wear Cleats",
     description:
       "High-performance soccer cleats designed for speed and agility on the field.",
     price: 8999.99,
     originalPrice: 9999.99,
     discount: "10% OFF",
-    image: "https://example.com/images/nike-soccer-cleats.jpg",
+    image: "https://thumblr.uniid.it/product/246159/34abe53230e1.jpg?width=3840&format=webp&q=75",
     isNew: true,
     isBestSeller: true,
     rating: 4.9,
@@ -1373,7 +1416,9 @@ const featuredProducts = [
     ],
     shipping: "Free shipping",
     returns: "30-day return policy",
-    images: ["https://example.com/images/nike-soccer-cleats.jpg"],
+    images: [
+      "https://thumblr.uniid.it/product/246159/34abe53230e1.jpg?width=3840&format=webp&q=75",
+      "https://www.knvbshop.nl/media/catalog/product/cache/d81c8dc66c69ceb69419c2e7e72e896d/1/4/143187_nike-mercurial-superfly-8-academy-gras-kunstgras-voetbalschoenen-mg-kids-grijs-.jpg",],
   },
   {
     id: 602,
@@ -1453,7 +1498,7 @@ const featuredProducts = [
     price: 999.99,
     originalPrice: 1299.99,
     discount: "23% OFF",
-    image: "https://example.com/images/nivia-football.jpg",
+    image: "https://img.tatacliq.com/images/i6/437Wx649H/MP000000007126896_437Wx649H_20200718170510.jpeg",
     isNew: false,
     isBestSeller: true,
     rating: 4.7,
@@ -1465,7 +1510,7 @@ const featuredProducts = [
     features: ["Water-resistant", "Durable outer layer", "Soft touch feel"],
     shipping: "Free shipping",
     returns: "30-day return policy",
-    images: ["https://example.com/images/nivia-football.jpg"],
+    images: ["https://img.tatacliq.com/images/i6/437Wx649H/MP000000007126896_437Wx649H_20200718170510.jpeg"],
   },
 ];
 

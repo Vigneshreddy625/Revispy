@@ -69,7 +69,7 @@ const Header = () => {
   const handleSearch = (e) => {
     e?.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      navigate(`/searchresults?q=${encodeURIComponent(searchQuery)}`);
       setIsSearchOpen(false);
     }
   };
