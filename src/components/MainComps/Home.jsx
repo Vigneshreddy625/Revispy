@@ -1,7 +1,7 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { Heart, ShoppingCart, Eye, Award, Clock, Tag } from "lucide-react";
+import {Award, Clock, Tag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Product from "../Modals/Product";
 import ProductCard from "../Product/ProductCard";
 
@@ -265,6 +265,7 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [wishlist, setWishlist] = useState([]);
   const [activeFilter, setActiveFilter] = useState("all");
+  const navigate = useNavigate();
 
   const toggleWishlist = (productId) => {
     if (wishlist.includes(productId)) {
@@ -327,10 +328,10 @@ const Home = () => {
           </Button>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 pt-16">
+        <section className="px-4 pt-16">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-semibold">Shop by category</h2>
-            <Button variant="outline">View All</Button>
+            <Button variant="outline" onClick={() => navigate("/categories")}>View All</Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
@@ -363,7 +364,7 @@ const Home = () => {
         </section>
 
         <section className="pt-16 pb-12 mt-16">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="px-4">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
               <div>
                 <h2 className="text-3xl font-bold mb-2">Featured Products</h2>
@@ -401,7 +402,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -421,7 +422,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 pt-16 pb-4">
+        <section className="px-4 pt-16 pb-4">
           <div className="relative overflow-hidden rounded-2xl border shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
               <div className="text-center md:text-left mb-6 md:mb-0">

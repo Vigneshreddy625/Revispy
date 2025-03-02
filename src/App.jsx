@@ -22,6 +22,7 @@ const Cart = lazy(() => import('./components/HeaderComps/Cart'));
 const Wishlist = lazy(() => import('./components/HeaderComps/Wishlist'));
 const Search = lazy(() => import('./components/HeaderComps/Search'));
 const PageNotFound = lazy(() => import('./components/Items/PNF'));
+const SearchDesktop = lazy(() => import('./components/Search/Search'));
 
 function App() {
   const [count, setCount] = useState(0);
@@ -72,6 +73,7 @@ function App() {
                   }
                 /> */}
                 <Route path="/categories" element={<Categories />} />
+                <Route path="searchresults" element={<SearchDesktop />} />  
                 <Route path="*" element={<PageNotFound />} />
               </Route>
               {isMobile && (

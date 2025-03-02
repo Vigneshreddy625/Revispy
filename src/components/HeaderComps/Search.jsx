@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState}  from 'react';
 import { ArrowLeft, Search, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,6 +26,20 @@ function SearchPage ()  {
   ];
 
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    if (event.key === "Enter" && query.trim() !== "") {
+      console.log(encodeURIComponent(query));
+      navigate(`/searchresults?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black">
@@ -37,6 +51,9 @@ function SearchPage ()  {
             type="text"
             placeholder='search here...'
             className="flex-1 bg-transparent border-none outline-none px-3 text-gray-800 dark:text-gray-200"
+            value={query}
+            onChange={handleInputChange}
+            onKeyDown={handleSearch}
           />
           <Mic className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </div>
