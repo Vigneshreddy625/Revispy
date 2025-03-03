@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid, List } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import featuredProducts from "../utils/data";
 import ProductCard from "../Product/ProductCard";
 import ProductList from "../Product/ProductList";
@@ -9,7 +9,8 @@ import { Button } from "../ui/button";
 import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
 
-const ProductSearch = () => {
+const CategoryPage = () => {
+  const { categoryName } = useParams(); // Get the categoryName from URL parameter
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -29,18 +30,35 @@ const ProductSearch = () => {
   const [sortBy, setSortBy] = useState("relevance");
 
   useEffect(() => {
-    const initialQuery = searchParams.get("q");
-    if (initialQuery) {
-      setQuery(initialQuery);
+    // If categoryName from route is available, use it
+    if (categoryName) {
+      setQuery(categoryName);
+    } else {
+      // Fallback to query parameter if no route parameter
+      const initialQuery = searchParams.get("categoryName");
+      if (initialQuery) {
+        setQuery(initialQuery);
+      }
     }
-  }, [searchParams]);
+  }, [categoryName, searchParams]);
 
   useEffect(() => {
-    let filtered = featuredProducts.filter(
-      (product) =>
-        product.title.toLowerCase().includes(query.toLowerCase()) ||
-        product.category.toLowerCase().includes(query.toLowerCase())
-    );
+    let filtered = featuredProducts;
+
+    // Filter by category from URL if present
+    if (categoryName) {
+      filtered = featuredProducts.filter(
+        (product) =>
+          product.category.toLowerCase() === categoryName.toLowerCase()
+      );
+    } else if (query) {
+      // Otherwise use the query for search
+      filtered = featuredProducts.filter(
+        (product) =>
+          product.title.toLowerCase().includes(query.toLowerCase()) ||
+          product.category.toLowerCase().includes(query.toLowerCase())
+      );
+    }
 
     if (filters.minPrice) {
       filtered = filtered.filter(
@@ -94,7 +112,7 @@ const ProductSearch = () => {
     }
 
     setFilteredProducts(filtered);
-  }, [query, searchParams, filters, sortBy]);
+  }, [categoryName, query, searchParams, filters, sortBy]);
 
   const toggleWishlist = (productId) => {
     setWishlist((prev) => {
@@ -137,10 +155,12 @@ const ProductSearch = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <ProductSearchInput
-        setShowFilters={setShowFilters}
-        showFilters={showFilters}
-      />
+      {categoryName && (
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold mb-2 capitalize">{categoryName}</h1>
+          <p className="">Browse our selection of {categoryName} products</p>
+        </div>
+      )}
 
       <ProductFilters
         showFilters={showFilters}
@@ -154,8 +174,9 @@ const ProductSearch = () => {
 
       <div className="flex justify-between items-center mb-6">
         <div>
-          <span className="text-gray-700">
+          <span className="">
             {filteredProducts.length} products found
+            {categoryName && ` in ${categoryName}`}
           </span>
         </div>
         <div className="flex space-x-2">
@@ -199,7 +220,9 @@ const ProductSearch = () => {
           </svg>
           <h2 className="text-xl font-medium">No products found</h2>
           <p className="text-gray-500 mt-2">
-            Try a different search term or adjust your filters
+            {categoryName 
+              ? `We couldn't find any products in the ${categoryName} category`
+              : "Try a different search term or adjust your filters"}
           </p>
           <button
             onClick={() => {
@@ -215,7 +238,7 @@ const ProductSearch = () => {
             }}
             className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Reset Search
+            Reset Filters
           </button>
         </div>
       ) : viewMode === "grid" ? (
@@ -262,4 +285,4 @@ const ProductSearch = () => {
   );
 };
 
-export default ProductSearch;
+export default CategoryPage;

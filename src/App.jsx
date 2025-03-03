@@ -14,6 +14,7 @@ const Signup = lazy(() => import('./components/Authentication/Signup'));
 const ConfirmOTP = lazy(() => import('./components/Authentication/OTP'));
 const ProtectedRoute = lazy(() => import('./components/Items/ProtectedRoute'));
 const Categories = lazy(() => import('./components/MainComps/Categories'));
+const CategoryPage = lazy(() => import('./components/Category/CategoryPage'));
 const Home = lazy(() => import('./components/MainComps/Home'));
 const SalePage = lazy(() => import('./components/MainComps/Sale'));
 const TrendingPage = lazy(() => import('./components/MainComps/Trending'));
@@ -73,6 +74,7 @@ function App() {
                   }
                 /> */}
                 <Route path="/categories" element={<Categories />} />
+                <Route path="/categories/:categoryName" element={<CategoryPage />} />
                 <Route path="searchresults" element={<SearchDesktop />} />  
                 <Route path="*" element={<PageNotFound />} />
               </Route>

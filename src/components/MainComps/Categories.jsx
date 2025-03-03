@@ -77,7 +77,7 @@ const categories = [
 const CategoryCard = ({ category, handleCategoryClick }) => {
   const navigate = useNavigate();
   handleCategoryClick = (categoryName) => {
-    navigate(`/searchresults?q=${categoryName}`);  
+    navigate(`/categories/${categoryName.toLowerCase()}`);  
   };
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-all hover:shadow-md" onClick={() => handleCategoryClick(category.name)}>
