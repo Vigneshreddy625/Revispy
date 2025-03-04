@@ -4,12 +4,8 @@ import {
   ShoppingCart,
   LogOut,
   LogIn,
-  Menu,
-  X,
-  Bell,
   User,
   Heart,
-  Car,
   ShoppingBagIcon,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -20,11 +16,8 @@ import logo2 from "../../assets/logo2.png";
 import { useTheme } from "../Darkmode/Theme-provider";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
 } from "../ui/navigation-menu";
 import {
   DropdownMenu,
@@ -35,6 +28,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import SearchDropdown from "../HeaderComps/SearchDropdown";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -84,6 +78,12 @@ const Header = () => {
     { label: "Trending", path: "/trending" },
   ];
 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+  };
+
   return (
     <div className="sticky top-0 z-50 bg-background">
       <header className="border-b dark:border-gray-600">
@@ -121,21 +121,7 @@ const Header = () => {
             </div>
             <div className="flex-grow max-w-3xl mx-8">
               {!isMobile && (
-                <form onSubmit={handleSearch} className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    className="w-full px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
-                  >
-                    <Search className="h-5 w-5 text-gray-500" />
-                  </button>
-                </form>
+                <SearchDropdown onSelectProduct={handleProductSelect} />
               )}
             </div>
             <div className="flex items-center gap-1 sm:gap-2">
@@ -243,29 +229,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {/* <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-        <DialogContent className="sm:max-w-xl">
-          <DialogHeader>
-            <DialogTitle>Search Products</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSearch} className="relative mt-2">
-            <Input
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pr-10"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              variant="ghost"
-              className="absolute right-0 top-0 h-full"
-            >
-              <Search className="h-5 w-5" />
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog> */}
     </div>
   );
 };

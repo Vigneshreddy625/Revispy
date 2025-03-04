@@ -7,7 +7,6 @@ const Orders = () => {
   const [sortBy, setSortBy] = useState('recent');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Enhanced data with more order statuses and details
   const orders = [
     {
       id: 'ORD-12345',
@@ -71,7 +70,6 @@ const Orders = () => {
     }
   ];
 
-  // Filter orders based on active tab and search query
   const filteredOrders = orders.filter(order => {
     const matchesTab = activeTab === 'all' || 
                       (activeTab === 'delivered' && order.status === 'Delivered') ||
@@ -86,7 +84,6 @@ const Orders = () => {
     return matchesTab && matchesSearch;
   });
 
-  // Sort orders based on selection
   const sortedOrders = [...filteredOrders].sort((a, b) => {
     if (sortBy === 'recent') {
       return new Date(b.date) - new Date(a.date);
@@ -102,7 +99,6 @@ const Orders = () => {
     return 0;
   });
 
-  // Status icon mapping
   const getStatusIcon = (status) => {
     switch (status) {
       case 'Delivered': return <CheckCheck className="w-4 h-4 text-green-500" />;
@@ -114,7 +110,6 @@ const Orders = () => {
     }
   };
 
-  // Status color mapping
   const getStatusColor = (color) => {
     switch (color) {
       case 'green': return 'text-green-600 bg-green-50';

@@ -79,3 +79,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.m-scrollbar::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px; 
+}
+
+.m-scrollbar::-webkit-scrollbar-track {
+  background: #f0f0f0; 
+  border-radius: 10px;
+}
+
+.m-scrollbar::-webkit-scrollbar-thumb {
+  background: #3b6fe7; 
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.m-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
