@@ -237,19 +237,19 @@ const Home = () => {
       subcategories: ["Smartphones", "Laptops", "Audio", "Accessories"],
     },
     {
-      name: "Fashion",
+      name: "Clothing",
       image:
         "https://thebureaufashionweek.com/wp-content/uploads/sites/11/2021/08/What-to-wear-to-Fashion-Week-1200x675.jpg",
       subcategories: ["Men", "Women", "Kids", "Accessories"],
     },
     {
-      name: "Home",
+      name: "Home & Furniture",
       image:
         "https://www.proiectari.md/wp-content/uploads/2023/12/model-casa.jpg",
       subcategories: ["Furniture", "Decor", "Kitchen", "Bath"],
     },
     {
-      name: "Beauty",
+      name: "Health & Beauty",
       image:
         "https://cdn.logojoy.com/wp-content/uploads/20191023114758/AdobeStock_224061283-min.jpeg",
       subcategories: ["Skincare", "Makeup", "Haircare", "Fragrances"],
@@ -324,12 +324,12 @@ const Home = () => {
             Summer Collection 2024
           </h1>
           <p className="text-lg mt-4">Up to 50% off on selected items</p>
-          <Button size="lg" className="mt-6 border transition">
+          <Button size="lg" className="mt-6 border transition" onClick={() => navigate("/searchresults")}>
             Shop Now
           </Button>
         </section>
 
-        <section className="px-4 pt-16">
+        <section className="px-4 pt-6 lg:pt-16">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-semibold">Shop by category</h2>
             <Button variant="outline" onClick={() => navigate("/categories")}>View All</Button>
@@ -354,7 +354,7 @@ const Home = () => {
                     <h3 className="text-xl font-semibold text-white">
                       {category.name}
                     </h3>
-                    <p className="text-white text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-white text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={() => navigate(`/categories/${category.name.toLowerCase().trim().replace(/\s+/g, "")}`)}> 
                       View Collection →
                     </p>
                   </div>
@@ -364,7 +364,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="pt-16 pb-12 mt-16">
+        <section className="pt-6 lg:pt-16 pb-4 lg:pb-12 mt-6 lg:mt-16">
           <div className="px-4">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
               <div>
@@ -423,7 +423,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="px-4 pt-16 pb-4">
+        <section className="px-4 pt-6 lg:pt-16 pb-4">
           <div className="relative overflow-hidden rounded-2xl border shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
               <div className="text-center md:text-left mb-6 md:mb-0">
@@ -452,6 +452,7 @@ const Home = () => {
                 <Button
                   size="lg"
                   className="bg-transparent border text-black dark:text-white dark:hover:bg-gray-600 hover:bg-gray-100"
+                  onClick={() => navigate("/dod")}
                 >
                   Shop Now
                 </Button>

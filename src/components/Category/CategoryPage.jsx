@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid, List } from "lucide-react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { ChevronLeft, Grid, List } from "lucide-react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import featuredProducts from "../utils/data";
 import ProductCard from "../Product/ProductCard";
 import ProductList from "../Product/ProductList";
@@ -10,7 +10,7 @@ import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
 
 const CategoryPage = () => {
-  const { categoryName } = useParams(); // Get the categoryName from URL parameter
+  const { categoryName } = useParams(); 
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -29,12 +29,12 @@ const CategoryPage = () => {
   });
   const [sortBy, setSortBy] = useState("relevance");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // If categoryName from route is available, use it
     if (categoryName) {
       setQuery(categoryName);
     } else {
-      // Fallback to query parameter if no route parameter
       const initialQuery = searchParams.get("categoryName");
       if (initialQuery) {
         setQuery(initialQuery);
@@ -45,14 +45,12 @@ const CategoryPage = () => {
   useEffect(() => {
     let filtered = featuredProducts;
 
-    // Filter by category from URL if present
     if (categoryName) {
       filtered = featuredProducts.filter(
         (product) =>
           product.category.toLowerCase() === categoryName.toLowerCase()
       );
     } else if (query) {
-      // Otherwise use the query for search
       filtered = featuredProducts.filter(
         (product) =>
           product.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -155,6 +153,10 @@ const CategoryPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="flex mb-3 cursor-pointer" onClick={() => navigate(-1)}>
+        <ChevronLeft size={24} className="" />
+        <span className="text-sm">Back</span>
+      </div>
       {categoryName && (
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-2 capitalize">{categoryName}</h1>

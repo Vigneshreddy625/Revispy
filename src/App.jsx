@@ -24,6 +24,7 @@ const Wishlist = lazy(() => import('./components/HeaderComps/Wishlist'));
 const Search = lazy(() => import('./components/HeaderComps/Search'));
 const PageNotFound = lazy(() => import('./components/Items/PNF'));
 const SearchDesktop = lazy(() => import('./components/Search/Search'));
+const DOD = lazy(() => import('./components/MainComps/DOD'));
 
 function App() {
   const [count, setCount] = useState(0);
@@ -64,6 +65,7 @@ function App() {
                   <Route path="delete" element={<Delete/>} />
                 </Route>
                 <Route path="/trending" element={<TrendingPage />} />
+                <Route path="/dod" element={<DOD />} />
                 <Route path="confirm-otp" element={<ConfirmOTP />} />
                 {/* <Route
                   path="categories"

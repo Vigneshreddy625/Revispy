@@ -30,7 +30,7 @@ const categories = [
   },
   {
     id: 4,
-    name: "Beauty & Health",
+    name: "Health & Beauty",
     image: "https://img.freepik.com/premium-vector/beauty-health-illustration-with-natural-cosmetics-eco-products-skin-treatment-face_2175-13450.jpg",
     featured: true,
     description: "Self-care and wellness products",
@@ -77,7 +77,7 @@ const categories = [
 const CategoryCard = ({ category, handleCategoryClick }) => {
   const navigate = useNavigate();
   handleCategoryClick = (categoryName) => {
-    navigate(`/categories/${categoryName.toLowerCase()}`);  
+    navigate(`/categories/${categoryName.toLowerCase().trim().replace(/\s+/g, "")}`);  
   };
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-all hover:shadow-md" onClick={() => handleCategoryClick(category.name)}>

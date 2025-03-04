@@ -39,7 +39,7 @@ const ProductSearch = () => {
     let filtered = featuredProducts.filter(
       (product) =>
         product.title.toLowerCase().includes(query.toLowerCase()) ||
-        product.category.toLowerCase().includes(query.toLowerCase())
+        product.category.toLowerCase().includes(query.toLowerCase().trim().replace(/\s+/g, ""))
     );
 
     if (filters.minPrice) {

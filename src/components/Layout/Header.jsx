@@ -80,7 +80,7 @@ const Header = () => {
       path: "/categories",
     },
     { label: "Sale", path: "/sale" },
-    { label: "New Stock", path: "/newstock" },
+    { label: "Deal Of Day", path: "/dod" },
     { label: "Trending", path: "/trending" },
   ];
 
