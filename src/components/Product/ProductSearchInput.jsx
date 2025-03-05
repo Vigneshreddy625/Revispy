@@ -4,9 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import { SlidersHorizontal } from "lucide-react";
 
-const ProductSearchInput = ({ setShowFilters, showFilters }) => {
+const ProductSearchInput = ({ setShowFilters, showFilters, query, setQuery }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const initialQuery = searchParams.get("q");

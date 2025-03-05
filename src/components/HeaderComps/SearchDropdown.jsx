@@ -94,11 +94,11 @@ const SearchDropdown = ({ onSelectProduct }) => {
                 setIsDropdownOpen(true);
               }
             }}
-            className="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:outline-none bg-transparent transition"
+            className="w-full p-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none bg-transparent transition"
           />
         </div>
         {isDropdownOpen && searchTerm && (
-          <CommandList className="absolute top-16 w-full max-h-[450px] overflow-y-auto z-[100] bg-white dark:bg-black border dark:border-gray-600 rounded-lg shadow-lg m-scrollbar">
+          <CommandList className="absolute top-12 w-full max-h-[450px] overflow-y-auto z-[100] bg-white dark:bg-black border dark:border-gray-600 rounded-lg shadow-lg m-scrollbar">
             {filteredProducts.length > 0 ? (
               <CommandGroup>
                 {filteredProducts.map((product) => (
@@ -125,7 +125,7 @@ const SearchDropdown = ({ onSelectProduct }) => {
                       </div>
                     </div>
                     <Badge variant="secondary">
-                      ${product.price.toFixed(2)}
+                    ₹{product.price.toFixed(2)}
                     </Badge>
                   </CommandItem>
                 ))}

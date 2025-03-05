@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, Grid, List } from "lucide-react";
+import { ArrowLeft, ChevronLeft, Grid, List, X } from "lucide-react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import featuredProducts from "../utils/data";
 import ProductCard from "../Product/ProductCard";
@@ -10,7 +10,7 @@ import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
 
 const CategoryPage = () => {
-  const { categoryName } = useParams(); 
+  const { categoryName } = useParams();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -152,11 +152,9 @@ const CategoryPage = () => {
   const categories = [...new Set(featuredProducts.map((p) => p.category))];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex mb-3 cursor-pointer" onClick={() => navigate(-1)}>
-        <ChevronLeft size={24} className="" />
-        <span className="text-sm">Back</span>
-      </div>
+    <div className="container relative mx-auto px-4 py-8">
+        <div className="absolute top-8 right-4 cursor-pointer" onClick={() => navigate(-1)}><X/></div>
+
       {categoryName && (
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-2 capitalize">{categoryName}</h1>
@@ -222,7 +220,7 @@ const CategoryPage = () => {
           </svg>
           <h2 className="text-xl font-medium">No products found</h2>
           <p className="text-gray-500 mt-2">
-            {categoryName 
+            {categoryName
               ? `We couldn't find any products in the ${categoryName} category`
               : "Try a different search term or adjust your filters"}
           </p>

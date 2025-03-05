@@ -6,7 +6,7 @@ import LazyImage from "../Items/LazyImage";
 
 const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddToCart }) => {
   return (
-    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 min-w-72">
       <CardContent className="p-0">
         <div className="relative overflow-hidden" onClick={() => openModal(product)}>
           <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
@@ -38,12 +38,12 @@ const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
               <ShoppingCart className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between">
             <h3 className="text-sm font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>
               {product.title}
             </h3>
             {product.isBestSeller && (
-              <span className="mb-1 text-xs font-medium rounded">(BEST SELLER)</span>
+              <span className="mt-0.5 text-xs font-medium rounded">(BEST SELLER)</span>
             )}
           </div>
           <div className="flex items-center mb-2">

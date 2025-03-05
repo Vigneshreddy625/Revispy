@@ -132,14 +132,13 @@ const MainComponent = () => {
   };
 
   return (
-    <div className="min-h-screen w-full py-12">
+    <div className="min-h-screen w-full py-4">
       <main className="px-4 py-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Shop by Category</h1>
         </div>
         <Categories handleCategoryClick={handleCategoryClick} />
       </main>
-      <FloatingFilterButton showFilters={showFilters} setShowFilters={setShowFilters} totalFilterCount={0} />
     </div>
   );
 };

@@ -7,6 +7,7 @@ const ProductFilters = ({
   setFilters, 
   sortBy, 
   setSortBy, 
+  setQuery,
   categories 
 }) => {
   if (!showFilters) return null;
@@ -158,6 +159,7 @@ const ProductFilters = ({
               rating: 0,
             });
             setSortBy("relevance");
+            setQuery("");
           }}
           className="text-blue-600 mr-4"
         >

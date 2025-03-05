@@ -140,6 +140,8 @@ const ProductSearch = () => {
       <ProductSearchInput
         setShowFilters={setShowFilters}
         showFilters={showFilters}
+        query={query}
+        setQuery={setQuery}
       />
 
       <ProductFilters
@@ -150,6 +152,7 @@ const ProductSearch = () => {
         sortBy={sortBy}
         setSortBy={setSortBy}
         categories={categories}
+        setQuery={setQuery}
       />
 
       <div className="flex justify-between items-center mb-6">

@@ -15,7 +15,7 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
 
         <button
           onClick={() => toggleWishlist(product.id)}
-          className="absolute top-0 right-3 p-2 rounded-full shadow-md transition border border-gray-500"
+          className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500"
           aria-label={wishlist.includes(product.id) ? "Remove from wishlist" : "Add to wishlist"}
         >
           <svg
