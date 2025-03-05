@@ -84,7 +84,7 @@ const Wishlist = () => {
         inStock: true
     },
     {
-        id: 7,
+        id: 8,
         name: 'Backpack',
         price: 4299,
         originalPrice: 2999,
