@@ -112,7 +112,7 @@ const MobileOrders = () => {
 
   return (
     <div className="w-full max-w-md mx-auto p-4 bg-white dark:bg-black">
-      <div className="sticky top-4 z-10 pb-2 bg-white dark:bg-black border-b dark:border-gray-700">
+      <div className="sticky top-0 z-10 pb-2 bg-white dark:bg-black border-b dark:border-gray-700">
         <div className="flex flex-col md:flex-row justify-between mb-2">
           <div className='flex items-center space-x-3 mb-2'>
             <ArrowLeft className='w-6 h-6' onClick={() => window.history.back()} />
