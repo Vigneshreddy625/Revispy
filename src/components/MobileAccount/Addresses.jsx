@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../Addresses/Edit";
 import DeleteAddress from "../Addresses/Remove";
 import NewAddress from "../Addresses/NewAddress";
-import { MapPin, Home, Briefcase, Plus, Edit2, Trash2, Phone, User, Navigation } from "lucide-react";
+import { MapPin, Home, Briefcase, Plus, Edit2, Trash2, Phone, User, Navigation, ArrowLeft } from "lucide-react";
 
 export default function Addresses() {
   const [edit, setEdit] = useState(false);
@@ -24,8 +24,8 @@ export default function Addresses() {
     <div className="w-full max-w-3xl mx-auto px-4 md:px-6 py-8">
       <div className="flex justify-between items-start md:items-center gap-4 mb-8">
         <div className="flex items-center gap-2">
-          <MapPin size={20} className="text-gray-700 dark:text-gray-300" />
-          <h2 className="text-xl font-semibold">Saved Addresses</h2>
+          <ArrowLeft size={20} className="text-gray-700 dark:text-gray-300" onClick={() => window.history.back()}/>
+          <h2 className="text-lg font-semibold">Addresses</h2>
         </div>
         <button className="flex items-center gap-2 text-sm border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-md text-blue-600 shadow-sm transform transition-transform active:scale-95" onClick={() => setNewAddress(true)}>
           <Plus size={16} />

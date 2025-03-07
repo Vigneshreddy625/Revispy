@@ -16,6 +16,8 @@ import {
   Heart,
   Settings,
   FileQuestion,
+  ArrowLeft,
+  Bell,
 } from "lucide-react";
 import avatar from "../../assets/MVR.jpg"
 
@@ -115,6 +117,12 @@ const Account = () => {
       ],
     },
     {
+      icon: Bell,
+      title: "Notification Settings",
+      description: "Customize your notification preferences",
+      path: "/notifications",
+    },
+    {
       icon: Settings,
       title: "Privacy Settings",
       description: "Control your data and privacy preferences",
@@ -138,7 +146,11 @@ const Account = () => {
 
   return (
     <div className="w-full max-w-md mx-auto font-sans">
-      <div className="px-4 pt-6 pb-2">
+      <div className='flex items-center space-x-3 mb-2 pt-4 px-6 pb-2 border-b'>
+            <ArrowLeft className='w-6 h-6' onClick={() => window.history.back()} />
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Account</h1>
+          </div>
+      <div className="px-4 pb-2">
         <div className="flex space-x-4 items-center mb-6">
           <Avatar className="w-16 h-16 rounded-full border">
             <AvatarImage src={userProfile.avatarSrc} alt="User Avatar" />
@@ -150,7 +162,7 @@ const Account = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-3 mb-4">
           {quickActions.map((action, index) => (
             <div
               key={index}
@@ -170,7 +182,7 @@ const Account = () => {
           {menuItems.map((item, index) => (
             <div key={index} className="border-b dark:border-gray-700 last:border-b-0">
               <div
-                className="flex justify-between items-center py-4 transition-all duration-200 cursor-pointer"
+                className="flex justify-between items-center py-2 transition-all duration-200 cursor-pointer"
                 onClick={() => handleItemClick(item)}
               >
                 <div className="flex space-x-3">
@@ -203,11 +215,11 @@ const Account = () => {
               </div>
 
               {item.dropdown && openDropdowns[item.title] && (
-                <div className="grid grid-cols-2 gap-3 p-3 rounded-b-md">
+                <div className="grid grid-cols-2 gap-3 p-2 rounded-b-md">
                   {item.dropdown.map((subItem, subIndex) => (
                     <div
                       key={subIndex}
-                      className="flex flex-col items-center py-3 border rounded cursor-pointer"
+                      className="flex flex-col items-center py-2 border rounded cursor-pointer"
                       onClick={() => subItem.path && navigate(subItem.path)}
                     >
                       <subItem.icon className="text-gray-600 mb-2 w-5 h-5" />

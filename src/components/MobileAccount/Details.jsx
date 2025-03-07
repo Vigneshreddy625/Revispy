@@ -14,7 +14,7 @@ const Details = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col bg-white dark:bg-black w-full pt-4">
+    <div className="flex flex-col bg-white dark:bg-black w-full">
       <div className="p-4 flex items-center">
         <button className="mr-2" onClick={() => window.history.back()}>
           <ArrowLeft className="w-6 h-6 text-gray-600 dark:text-gray-400" />
@@ -22,7 +22,7 @@ const Details = () => {
         <h1 className="text-xl font-medium dark:text-white">Manage Your Account</h1>
       </div>
 
-      <div className="flex-1 p-4 space-y-6">
+      <div className="flex-1 p-4 space-y-3">
         <div className="border rounded p-4 relative">
           <label className="absolute -top-2 left-3 bg-white dark:bg-black px-1 text-xs text-pink-600">
             Mobile Number<span className="text-pink-600">*</span>
@@ -62,8 +62,8 @@ const Details = () => {
           />
         </div>
 
-        <div className="mt-6">
-          <h2 className="text-gray-600 dark:text-gray-400 mb-2">Alternate mobile number details</h2>
+        <div className="">
+          <h2 className="text-gray-600 dark:text-gray-400 mb-1.5">Alternate mobile number details</h2>
           
           <div className="border rounded flex items-center">
             <div className="px-4 py-2 border-r">+91</div>
@@ -76,7 +76,7 @@ const Details = () => {
             />
           </div>
           
-          <p className="text-gray-500 text-sm my-2">This will help recover your account if needed</p>
+          <p className="text-gray-500 text-sm my-1">This will help recover your account if needed</p>
           
           <div className="border rounded mt-4">
             <input 
@@ -91,7 +91,7 @@ const Details = () => {
           <p className="text-gray-500 text-sm my-2">Add a name that helps you identify alternate number</p>
         </div>
 
-        <button className="w-full bg-pink-600 text-white py-4 rounded font-bold mt-4">
+        <button className="w-full bg-pink-600 text-white py-2 rounded font-bold mt-4">
           SAVE DETAILS
         </button>
 

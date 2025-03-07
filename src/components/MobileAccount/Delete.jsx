@@ -4,7 +4,7 @@ import img from "../../assets/delete.jpg";
 
 const DeleteAccount = () => {
   return (
-    <div className="max-w-md mx-auto px-4 py-6">
+    <div className="max-w-md mx-auto px-4 py-2">
       <div className="flex items-center mb-4">
         <ArrowLeft className="w-5 h-5 cursor-pointer" onClick={() => window.history.back()} />
         <h1 className="text-xl font-bold ml-2">Delete Account</h1>

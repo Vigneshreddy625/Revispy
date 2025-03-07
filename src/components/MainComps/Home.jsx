@@ -319,7 +319,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <main>
-        <section className="text-center pt-20">
+        <section className="text-center pt-6 lg:pt-16">
           <h1 className="text-4xl font-bold tracking-wide">
             Summer Collection 2024
           </h1>

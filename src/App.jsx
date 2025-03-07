@@ -66,23 +66,15 @@ function App() {
                 <Route path="sale" element={<SalePage />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="wishlist" element={<Wishlist />} />
-                {!isMobile ? (
+                {!isMobile && (
                   <Route path="account" element={<Account />}>
-                    <Route path="overview" element={<div>Overview</div>} />
-                    <Route path="orders" element={<Orders />} />
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="savedcards" element={<div>Saved Cards</div>} />
-                    <Route path="addresses" element={<Addresses />} />
-                    <Route path="delete" element={<Delete />} />
-                  </Route>
-                ) : (
-                  <>
-                    <Route path="account" element={<MobileAccount />} />
-                    <Route path="orders" element={<MobileOrders />} />
-                    <Route path="account/details" element={<Details />} />
-                    <Route path="account/addresses" element={<MobileAddresses />} />
-                    <Route path="account/delete" element={<MobileDelete />} />
-                  </>
+                  <Route path="overview" element={<div>Overview</div>} />
+                  <Route path="orders" element={<Orders />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="savedcards" element={<div>Saved Cards</div>} />
+                  <Route path="addresses" element={<Addresses />} />
+                  <Route path="delete" element={<Delete />} />
+                </Route>
                 )}
                 <Route path="/trending" element={<TrendingPage />} />
                 <Route path="/dod" element={<DOD />} />
@@ -105,6 +97,15 @@ function App() {
                 <Route path="*" element={<PageNotFound />} />
               </Route>
               {isMobile && <Route path="search" element={<Search />} />}
+              {isMobile && (
+                <>
+                <Route path="account" element={<MobileAccount />} />
+                <Route path="orders" element={<MobileOrders />} />
+                <Route path="account/details" element={<Details />} />
+                <Route path="account/addresses" element={<MobileAddresses />} />
+                <Route path="account/delete" element={<MobileDelete />} />
+              </>
+              )}
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>

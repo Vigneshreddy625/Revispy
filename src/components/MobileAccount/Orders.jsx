@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, Package, ChevronRight, Calendar, Clock, X, CheckCheck, Truck, ShoppingBag, RefreshCw } from 'lucide-react';
+import { Search, Filter, Package, ChevronRight, Calendar, Clock, X, CheckCheck, Truck, ShoppingBag, RefreshCw, ArrowLeft } from 'lucide-react';
 
 const MobileOrders = () => {
   const [filterOpen, setFilterOpen] = useState(false);
@@ -111,12 +111,13 @@ const MobileOrders = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto px-4 py-6 bg-white dark:bg-black">
-      <div className="sticky top-16 z-10 pb-4 bg-white dark:bg-black border-b dark:border-gray-700">
-        <div className="flex justify-between items-center mb-4">
-          <div>
+    <div className="w-full max-w-md mx-auto p-4 bg-white dark:bg-black">
+      <div className="sticky top-4 z-10 pb-2 bg-white dark:bg-black border-b dark:border-gray-700">
+        <div className="flex flex-col md:flex-row justify-between mb-2">
+          <div className='flex items-center space-x-3 mb-2'>
+            <ArrowLeft className='w-6 h-6' onClick={() => window.history.back()} />
             <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">My Orders</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{filteredOrders.length} orders</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">({filteredOrders.length} orders)</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -147,7 +148,7 @@ const MobileOrders = () => {
           </div>
         </div>
 
-        <div className="flex space-x-2 mb-4 overflow-x-auto pb-1">
+        <div className="flex space-x-2 mb-2 overflow-x-auto pb-1">
           {['all', 'processing', 'transit', 'delivered'].map((tab) => (
             <button 
               key={tab}

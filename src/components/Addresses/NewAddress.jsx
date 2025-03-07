@@ -365,13 +365,6 @@ const NewAddress = ({ isOpen, onClose }) => {
         <div className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50">
             <div className="flex gap-3 sm:gap-4">
               <button
-                type="button"
-                onClick={onClose}
-                className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 text-sm font-medium bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg transform transition-all active:scale-95 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
-              >
-                Cancel
-              </button>
-              <button
                 type="submit"
                 className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 text-sm font-medium bg-gradient-to-r from-blue-400 to-indigo-500 dark:from-blue-500 dark:to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg transform transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 order-1 xs:order-2"
                 onClick={handleSubmit}
