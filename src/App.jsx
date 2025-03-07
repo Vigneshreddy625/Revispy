@@ -32,6 +32,9 @@ const SearchDesktop = lazy(() => import("./components/Search/Search"));
 const DOD = lazy(() => import("./components/MainComps/DOD"));
 const MobileAccount = lazy(() => import("./components/MobileAccount/Account"));
 import MobileOrders from "./components/MobileAccount/Orders";
+import MobileAddresses from "./components/MobileAccount/Addresses";
+import Details from "./components/MobileAccount/Details";
+import MobileDelete from "./components/MobileAccount/Delete";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -76,9 +79,9 @@ function App() {
                   <>
                     <Route path="account" element={<MobileAccount />} />
                     <Route path="orders" element={<MobileOrders />} />
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="addresses" element={<Addresses />} />
-                    <Route path="delete" element={<Delete />} />
+                    <Route path="account/details" element={<Details />} />
+                    <Route path="account/addresses" element={<MobileAddresses />} />
+                    <Route path="account/delete" element={<MobileDelete />} />
                   </>
                 )}
                 <Route path="/trending" element={<TrendingPage />} />

@@ -173,7 +173,7 @@ const Account = () => {
                 className="flex justify-between items-center py-4 transition-all duration-200 cursor-pointer"
                 onClick={() => handleItemClick(item)}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex space-x-3">
                   <item.icon className="text-gray-600 w-5 h-5" />
                   <div className="flex flex-col space-y-1">
                     <div className="flex items-center space-x-2">
@@ -203,7 +203,7 @@ const Account = () => {
               </div>
 
               {item.dropdown && openDropdowns[item.title] && (
-                <div className="grid grid-cols-2 gap-3 p-4 rounded-b-md">
+                <div className="grid grid-cols-2 gap-3 p-3 rounded-b-md">
                   {item.dropdown.map((subItem, subIndex) => (
                     <div
                       key={subIndex}

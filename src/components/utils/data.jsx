@@ -181,7 +181,7 @@ const featuredProducts = [
     ],
   },
   {
-    id: 11,
+    id: 91,
     title: "Logitech MX Master 3 Mouse",
     description:
       "Advanced wireless mouse with customizable buttons and ergonomic design.",
@@ -216,29 +216,40 @@ const featuredProducts = [
 
   // FOOTWEAR CATEGORY - 6 products
   {
-    id: 2,
-    title: "Nike Running Shoes",
-    description: "Lightweight running shoes for daily fitness routines.",
-    price: 5999.99,
-    originalPrice: 7999.99,
-    discount: "25% OFF",
+    id: 11,
+    title: "Nike Air Max",
+    description: "Comfortable and stylish running shoes for all-day wear.",
+    price: 8999.99,
+    originalPrice: 12999.99,
+    discount: "30% OFF",
     image:
       "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
     isNew: false,
     isBestSeller: true,
-    rating: 4.7,
-    reviews: 145,
+    rating: 4.8,
+    reviews: 234,
     stockStatus: "In Stock",
-    stockQuantity: 22,
+    stockQuantity: 18,
     category: "Footwear",
-    brand: "Nike",
-    colors: [{ name: "Blue", value: "blue", hex: "#0000FF" }],
+    brand: "SportFlex",
+    colors: [
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "White", value: "white", hex: "#FFFFFF" },
+    ],
     sizes: ["8", "9", "10", "11"],
-    features: ["Breathable mesh", "Durable sole", "Cushioned comfort"],
+    features: [
+      "Lightweight",
+      "Breathable Mesh",
+      "Durable Sole",
+      "Cushioned Comfort",
+      "Stylish Design",
+    ],
     shipping: "Free shipping on orders over $50",
     returns: "30-day easy returns and exchanges",
     images: [
       "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/88127f88-4f81-4f39-a106-862f414d882f/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/859fa30e-c31d-48ab-bf59-f762734cdd39/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
     ],
   },
   {

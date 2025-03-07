@@ -7,30 +7,42 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
 const DealOfDay = () => {
-  const dealProduct = {
+  const dealProduct = 
+  {
     id: 3,
-    title: "Wooden Dining Table Set",
-    description: "Elegant and modern 6-seater dining table set.",
-    price: 18999.99,
-    originalPrice: 24999.99,
-    discount: "24% OFF",
+    title: "Nike Air Max",
+    description: "Comfortable and stylish running shoes for all-day wear.",
+    price: 8999.99,
+    originalPrice: 12999.99,
+    discount: "30% OFF",
     image:
-      "https://www.jangirdecor.in/cdn/shop/files/pixelcut-1_97.png?v=1699073670",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
     isNew: false,
     isBestSeller: true,
-    rating: 4.5,
-    reviews: 98,
-    stockStatus: "Limited Stock",
-    stockQuantity: 8,
-    category: "Home&Furniture",
-    brand: "UrbanWood",
-    colors: [{ name: "Brown", value: "brown", hex: "#8B4513" }],
-    sizes: ["6-Seater"],
-    features: ["Solid wood construction", "Modern design", "Easy assembly"],
-    shipping: "Free delivery",
-    returns: "7-day return policy",
+    rating: 4.8,
+    reviews: 234,
+    stockStatus: "In Stock",
+    stockQuantity: 18,
+    category: "Footwear",
+    brand: "SportFlex",
+    colors: [
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "White", value: "white", hex: "#FFFFFF" },
+    ],
+    sizes: ["8", "9", "10", "11"],
+    features: [
+      "Lightweight",
+      "Breathable Mesh",
+      "Durable Sole",
+      "Cushioned Comfort",
+      "Stylish Design",
+    ],
+    shipping: "Free shipping on orders over $50",
+    returns: "30-day easy returns and exchanges",
     images: [
-      "https://www.jangirdecor.in/cdn/shop/files/pixelcut-1_97.png?v=1699073670",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/88127f88-4f81-4f39-a106-862f414d882f/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
+      "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/859fa30e-c31d-48ab-bf59-f762734cdd39/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
     ],
   };
 

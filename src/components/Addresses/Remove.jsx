@@ -42,7 +42,7 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        className="w-full max-w-[300px] sm:max-w-md bg-white dark:bg-black rounded-2xl shadow-lg overflow-hidden border dark:border-gray-600"
+        className="w-full md:max-w-md bg-white dark:bg-black rounded-2xl shadow-lg overflow-hidden border dark:border-gray-600"
       >
         <div className="relative h-14 bg-gradient-to-r from-red-500 to-pink-600 dark:from-red-600 dark:to-pink-700">
           <button
