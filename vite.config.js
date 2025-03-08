@@ -3,8 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
-const BACKEND_URI = import.meta.env.BACKEND_URI;
-
 export default defineConfig({
   plugins: [
     react(),
