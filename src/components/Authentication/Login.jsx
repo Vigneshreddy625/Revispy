@@ -1,21 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../authContext/useAuth";
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
+import { FaLock, FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
 import { Button } from "../ui/button";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, error: authError, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const passwordRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const predefinedUser = {
-    email: "admin@gmail.com",
-    password: "pass@123",
-  };
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -27,6 +22,15 @@ const Login = () => {
     password: "",
     general: ""
   });
+
+  useEffect(() => {
+    if (authError) {
+      setErrors(prev => ({
+        ...prev,
+        general: authError
+      }));
+    }
+  }, [authError]);
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -47,7 +51,6 @@ const Login = () => {
       [name]: value,
     });
     
-    // Clear errors when user starts typing
     if (errors[name] || errors.general) {
       setErrors({
         ...errors,
@@ -60,51 +63,40 @@ const Login = () => {
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
     
-    // Validate form
     let newErrors = {};
     let isValid = true;
-    
+
     if (!formValues.email) {
-      newErrors.email = "Email is required";
-      isValid = false;
+        newErrors.email = "Email is required";
+        isValid = false;
     } else if (!validateEmail(formValues.email)) {
-      newErrors.email = "Please enter a valid email";
-      isValid = false;
+        newErrors.email = "Please enter a valid email";
+        isValid = false;
     }
-    
+
     if (!formValues.password) {
-      newErrors.password = "Password is required";
-      isValid = false;
+        newErrors.password = "Password is required";
+        isValid = false;
     }
-    
+
     if (!isValid) {
-      setErrors({...errors, ...newErrors});
-      return;
+        setErrors({ ...errors, ...newErrors });
+        return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const { email, password } = formValues;
-      if (email === predefinedUser.email && password === predefinedUser.password) {
-        login();
+        await login(formValues.email, formValues.password);
         navigate("/categories");
-      } else {
-        setErrors({
-          ...errors,
-          general: "Invalid email or password"
-        });
-      }
     } catch (error) {
-      setErrors({
-        ...errors,
-        general: "Login failed. Please try again."
-      });
+
+        setErrors({
+            ...errors,
+            general: error.message || "Login failed. Please check your credentials and try again.",
+        });
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 
@@ -119,7 +111,7 @@ const Login = () => {
               value={formValues.email}
               onChange={handleChange}
               name="email"
-              id="floating_first_name"
+              id="floating_email"
               className={`block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                 errors.email ? "border-red-500" : ""
               }`}
@@ -127,7 +119,7 @@ const Login = () => {
               required
             />
             <label
-              htmlFor="floating_first_name"
+              htmlFor="floating_email"
               className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               <FaEnvelope className="inline mr-2 mb-1" />
@@ -135,6 +127,7 @@ const Login = () => {
             </label>
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
+          
           <div className="relative z-0 w-full mb-5 group">
             <input
               type={showPassword ? "text" : "password"}
@@ -188,10 +181,10 @@ const Login = () => {
           
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || authLoading}
             className="w-full px-5 py-2.5 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none transition-transform transform hover:scale-105 my-2"
           >
-            {isLoading ? (
+            {(isLoading || authLoading) ? (
               <span className="flex items-center justify-center">
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
