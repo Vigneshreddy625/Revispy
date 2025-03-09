@@ -5,6 +5,9 @@ const AuthContext = createContext(null);
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+axios.defaults.withCredentials = true;
+
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -78,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       
       const { user: userData } = response.data.data;
       setUser(userData);
-      
+      console.log(response.data)
       return response.data;
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Login failed');
@@ -113,7 +116,7 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true } // Ensures refresh token is sent via cookies
       );
   
-      const { accessToken } = response.data;
+      const accessToken = response.data.accessToken;
       
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   
