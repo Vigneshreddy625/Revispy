@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
-import { AvatarIcon } from '@radix-ui/react-icons';
-import { X } from 'lucide-react';
 import { useAuth } from '../../authContext/useAuth';
 
 function Signup() {
@@ -13,15 +11,12 @@ function Signup() {
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const { register, error: authError, loading: authLoading } = useAuth();
 
-  // Update local error when auth error changes
   React.useEffect(() => {
     if (authError) {
       setErrorMessage(authError);
@@ -34,7 +29,6 @@ function Signup() {
       ...prev,
       [name]: value
     }));
-    // Clear error message when user makes changes
     if (errorMessage) {
       setErrorMessage('');
     }
@@ -44,25 +38,6 @@ function Signup() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setErrorMessage('Image size should be less than 5MB');
-        return;
-      }
-      
-      if (!file.type.match('image.*')) {
-        setErrorMessage('Please select an image file');
-        return;
-      }
-      
-      setSelectedImage(file);
-      const fileUrl = URL.createObjectURL(file);
-      setPreviewUrl(fileUrl);
-      setErrorMessage('');
-    }
-  };
 
   const handleImageUploadClick = () => {
     fileInputRef.current.click();
@@ -71,17 +46,10 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     
-    // Validate form data
-    if (!selectedImage) {
-      setErrorMessage('Please select an avatar image');
-      return;
-    }
-    
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      // The register function in auth context expects userData object and avatarFile separately
       const userData = {
         fullName: formData.fullName,
         email: formData.email,
@@ -89,7 +57,7 @@ function Signup() {
         password: formData.password
       };
       
-      await register(userData, selectedImage);
+      await register(userData);
       navigate("/login");
     } catch (error) {
       setErrorMessage(error.message || "An error occurred during signup");
@@ -183,63 +151,6 @@ function Signup() {
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
-          </div>
-
-          <div className="w-full mb-5">
-            <div className="flex items-center justify-between mb-2">
-              <span className="flex items-center text-sm">
-                <AvatarIcon className="mr-2" /> Avatar (Required)
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleImageChange}
-                className="hidden"
-                id="image-upload"
-              />
-              <button
-                type="button"
-                onClick={handleImageUploadClick}
-                className="text-blue-600 hover:text-blue-800 text-sm"
-              >
-                Choose File
-              </button>
-            </div>
-            
-            {previewUrl ? (
-              <div className="relative w-full">
-                <img 
-                  src={previewUrl} 
-                  alt="Preview" 
-                  className="w-12 h-12 object-cover rounded-full mx-auto border-2 border-blue-500" 
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedImage(null);
-                    setPreviewUrl(null);
-                  }}
-                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center"
-                  aria-label="Remove image"
-                >
-                  <X size={12} />
-                </button>
-              </div>
-            ) : (
-              <div 
-                onClick={handleImageUploadClick}
-                className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto cursor-pointer hover:bg-gray-300"
-              >
-                <FaUser className="text-gray-400 text-xl" />
-              </div>
-            )}
-            
-            {selectedImage && (
-              <p className="text-xs text-center mt-2 text-gray-500">
-                {selectedImage.name} ({Math.round(selectedImage.size / 1024)} KB)
-              </p>
-            )}
           </div>
 
           <button

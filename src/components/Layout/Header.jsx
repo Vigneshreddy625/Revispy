@@ -42,24 +42,19 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [avatarError, setAvatarError] = useState(false);
 
-  // Handle window resize for responsive design
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Track dark mode changes
   useEffect(() => {
     setIsDarkMode(theme === "dark");
   }, [theme]);
 
-  // Update cart count when user authentication changes
   useEffect(() => {
-    // This could be replaced with your actual cart fetching logic
     if (isAuthenticated) {
-      // Fetch cart items from API or context
-      setCartCount(3); // Example count
+      setCartCount(3); 
     } else {
       setCartCount(0);
     }

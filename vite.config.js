@@ -16,13 +16,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      "/route": {
-        target: "https://backend-iva0.onrender.com",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 });

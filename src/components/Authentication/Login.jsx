@@ -87,10 +87,13 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-        await login(formValues.email, formValues.password);
+        // Updated to use the credentials object structure from our AuthContext
+        await login({
+          email: formValues.email,
+          password: formValues.password
+        });
         navigate("/categories");
     } catch (error) {
-
         setErrors({
             ...errors,
             general: error.message || "Login failed. Please check your credentials and try again.",
@@ -113,14 +116,14 @@ const Login = () => {
               name="email"
               id="floating_email"
               className={`block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                errors.email ? "border-red-500" : ""
+                errors.email ? "border-red-500" : "border-gray-300"
               }`}
               placeholder=" "
               required
             />
             <label
               htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               <FaEnvelope className="inline mr-2 mb-1" />
               Email
@@ -134,7 +137,7 @@ const Login = () => {
               name="password"
               id="floating_password"
               className={`block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                errors.password ? "border-red-500" : ""
+                errors.password ? "border-red-500" : "border-gray-300"
               }`}
               placeholder=" "
               value={formValues.password}
@@ -144,7 +147,7 @@ const Login = () => {
             />
             <label
               htmlFor="floating_password"
-              className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               <FaLock className="inline mr-2 mb-1" />
               Password
@@ -152,7 +155,7 @@ const Login = () => {
             <button
               type="button"
               onClick={handlePasswordVisibility}
-              className="absolute top-4 right-0"
+              className="absolute top-4 right-0 text-gray-500"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -166,7 +169,7 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label htmlFor="remember-me" className="ml-2 text-xs text-gray-600">
                 Remember me
@@ -177,12 +180,16 @@ const Login = () => {
             </Link>
           </div>
           
-          {errors.general && <p className="text-red-500 text-sm mb-2">{errors.general}</p>}
+          {errors.general && (
+            <div className="p-2 mb-4 text-sm text-red-500 bg-red-100 rounded-md">
+              {errors.general}
+            </div>
+          )}
           
           <Button
             type="submit"
             disabled={isLoading || authLoading}
-            className="w-full px-5 py-2.5 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none transition-transform transform hover:scale-105 my-2"
+            className="w-full px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none transition-transform transform hover:scale-105 my-2 disabled:opacity-75 disabled:hover:scale-100"
           >
             {(isLoading || authLoading) ? (
               <span className="flex items-center justify-center">
@@ -197,12 +204,12 @@ const Login = () => {
             )}
           </Button>
           
-          <hr className="my-2 text-black" />
-          <div className="flex justify-center items-center my-2">
-            <label className="ml-2 text-sm font-medium">
+          <hr className="my-4 border-gray-300" />
+          <div className="flex justify-center items-center mt-2">
+            <span className="text-sm text-gray-600">
               Don't have an account?
-            </label>
-            <Link to="/signup" className="ml-1 text-blue-600 hover:underline">
+            </span>
+            <Link to="/signup" className="ml-1 text-sm text-blue-600 hover:underline">
               Signup
             </Link>
           </div>
