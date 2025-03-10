@@ -7,6 +7,8 @@ import {
   User,
   Heart,
   ShoppingBagIcon,
+  User2,
+  UserIcon,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ToggleMode from "../Darkmode/ToggleMode";
@@ -117,7 +119,6 @@ const Header = () => {
       <header className="border-b dark:border-gray-600">
         <div className="container mx-auto">
           <div className="flex items-center justify-between h-16 px-4">
-            {/* Logo and Navigation */}
             <div className="flex items-center gap-8">
               <Link to="/home" className="flex-shrink-0">
                 <img
@@ -208,7 +209,7 @@ const Header = () => {
                           size="icon"
                           className="hover:bg-gray-100 dark:hover:bg-gray-800 p-0"
                         >
-                          <Avatar className="h-8 w-8">
+                          {/* <Avatar className="h-6 w-6">
                             <AvatarImage
                               src={getUserAvatar()}
                               alt="User avatar"
@@ -217,7 +218,8 @@ const Header = () => {
                             <AvatarFallback className="bg-primary text-primary-foreground">
                               {getUserInitials()}
                             </AvatarFallback>
-                          </Avatar>
+                          </Avatar> */}
+                          <UserIcon className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-56">
@@ -227,39 +229,11 @@ const Header = () => {
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className="cursor-pointer"
-                          onClick={() => navigate("/account/profile")}
+                          onClick={() => navigate("/account")}
                         >
                           <User className="h-4 w-4 mr-2" />
-                          Profile
+                          Account
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => navigate("/orders")}
-                        >
-                          <ShoppingBagIcon className="h-4 w-4 mr-2" />
-                          Orders
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => navigate("/wishlist")}
-                        >
-                          <Heart className="h-4 w-4 mr-2" />
-                          Wishlist
-                          </DropdownMenuItem>
-                        {isMobile && (
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => navigate("/cart")}
-                          >
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Cart
-                            {cartCount > 0 && (
-                              <Badge variant="secondary" className="ml-2">
-                                {cartCount}
-                              </Badge>
-                            )}
-                          </DropdownMenuItem>
-                        )}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className="cursor-pointer text-red-500 hover:text-red-600"
