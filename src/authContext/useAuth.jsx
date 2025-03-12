@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/users/refresh-token`, 
         {}, 
-        { withCredentials: true } // Ensures refresh token is sent via cookies
+        { withCredentials: true } 
       );
   
       const accessToken = response.data.accessToken;
