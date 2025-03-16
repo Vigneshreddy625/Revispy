@@ -4,230 +4,13 @@ import {Award, Clock, Tag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Product from "../Modals/Product";
 import ProductCard from "../Product/ProductCard";
+import { useSelector } from "react-redux";
+import { getSixRandomItems } from "../utils/RandomGen";
 
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const Home = () => {
-  const featuredProducts = [
-    {
-      id: 1,
-      title: "Marshall Headphones",
-      description:
-        "Noise-cancelling, wireless, and high-fidelity sound quality.",
-      price: 12999.99,
-      originalPrice: 15999.99,
-      discount: "35% OFF",
-      image:
-        "https://media.croma.com/image/upload/v1723054217/Croma%20Assets/Communication/Headphones%20and%20Earphones/Images/227824_0_fcnxfv.png",
-      isNew: true,
-      isBestSeller: true,
-      rating: 4.5,
-      reviews: 128,
-      stockStatus: "In Stock",
-      stockQuantity: 15,
-      category: "Electronics",
-      brand: "SoundPro",
-      colors: [
-        { name: "Black", value: "black", hex: "#000000" },
-        { name: "Silver", value: "silver", hex: "#C0C0C0" },
-      ],
-      sizes: ["Standard"],
-      features: [
-        "High-fidelity sound",
-        "Noise cancellation",
-        "Wireless connectivity",
-        "Long battery life",
-        "Comfortable fit",
-      ],
-      shipping: "Free shipping on orders over $50",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://media.croma.com/image/upload/v1723054217/Croma%20Assets/Communication/Headphones%20and%20Earphones/Images/227824_0_fcnxfv.png",
-        "https://x.imastudent.com/content/0023420_marshall-monitor-ii-anc-wireless-headphones_500.jpeg",
-        "https://mahajanelectronics.com/cdn/shop/files/712irsQ0gdL._SL1500.jpg?v=1728136536&width=1500",
-      ],
-    },
-    {
-      id: 2,
-      title: "Apple Watch Pro",
-      description: "Track your fitness and stay connected in style.",
-      price: 19999.99,
-      originalPrice: 24599.99,
-      discount: "20% OFF",
-      image:
-        "https://www.jiomart.com/images/product/original/rvhjzhyxio/clubclassy-t500-smart-watch-full-screen-waterproof-touch-display-bluetooth-calling-fitpro-t500-smart-watches-fitness-tracker-compatible-with-all-android-amp-ios-black-product-images-orvhjzhyxio-p606648963-3-202312101651.jpg",
-      isNew: true,
-      isBestSeller: false,
-      rating: 4.2,
-      reviews: 95,
-      stockStatus: "In Stock",
-      stockQuantity: 20,
-      category: "Wearables",
-      brand: "TechFit",
-      colors: [
-        { name: "Black", value: "black", hex: "#000000" },
-        { name: "Silver", value: "silver", hex: "#C0C0C0" },
-      ],
-      sizes: ["40mm", "44mm"],
-      features: [
-        "Heart Rate Monitor",
-        "GPS Tracking",
-        "Water Resistant",
-        "Always-on Display",
-        "Fitness App Integration",
-      ],
-      shipping: "Free shipping on orders over $50",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://www.jiomart.com/images/product/original/rvhjzhyxio/clubclassy-t500-smart-watch-full-screen-waterproof-touch-display-bluetooth-calling-fitpro-t500-smart-watches-fitness-tracker-compatible-with-all-android-amp-ios-black-product-images-orvhjzhyxio-p606648963-3-202312101651.jpg",
-        "https://static.toiimg.com/thumb/resizemode-4,msid-54128624,imgsize-500,width-800/54128624.jpg",
-        "https://play-lh.googleusercontent.com/WuL1L1ZwDcYOdRwtib2D95uZyP0Z4HojhjDyXUoWauXoq6Ec-qtlpcEyTkZIcj_Nbw8=w600-h300-pc0xffffff-pd",
-      ],
-    },
-    {
-      id: 3,
-      title: "Nike Air Max",
-      description: "Comfortable and stylish running shoes for all-day wear.",
-      price: 8999.99,
-      originalPrice: 12999.99,
-      discount: "30% OFF",
-      image:
-        "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
-      isNew: false,
-      isBestSeller: true,
-      rating: 4.8,
-      reviews: 234,
-      stockStatus: "In Stock",
-      stockQuantity: 18,
-      category: "Footwear",
-      brand: "SportFlex",
-      colors: [
-        { name: "Black", value: "black", hex: "#000000" },
-        { name: "White", value: "white", hex: "#FFFFFF" },
-      ],
-      sizes: ["8", "9", "10", "11"],
-      features: [
-        "Lightweight",
-        "Breathable Mesh",
-        "Durable Sole",
-        "Cushioned Comfort",
-        "Stylish Design",
-      ],
-      shipping: "Free shipping on orders over $50",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/12b4c855-4419-4764-9178-bbbe5a64e6a1/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
-        "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/88127f88-4f81-4f39-a106-862f414d882f/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
-        "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/859fa30e-c31d-48ab-bf59-f762734cdd39/NIKE+ZOOMX+INVINCIBLE+RN+3+OLY.png",
-      ],
-    },
-    {
-      id: 4,
-      title: 'Samsung 65" QLED TV',
-      description:
-        "Ultra HD 4K smart TV with stunning picture quality and built-in streaming apps.",
-      price: 89999.99,
-      originalPrice: 109999.99,
-      discount: "18% OFF",
-      image:
-        "https://images.samsung.com/is/image/samsung/p6pim/in/ua43t5410akxxl/gallery/in-fhd-t5310-ua43t5410akxxl-532972634?$684_547_PNG$",
-      isNew: true,
-      isBestSeller: false,
-      rating: 4.7,
-      reviews: 195,
-      stockStatus: "In Stock",
-      stockQuantity: 12,
-      category: "Electronics",
-      brand: "Samsung",
-      colors: [{ name: "Black", value: "black", hex: "#000000" }],
-      sizes: ["65 inch"],
-      features: [
-        "4K QLED Display",
-        "Smart TV functionality",
-        "Game Mode",
-        "Voice Assistant",
-      ],
-      shipping: "Free shipping",
-      returns: "14-day easy returns and exchanges",
-      images: [
-        "https://images.samsung.com/is/image/samsung/p6pim/in/ua43t5410akxxl/gallery/in-fhd-t5310-ua43t5410akxxl-532972634?$684_547_PNG$",
-        "https://jamesandco.in/wp-content/uploads/2024/09/in-qled-q60d-qa55q60daulxl-539976106.jpg",
-        "https://img.us.news.samsung.com/us/wp-content/uploads/2019/01/14103848/Samsung-TV_iTunes-Movies-and-TV-shows.jpg"
-      ],
-    },
-    {
-      id: 5,
-      title: "Canon DSLR Camera",
-      description:
-        "Capture stunning photos with this professional-grade camera.",
-      price: 80999.99,
-      originalPrice: 89999.99,
-      discount: "18% OFF",
-      image:
-        "https://images-cdn.ubuy.co.in/65fe64a89de64a706c0120dc-canon-eos-5d-mark-iv-dslr-camera-with.jpg",
-      isNew: false,
-      isBestSeller: true,
-      rating: 4.9,
-      reviews: 203,
-      stockStatus: "Limited Stock",
-      stockQuantity: 5,
-      category: "Electronics",
-      brand: "PhotoPro",
-      colors: [{ name: "Black", value: "black", hex: "#000000" }],
-      sizes: ["Standard"],
-      features: [
-        "24.1MP Sensor",
-        "4K Video Recording",
-        "Dual Pixel Autofocus",
-        "Wi-Fi Connectivity",
-        "Long Battery Life",
-      ],
-      shipping: "Free shipping",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://images-cdn.ubuy.co.in/65fe64a89de64a706c0120dc-canon-eos-5d-mark-iv-dslr-camera-with.jpg",
-        "https://m.media-amazon.com/images/I/91mjRsCxynL.jpg",
-      ],
-    },
-    {
-      id: 6,
-      title: "Puma slides",
-      description:
-        "Luxurious, eco-friendly bedding for a comfortable night's sleep.",
-      price: 1799.99,
-      originalPrice: 2099.99,
-      discount: "20% OFF",
-      image:
-        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/396064/01/sv01/fnd/IND/fmt/png/Royalcat-Memory-Foam-Unisex-Slides",
-      isNew: true,
-      isBestSeller: false,
-      rating: 4.7,
-      reviews: 118,
-      stockStatus: "In Stock",
-      stockQuantity: 25,
-      category: "Home",
-      brand: "EcoLuxe",
-      colors: [
-        { name: "White", value: "white", hex: "#FFFFFF" },
-        { name: "Beige", value: "beige", hex: "#F5F5DC" },
-        { name: "Gray", value: "gray", hex: "#808080" },
-      ],
-      sizes: ["Twin", "Full", "Queen", "King"],
-      features: [
-        "100% Organic Cotton",
-        "300 Thread Count",
-        "Hypoallergenic",
-        "Chemical-Free",
-        "Easy Care",
-      ],
-      shipping: "Free shipping on orders over $50",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/396064/01/sv01/fnd/IND/fmt/png/Royalcat-Memory-Foam-Unisex-Slides",
-        "https://rukminim2.flixcart.com/image/850/1000/xif0q/slipper-flip-flop/q/l/0/-original-imaggty7jefs4bsf.jpeg?q=90&crop=false",
-      ],
-    },
-  ];
+  
 
   const categories = [
     {
@@ -267,6 +50,7 @@ const Home = () => {
   const [wishlist, setWishlist] = useState([]);
   const [activeFilter, setActiveFilter] = useState("all");
   const navigate = useNavigate();
+  const featuredProducts = useSelector(getSixRandomItems);
 
   const toggleWishlist = (productId) => {
     if (wishlist.includes(productId)) {
@@ -293,7 +77,7 @@ const Home = () => {
     activeFilter === "all"
       ? featuredProducts
       : activeFilter === "new"
-      ? featuredProducts.filter((product) => product.isNew)
+      ? featuredProducts.filter((product) => product.newArrival)
       : featuredProducts.filter((product) => product.isBestSeller);
 
   useEffect(() => {

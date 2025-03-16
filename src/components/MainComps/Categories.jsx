@@ -113,19 +113,8 @@ const Categories = ({ handleCategoryClick }) => {
   );
 };
 
-const FloatingFilterButton = ({ showFilters, setShowFilters, totalFilterCount }) => {
-  return (
-    <div className="fixed bottom-6 right-6 z-50 lg:hidden">
-      <Button size="lg" className="rounded-full shadow-lg" onClick={() => setShowFilters(!showFilters)}>
-        <Filter size={20} className="mr-2" />
-        Filters {totalFilterCount > 0 && `(${totalFilterCount})`}
-      </Button>
-    </div>
-  );
-};
 
 const MainComponent = () => {
-  const [showFilters, setShowFilters] = useState(false);
 
   const handleCategoryClick = (categoryName) => {
     console.log("Category clicked:", categoryName);

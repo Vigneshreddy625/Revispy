@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, ChevronLeft, Grid, List, X } from "lucide-react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import featuredProducts from "../utils/data";
 import ProductCard from "../Product/ProductCard";
 import ProductList from "../Product/ProductList";
 import Product from "../Modals/Product";
 import { Button } from "../ui/button";
 import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
+import { useSelector } from "react-redux";
+import { selectProductsItems } from "../utils/RandomGen";
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
@@ -28,6 +29,7 @@ const CategoryPage = () => {
     rating: 0,
   });
   const [sortBy, setSortBy] = useState("relevance");
+  const featuredProducts = useSelector(selectProductsItems);
 
   const navigate = useNavigate();
 
@@ -245,7 +247,7 @@ const CategoryPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard
-              key={product.id}
+              key={product._id}
               product={product}
               openModal={openModal}
               toggleWishlist={toggleWishlist}
@@ -258,7 +260,7 @@ const CategoryPage = () => {
         <div className="space-y-4">
           {filteredProducts.map((product) => (
             <ProductList
-              key={product.id}
+              key={product._id}
               product={product}
               openModal={openModal}
               toggleWishlist={toggleWishlist}

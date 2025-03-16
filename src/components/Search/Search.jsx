@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Grid, List } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
-import featuredProducts from "../utils/data";
 import ProductCard from "../Product/ProductCard";
 import ProductList from "../Product/ProductList";
 import Product from "../Modals/Product";
 import { Button } from "../ui/button";
 import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProductsItems } from "../utils/RandomGen";
 
 const ProductSearch = () => {
   const [searchParams] = useSearchParams();
@@ -27,6 +28,8 @@ const ProductSearch = () => {
     rating: 0,
   });
   const [sortBy, setSortBy] = useState("relevance");
+
+  const featuredProducts = useSelector(selectProductsItems);
 
   useEffect(() => {
     const initialQuery = searchParams.get("q");

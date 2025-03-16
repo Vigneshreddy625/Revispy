@@ -14,17 +14,17 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
         </div>
 
         <button
-          onClick={() => toggleWishlist(product.id)}
+          onClick={() => toggleWishlist(product._id)}
           className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500"
-          aria-label={wishlist.includes(product.id) ? "Remove from wishlist" : "Add to wishlist"}
+          aria-label={wishlist.includes(product._id) ? "Remove from wishlist" : "Add to wishlist"}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
             viewBox="0 0 24 24"
-            fill={wishlist.includes(product.id) ? "red" : "none"}
-            stroke={wishlist.includes(product.id) ? "red" : "currentColor"}
+            fill={wishlist.includes(product._id) ? "red" : "none"}
+            stroke={wishlist.includes(product._id) ? "red" : "currentColor"}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -43,7 +43,7 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
       <div className="md:col-span-6 flex flex-col justify-between">
         <div>
           <div className="flex flex-wrap gap-2 mb-3">
-            {product.isNew && (
+            {product.newArrival && (
               <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">
                 New
               </span>

@@ -20,10 +20,10 @@ const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
           </Suspense>
           {product.discount && (
             <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-medium rounded">
-              {product.discount}
+              {product.discount}% OFF
             </span>
           )}
-          {product.isNew && (
+          {product.newArrival && (
             <span className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs font-medium rounded">
               NEW
             </span>
@@ -31,8 +31,8 @@ const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
         </div>
         <div className="relative p-4">
           <div className="absolute -right-12 bottom-16 group-hover:right-2 transition-all duration-300 flex flex-col gap-1">
-            <button className='px-2 py-1' onClick={() => toggleWishlist(product.id)}>
-              <Heart className="h-5 w-5" fill={wishlist.includes(product.id) ? "red" : "none"} color={wishlist.includes(product.id) ? "red" : "currentColor"} />
+            <button className='px-2 py-1' onClick={() => toggleWishlist(product._id)}>
+              <Heart className="h-5 w-5" fill={wishlist.includes(product._id) ? "red" : "none"} color={wishlist.includes(product._id) ? "red" : "currentColor"} />
             </button>
             <button className='px-2 py-1' onClick={() => handleAddToCart(product)}>
               <ShoppingCart className="h-5 w-5" />

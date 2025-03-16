@@ -1,10 +1,12 @@
-import { useState, useCallback, lazy, Suspense, useEffect } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "./redux/Products/productSlice";
 
 const Orders = lazy(() => import("./components/Account/Orders"));
 const Delete = lazy(() => import("./components/Profile/Delete"));
@@ -35,9 +37,23 @@ import Details from "./components/MobileAccount/Details";
 import MobileDelete from "./components/MobileAccount/Delete";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const handleSetCount = useCallback((value) => setCount(value), []);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  const dispatch = useDispatch();
+  // const loading = useSelector((state) => state.products.loading);
+  // const error = useSelector((state) => state.products.error);
+
+  // if(loading){
+  //   return <LoadingScreen/>
+  // }
+
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
+
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {

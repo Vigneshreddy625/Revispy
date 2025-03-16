@@ -31,6 +31,10 @@ import { Label } from "../ui/label";
 import img from "/Sale.png";
 import Product from "../Modals/Product";
 import ProductCard from "../Product/ProductCard";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../redux/Products/productSlice";
+import { getNineRandomItems } from "../utils/RandomGen";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const SalePage = () => {
@@ -122,108 +126,13 @@ const SalePage = () => {
     },
   ];
 
-  const flashDeals = [
-    {
-      id: 1,
-      title: "AirPods Pro",
-      description:
-        "Get the best deal on AirPods Pro with an amazing 48% discount!",
-      price: 10900,
-      originalPrice: 20900,
-      discount: "48% OFF",
-      image:
-        "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
-      isNew: false,
-      isBestSeller: true,
-      rating: 4.8,
-      reviews: 2456,
-      stockStatus: "In Stock",
-      stockQuantity: 15,
-      category: "Headphones",
-      brand: "Apple",
-      colors: [{ name: "White", value: "white", hex: "#FFFFFF" }],
-      sizes: ["Standard"],
-      features: [
-        "Active Noise Cancellation",
-        "Wireless Charging",
-        "Sweat and Water Resistant",
-        "Transparency Mode",
-      ],
-      shipping: "Free shipping on orders over ₹500",
-      returns: "7-day easy returns and exchanges",
-      images: [
-        "https://theclubfactory.in/cdn/shop/products/UU3m8ivBmYfA4B5SQr3ekP-1200-80_600x600_crop_center.jpg?v=1689449418",
-        "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/25565108/2024/2/14/7ae663c5-76ff-403d-94e6-7b8ad49a4f7e1707887395147-Apple-AirPods-Pro-2nd-Generation-with-MagSafe-Case-USB-C-ANC-6.jpg",
-        "https://www.jiomart.com/images/product/original/491630480/apple-mwp22hn-a-wireless-airpods-pro-with-wireless-charging-case-white-digital-o491630480-p590039498-1-202009260644.jpeg?im=Resize=(1000,1000)",
-      ],
-    },
-    {
-      id: 2,
-      title: "Samsung 4K TV",
-      description: "Crystal clear 4K resolution with smart features.",
-      price: 15900,
-      originalPrice: 23900,
-      discount: "33% OFF",
-      image:
-        "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
-      isNew: false,
-      isBestSeller: false,
-      rating: 4.7,
-      reviews: 1823,
-      stockStatus: "In Stock",
-      stockQuantity: 10,
-      category: "TVs",
-      brand: "Samsung",
-      colors: [{ name: "Black", value: "black", hex: "#000000" }],
-      sizes: ['43"', '50"', '55"'],
-      features: [
-        "4K Ultra HD Resolution",
-        "Smart TV Features",
-        "Multiple HDMI Ports",
-        "Voice Control",
-      ],
-      shipping: "Free shipping",
-      returns: "30-day easy returns and exchanges",
-      images: [
-        "https://sathya.in/media/90828/catalog/Samsung%2055%20Crystal%204K%20UHD%20Smart%20TV02.jpg",
-        "https://vasanthandco.in/UploadedFiles/productimages/20241119034503-Untitled-2.png",
-      ],
-    },
-    {
-      id: 3,
-      title: "iPad Pro",
-      description:
-        "Get the best deal on iPad Air with an amazing 24% discount!",
-      price: 30900,
-      originalPrice: 40900,
-      discount: "24% OFF",
-      image:
-        "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
-      isNew: false,
-      isBestSeller: true,
-      rating: 4.9,
-      reviews: 3241,
-      stockStatus: "In Stock",
-      stockQuantity: 12,
-      category: "Tablets",
-      brand: "Apple",
-      colors: [{ name: "Silver", value: "silver", hex: "#C0C0C0" }],
-      sizes: ["10.9-inch"],
-      features: [
-        "Liquid Retina Display",
-        "A14 Bionic Chip",
-        "Apple Pencil Support",
-        "All-day Battery Life",
-      ],
-      shipping: "Free shipping on orders over ₹500",
-      returns: "7-day easy returns and exchanges",
-      images: [
-        "https://www.imagineonline.store/cdn/shop/files/iPad_Pro_13_M4_WiFi_Space_Black_PDP_Image_Position_1b__en-IN_e5f3583b-af6d-4345-9494-addd1c86ca84.jpg?v=1716472246&width=1445",
-        "https://laptopvang.com/wp-content/uploads/2024/06/ipad-pro-m4-13-inch-5g.jpg",
-        "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms-2/2024/05/p-91122368-ipad-pro-review-2024.jpg",
-      ],
-    },
-  ];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      dispatch(fetchProducts());
+    }, [dispatch]);
+
+  const flashDeals = useSelector(getNineRandomItems);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -638,7 +547,7 @@ const SalePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredFlashDeals.map((product) => (
               <ProductCard
-                key={product.id}
+                key={product._id}
                 product={product}
                 openModal={openModal}
                 toggleWishlist={toggleWishlist}
