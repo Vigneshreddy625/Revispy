@@ -45,7 +45,8 @@
     "react-tooltip": "^5.28.0",
     "sonner": "^2.0.1",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "thunk": "^0.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

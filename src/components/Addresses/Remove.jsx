@@ -1,9 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { X, Trash2, Home } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAddress } from "../../redux/Address/addressSlice";
 
-const DeleteAddress = ({ isOpen, onClose, address }) => {
+const DeleteAddress = ({ isOpen, onClose, addressId, address }) => {
   const popupRef = useRef(null);
+  const dispatch = useDispatch();
+  const addressDeleteLoading = useSelector((state) => state.addresses.loading);
+  const addressDeleteError = useSelector((state) => state.addresses.error);
 
   useEffect(() => {
     if (isOpen) {
@@ -27,6 +32,16 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose]);
+
+  const handleDelete = () => {
+    dispatch(deleteAddress(addressId));
+  };
+
+  useEffect(() => {
+    if (!addressDeleteLoading && !addressDeleteError && addressDeleteError !== null && isOpen) {
+        onClose();
+    }
+  }, [addressDeleteLoading, addressDeleteError, onClose, isOpen]);
 
   if (!isOpen) return null;
 
@@ -62,9 +77,10 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
             Delete Address
           </h2>
-          
+
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Are you sure you want to delete this address? This action cannot be undone.
+            Are you sure you want to delete this address? This action cannot be
+            undone.
           </p>
 
           <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl mb-6">
@@ -72,16 +88,16 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
               <Home className="w-5 h-5 mt-1 text-gray-400 dark:text-gray-500" />
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  Vignesh Reddy
+                  {address?.name}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Srinagar colony, kurnool road
+                  {address?.street}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  ongole, Andhra Pradesh - 523001
+                  {address?.city}, {address?.state} - {address?.postalcode}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Mobile: 9381XXXXXX
+                  Mobile: {address?.mobile}
                 </p>
               </div>
             </div>
@@ -91,16 +107,13 @@ const DeleteAddress = ({ isOpen, onClose, address }) => {
         <div className="p-4 bg-gray-50 dark:bg-gray-800/50 flex flex-row gap-3 justify-end">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 
-                     hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
           >
             Cancel
           </button>
           <button
-            className="w-full sm:w-auto px-2 md:px-6 py-2.5 text-sm font-medium bg-gradient-to-r from-red-500 to-pink-600 
-                     hover:from-red-600 hover:to-pink-700 text-white rounded-lg
-                     transform transition-all active:scale-95 focus:outline-none
-                     focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+            onClick={handleDelete}
+            className="w-full sm:w-auto px-2 md:px-6 py-2.5 text-sm font-medium bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg transform transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
           >
             Delete Address
           </button>

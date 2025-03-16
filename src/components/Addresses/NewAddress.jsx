@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { X, MapPin, User, Phone, Home, Building, Map } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addAddress } from "../../redux/Address/addressSlice";
 
 const NewAddress = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    mobileNumber: "",
-    houseNumber: "",
-    pincode: "",
+    name: "",
+    mobile: "",
+    houseNo: "",
+    postalCode: "",
     state: "",
-    streetAddress: "",
+    street: "",
+    locality: "",
     city: "",
     district: "",
-    country: "India"
+    country: "India",
+    type: "home", 
   });
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const fetchLocationDetails = async (pin) => {
     setLoading(true);
@@ -23,28 +28,29 @@ const NewAddress = ({ isOpen, onClose }) => {
       const data = await response.json();
       if (data[0]?.Status === "Success") {
         const postOffice = data[0].PostOffice[0];
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          city: postOffice.Name,
+          locality: postOffice.Name,
+          city:postOffice.Block,
           district: postOffice.District,
           state: postOffice.State,
-          country: postOffice.Country
+          country: postOffice.Country,
         }));
       } else {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           city: "",
           district: "",
-          state: ""
+          state: "",
         }));
       }
     } catch (error) {
       console.error("Error fetching location details:", error);
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         city: "",
         district: "",
-        state: ""
+        state: "",
       }));
     }
     setLoading(false);
@@ -52,30 +58,34 @@ const NewAddress = ({ isOpen, onClose }) => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (name === "pincode") {
+    if (name === "postalCode") {
       const numericValue = value.replace(/\D/g, "");
-      setFormData(prev => ({ ...prev, [name]: numericValue }));
+      setFormData((prev) => ({ ...prev, [name]: numericValue }));
       if (numericValue.length === 6) {
         fetchLocationDetails(numericValue);
       } else if (numericValue.length < 6) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
+          locality: "",
           city: "",
           district: "",
           state: "",
-          country: "India"
+          country: "India",
         }));
       }
     } else if (type === "checkbox") {
-      setFormData(prev => ({ ...prev, [name]: checked }));
+      setFormData((prev) => ({
+        ...prev,
+        type: checked ? "home" : "work", 
+      }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    dispatch(addAddress(formData));
     onClose();
   };
 
@@ -106,13 +116,13 @@ const NewAddress = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     const handleEscKey = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleEscKey);
+    window.addEventListener("keydown", handleEscKey);
     return () => {
-      window.removeEventListener('keydown', handleEscKey);
+      window.removeEventListener("keydown", handleEscKey);
     };
   }, [isOpen, onClose]);
 
@@ -162,8 +172,8 @@ const NewAddress = ({ isOpen, onClose }) => {
                     <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Full Name</label>
                     <input
                       type="text"
-                      name="fullName"
-                      value={formData.fullName}
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
                       className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
                       placeholder="Enter Full Name"
@@ -180,50 +190,11 @@ const NewAddress = ({ isOpen, onClose }) => {
                     <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Mobile Number</label>
                     <input
                       type="tel"
-                      name="mobileNumber"
-                      value={formData.mobileNumber}
+                      name="mobile"
+                      value={formData.mobile}
                       onChange={handleInputChange}
                       className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
                       placeholder="Enter Mobile Number"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div className="flex items-start space-x-2 sm:space-x-3">
-                  <div className="mt-1 flex-shrink-0">
-                    <Home className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">House/Flat No.</label>
-                    <input
-                      type="text"
-                      name="houseNumber"
-                      value={formData.houseNumber}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
-                      placeholder="Enter House/Flat No."
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-2 sm:space-x-3">
-                  <div className="mt-1 flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Pincode</label>
-                    <input
-                      type="text"
-                      name="pincode"
-                      value={formData.pincode}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
-                      placeholder="Enter Pincode"
-                      maxLength={6}
                       required
                     />
                   </div>
@@ -237,8 +208,8 @@ const NewAddress = ({ isOpen, onClose }) => {
                 <div className="flex-1 min-w-0">
                   <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Street Address</label>
                   <textarea
-                    name="streetAddress"
-                    value={formData.streetAddress}
+                    name="street"
+                    value={formData.street}
                     onChange={handleInputChange}
                     rows={2}
                     className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
@@ -247,6 +218,50 @@ const NewAddress = ({ isOpen, onClose }) => {
                   />
                 </div>
               </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div className="flex items-start space-x-2 sm:space-x-3">
+                  <div className="mt-1 flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Pincode</label>
+                    <input
+                      type="text"
+                      name="postalCode"
+                      value={formData.postalCode}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
+                      placeholder="Enter Pincode"
+                      maxLength={6}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-2 sm:space-x-3">
+                  <div className="mt-1 flex-shrink-0">
+                    <Map className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Locality</label>
+                    {loading ? (
+                      <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
+                    ) : (
+                    <input
+                      type="text"
+                      name="locality"
+                      value={formData.locality}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
+                      placeholder="Enter House/Flat No."
+                      required
+                    />
+                    )}
+                  </div>
+                </div>
+
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-start space-x-2 sm:space-x-3">
@@ -254,7 +269,7 @@ const NewAddress = ({ isOpen, onClose }) => {
                     <Building className="w-5 h-5 text-gray-400 dark:text-gray-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Locality/Town</label>
+                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">City</label>
                     {loading ? (
                       <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
                     ) : (
@@ -264,7 +279,7 @@ const NewAddress = ({ isOpen, onClose }) => {
                         value={formData.city}
                         onChange={handleInputChange}
                         className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
-                        placeholder="Enter Locality/Town"
+                        placeholder="Enter City"
                         required
                       />
                     )}
@@ -276,7 +291,7 @@ const NewAddress = ({ isOpen, onClose }) => {
                     <Building className="w-5 h-5 text-gray-400 dark:text-gray-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">City/District</label>
+                    <label className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">District</label>
                     {loading ? (
                       <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
                     ) : (
@@ -347,18 +362,21 @@ const NewAddress = ({ isOpen, onClose }) => {
               </div>
 
               <div className="flex items-center pt-1">
-                <input
-                  type="checkbox"
-                  id="isDefault"
-                  name="isDefault"
-                  checked={formData.isDefault}
-                  onChange={handleInputChange}
-                  className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
-                />
-                <label htmlFor="isDefault" className="ml-3 block text-sm text-gray-700 dark:text-gray-300">
-                  Set as default address
-                </label>
-              </div>
+              <input
+                type="checkbox"
+                id="isHome"
+                name="isHome"
+                checked={formData.type === "home"} 
+                onChange={handleInputChange}
+                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+              />
+              <label
+                htmlFor="isHome"
+                className="ml-3 block text-sm text-gray-700 dark:text-gray-300"
+              >
+                Set as home address
+              </label>
+            </div>
             </div>
           </div>
 

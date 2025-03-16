@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { addUser, clearUser } from "../redux/Auth/authSlice"
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const AuthContext = createContext(null);
 
@@ -20,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -31,9 +34,11 @@ export const AuthProvider = ({ children }) => {
         
         if (response.data.data) {
           setUser(response.data.data);
+          dispatch(addUser(response.data.data));
         }
       } catch (err) {
         setUser(null);
+        dispatch(clearUser());
       } finally {
         setLoading(false);
       }
@@ -81,6 +86,7 @@ export const AuthProvider = ({ children }) => {
       
       const { user: userData } = response.data.data;
       setUser(userData);
+      dispatch(addUser(userData));
       console.log(response.data)
       return response.data;
     } catch (err) {
@@ -103,6 +109,7 @@ export const AuthProvider = ({ children }) => {
       console.error("Logout request failed:", err);
     } finally {
       setUser(null); 
+      dispatch(clearUser());
       setLoading(false);
     }
   };
@@ -123,6 +130,7 @@ export const AuthProvider = ({ children }) => {
       return accessToken;
     } catch (err) {
       setUser(null);
+      dispatch(clearUser());
       throw err;
     }
   };
@@ -151,6 +159,7 @@ export const AuthProvider = ({ children }) => {
             return axios(originalRequest);
           } catch (err) {
             setUser(null);
+            dispatch(clearUser());
             return Promise.reject(err);
           }
         }
