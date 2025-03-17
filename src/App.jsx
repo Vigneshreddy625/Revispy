@@ -35,25 +35,12 @@ import MobileOrders from "./components/MobileAccount/Orders";
 import MobileAddresses from "./components/MobileAccount/Addresses";
 import Details from "./components/MobileAccount/Details";
 import MobileDelete from "./components/MobileAccount/Delete";
+import OTP from "./components/Authentication/OTP";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   const dispatch = useDispatch();
-  // const loading = useSelector((state) => state.products.loading);
-  // const error = useSelector((state) => state.products.error);
-
-  // if(loading){
-  //   return <LoadingScreen/>
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,11 +57,10 @@ function App() {
     <Router>
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
+          <Route element={<ProtectedRoute/>}>
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/home" replace />} />
             <Route path="home" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
             <Route path="sale" element={<SalePage />} />
             <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Wishlist />} />
@@ -91,14 +77,6 @@ function App() {
             <Route path="/trending" element={<TrendingPage />} />
             <Route path="/dod" element={<DOD />} />
             <Route path="confirm-otp" element={<ConfirmOTP />} />
-            {/* <Route
-                  path="categories"
-                  element={
-                    <ProtectedRoute>
-                      <Categories />
-                    </ProtectedRoute>
-                  }
-                /> */}
             <Route path="/categories" element={<Categories />} />
             <Route
               path="/categories/:categoryName"
@@ -108,6 +86,8 @@ function App() {
             <Route path="mobileaccount" element={<MobileAccount />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
+          
+          
           {isMobile && <Route path="search" element={<Search />} />}
           {isMobile && (
             <>
@@ -119,6 +99,10 @@ function App() {
             </>
           )}
           <Route path="*" element={<PageNotFound />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/otp" element={<OTP/>} />
         </Routes>
       </Suspense>
     </Router>

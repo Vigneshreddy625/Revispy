@@ -28,25 +28,24 @@ export const AuthProvider = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${BACKEND_URL}/api/v1/users/current-user`, {
-          credentials: "include",
-        });
-        
+        const response = await axios.get(`${BACKEND_URL}/api/v1/users/current-user`);
         if (response.data.data) {
           setUser(response.data.data);
           dispatch(addUser(response.data.data));
         }
       } catch (err) {
-        setUser(null);
-        dispatch(clearUser());
+        if (err.response?.status === 401) {
+          setUser(null);
+          dispatch(clearUser());
+        }
       } finally {
         setLoading(false);
       }
     };
-
+  
     checkAuthStatus();
   }, []);
-
+  
   const register = async (userData) => {
     try {
       setLoading(true);

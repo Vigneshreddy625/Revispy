@@ -5,6 +5,7 @@ import Edit from "../Addresses/Edit";
 import DeleteAddress from "../Addresses/Remove";
 import NewAddress from "../Addresses/NewAddress";
 import { Briefcase, Edit2, Home, MapPin, Navigation, Phone, Plus, Trash2, User } from "lucide-react";
+import LoadingScreen from "../Items/LoadingScreen";
 
 export default function Addresses() {
   const [newAddress, setNewAddress] = useState(false);
@@ -23,12 +24,9 @@ export default function Addresses() {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   const handleEditClick = (addressId, addressData) => {
     setSelectedAddressId(addressId);
