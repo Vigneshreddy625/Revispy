@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAuth } from "../../authContext/useAuth";
 import { useNavigate } from 'react-router-dom';
 import { LogOutIcon, Loader2 } from "lucide-react";
-import axios from 'axios'; 
 
 const Logout = () => {
     const { logout } = useAuth();
@@ -21,7 +20,6 @@ const Logout = () => {
         }
     };
     
-
     return (
         <button onClick={handleLogout} disabled={isLoading}>
             {isLoading ? <Loader2 className="animate-spin" /> : <LogOutIcon />}

@@ -91,7 +91,7 @@ const Login = () => {
         email: formValues.email,
         password: formValues.password,
       });
-      navigate("/categories");
+      navigate("/home");
     } catch (error) {
       setErrors({
         ...errors,

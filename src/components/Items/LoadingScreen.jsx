@@ -3,7 +3,7 @@ import ReactLoading from "react-loading";
 
 function LoadingScreen() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <div className="w-full flex flex-col justify-center items-center min-h-screen">
       <ReactLoading
         type={"spin"}
         color={"#007FFF"}

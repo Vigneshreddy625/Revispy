@@ -24,7 +24,7 @@ const Home = lazy(() => import("./components/MainComps/Home"));
 const SalePage = lazy(() => import("./components/MainComps/Sale"));
 const TrendingPage = lazy(() => import("./components/MainComps/Trending"));
 const LoadingScreen = lazy(() => import("./components/Items/LoadingScreen"));
-const Cart = lazy(() => import("./components/HeaderComps/Cart"));
+const Cart = lazy(() => import("./components/Cart/Cart"));
 const Wishlist = lazy(() => import("./components/HeaderComps/Wishlist"));
 const Search = lazy(() => import("./components/HeaderComps/Search"));
 const PageNotFound = lazy(() => import("./components/Items/PNF"));

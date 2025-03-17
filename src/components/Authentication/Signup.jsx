@@ -116,8 +116,8 @@ function Signup() {
           muted 
         />
       </div>
-      <div className="flex w-full flex-col md:w-1/2">
-        <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
+      <div className="flex w-full flex-col min-h-screen bg-white md:w-1/2">
+        <div className="lg:w-[28rem] w-[360px] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start px-6 lg:border-none border border-gray-600 rounded-lg md:pt-0">
           <p className="text-left text-3xl font-bold text-black">Create an account</p>
           <p className="mt-2 text-left text-gray-500">
             Please enter your details to sign up.

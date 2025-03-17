@@ -35,7 +35,7 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
 
         {product.discount && (
           <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-lg">
-            {product.discount}
+            {product.discount}% off
           </span>
         )}
       </div>
@@ -93,14 +93,11 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
       <div className="md:col-span-3 flex flex-col justify-between border-t pt-4 md:border-t-0 md:pt-0 md:border-l md:pl-5">
         <div>
           <div className="flex items-baseline">
-            <span className="font-bold text-xl">${(product.price / 100).toFixed(2)}</span>
+            <span className="font-bold text-xl">₹{product.price}</span>
             {product.originalPrice && (
               <>
                 <span className="ml-2 text-gray-500 line-through text-sm">
-                  ${(product.originalPrice / 100).toFixed(2)}
-                </span>
-                <span className="ml-2 text-green-600 text-sm font-medium">
-                  {Math.round((1 - product.price / product.originalPrice) * 100)}% off
+                ₹{product.originalPrice}
                 </span>
               </>
             )}
