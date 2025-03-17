@@ -1,7 +1,8 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { addUser, clearUser } from "../redux/Auth/authSlice"
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { addUser, clearUser } from "../redux/Auth/authSlice";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import LoadingScreen from "../components/Items/LoadingScreen"
 
 const AuthContext = createContext(null);
 
@@ -9,11 +10,10 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 axios.defaults.withCredentials = true;
 
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -28,7 +28,9 @@ export const AuthProvider = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${BACKEND_URL}/api/v1/users/current-user`);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/v1/users/current-user`
+        );
         if (response.data.data) {
           setUser(response.data.data);
           dispatch(addUser(response.data.data));
@@ -42,26 +44,31 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     };
-  
+
     checkAuthStatus();
   }, []);
-  
+
   const register = async (userData) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { fullName, email, password } = userData;
-      
+
       if (!fullName || !email || !password) {
-        throw new Error('All fields are required');
+        throw new Error("All fields are required");
       }
-      
-      const response = await axios.post(`${BACKEND_URL}/api/v1/users/register`, userData);
-      
+
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/users/register`,
+        userData
+      );
+
       return response.data;
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Registration failed');
+      setError(
+        err.response?.data?.message || err.message || "Registration failed"
+      );
       throw err;
     } finally {
       setLoading(false);
@@ -72,24 +79,28 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { email, password } = credentials;
-      
+
       if (!email || !password) {
-        throw new Error('Email and password are required');
+        throw new Error("Email and password are required");
       }
-      
-      const response = await axios.post(`${BACKEND_URL}/api/v1/users/login`, credentials, {
-        withCredentials: true
-      });
-      
+
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/users/login`,
+        credentials,
+        {
+          withCredentials: true,
+        }
+      );
+
       const { user: userData } = response.data.data;
       setUser(userData);
       dispatch(addUser(userData));
-      console.log(response.data)
+      console.log(response.data);
       return response.data;
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Login failed');
+      setError(err.response?.data?.message || err.message || "Login failed");
       throw err;
     } finally {
       setLoading(false);
@@ -100,32 +111,35 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-  
-      await axios.post(`${BACKEND_URL}/api/v1/users/logout`, {}, {
-        withCredentials: true
-      });
+
+      await axios.post(
+        `${BACKEND_URL}/api/v1/users/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
     } catch (err) {
       console.error("Logout request failed:", err);
     } finally {
-      setUser(null); 
+      setUser(null);
       dispatch(clearUser());
       setLoading(false);
     }
   };
-  
 
   const refreshToken = async () => {
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/users/refresh-token`, 
-        {}, 
-        { withCredentials: true } 
+        `${BACKEND_URL}/api/v1/users/refresh-token`,
+        {},
+        { withCredentials: true }
       );
-  
+
       const accessToken = response.data.accessToken;
-      
+
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-  
+
       return accessToken;
     } catch (err) {
       setUser(null);
@@ -133,7 +147,32 @@ export const AuthProvider = ({ children }) => {
       throw err;
     }
   };
-  
+
+const deleteUser = async (userId) => {
+  try {
+    setLoading(true);
+    setError(null);
+
+    await axios.post(
+      `${BACKEND_URL}/api/v1/users/delete-user/${userId}`, 
+      {}, 
+      {
+        withCredentials: true,
+      }
+    );
+    
+
+    setUser(null);
+    dispatch(clearUser());
+    return true;
+  } catch (error) {
+    console.error("Delete request failed:", error);
+    setError(error.response?.data?.message || error.message || "Delete failed");
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     const requestInterceptor = axios.interceptors.request.use(
@@ -147,12 +186,14 @@ export const AuthProvider = ({ children }) => {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-        
-        if (error.response?.status === 401 && 
-            !originalRequest._retry && 
-            !originalRequest.url?.includes('refresh-token')) {
+
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          !originalRequest.url?.includes("refresh-token")
+        ) {
           originalRequest._retry = true;
-          
+
           try {
             await refreshToken();
             return axios(originalRequest);
@@ -162,7 +203,7 @@ export const AuthProvider = ({ children }) => {
             return Promise.reject(err);
           }
         }
-        
+
         return Promise.reject(error);
       }
     );
@@ -181,53 +222,49 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     refreshToken,
-    isAuthenticated: !!user
+    deleteUser,
+    isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const withAuth = (Component) => {
   const AuthenticatedComponent = (props) => {
     const { user, loading, isAuthenticated } = useAuth();
-    
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-    
-    if (!isAuthenticated) {
 
+    if (loading) {
+      return <LoadingScreen/>;
+    }
+
+    if (!isAuthenticated) {
       return <div>Please login to access this page</div>;
     }
-    
+
     return <Component {...props} />;
   };
-  
+
   return AuthenticatedComponent;
 };
 
 export const withAdminAuth = (Component) => {
   const AdminComponent = (props) => {
     const { user, loading, isAuthenticated } = useAuth();
-    
+
     if (loading) {
       return <div>Loading...</div>;
     }
-    
+
     if (!isAuthenticated) {
       return <div>Please login to access this page</div>;
     }
-    
-    if (user.role !== 'admin') {
+
+    if (user.role !== "admin") {
       return <div>Access denied. Admin privileges required.</div>;
     }
-    
+
     return <Component {...props} />;
   };
-  
+
   return AdminComponent;
 };
