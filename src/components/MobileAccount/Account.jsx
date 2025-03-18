@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "../../authContext/useAuth";
 import {
   ChevronRight,
   ShoppingBag,
@@ -24,11 +25,12 @@ import avatar from "../../assets/MVR.jpg"
 const Account = () => {
   const [openDropdowns, setOpenDropdowns] = useState({});
   const navigate = useNavigate();
+  const {user} = useAuth();
   const basePath = "/account";
 
-  const handleNavigation = (path) => {
-    navigate(`${basePath}${path}`);
-  };
+  // const handleNavigation = (path) => {
+  //   navigate(`${basePath}${path}`);
+  // };
 
   const toggleDropdown = (key) => {
     setOpenDropdowns((prev) => ({
@@ -157,7 +159,7 @@ const Account = () => {
             <AvatarFallback>{userProfile.name[0]}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col space-y-1">
-            <h2 className="text-lg font-semibold">{userProfile.name}</h2>
+            <h2 className="text-lg font-semibold">{user.fullName}</h2>
             <p className="text-gray-500 text-sm">{userProfile.phone}</p>
           </div>
         </div>

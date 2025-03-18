@@ -7,7 +7,7 @@ import Product from "../Modals/Product";
 import { Button } from "../ui/button";
 import ProductSearchInput from "../Product/ProductSearchInput";
 import ProductFilters from "../Product/ProductFilters";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectProductsItems } from "../utils/RandomGen";
 
 const ProductSearch = () => {

@@ -48,7 +48,6 @@ const DealOfDay = () => {
   //   ],
   // };
 
-  const dealProduct = useSelector((state) => state.products.items.data[6]);
   const [viewMode, setViewMode] = useState("grid");
   const [wishlist, setWishlist] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,6 +60,8 @@ const DealOfDay = () => {
   });
 
   const isMobile = window.innerWidth < 1024;
+
+  const dealProduct = useSelector((state) => state.products?.items.data[15]);
 
   useEffect(() => {
     const timer = setInterval(() => {

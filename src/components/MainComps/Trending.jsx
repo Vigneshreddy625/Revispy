@@ -8,10 +8,8 @@ import {
 } from "../ui/carousel";
 import Product from "../Modals/Product";
 import ProductCard from "../Product/ProductCard";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getSixRandomItems } from "../utils/RandomGen";
-import { fetchProducts } from "../../redux/Products/productSlice";
+import { getTwelveRandomItems } from "../utils/RandomGen";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const chunkArray = (array, chunkSize) => {
@@ -26,9 +24,8 @@ export default function TrendingPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const dispatch = useDispatch();
 
-  const trendingItems = useSelector(getSixRandomItems);
+  const trendingItems = useSelector(getTwelveRandomItems);
 
 
   useEffect(() => {

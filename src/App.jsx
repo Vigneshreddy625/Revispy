@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchProducts } from "./redux/Products/productSlice";
 
 const Orders = lazy(() => import("./components/Account/Orders"));
@@ -41,6 +41,10 @@ function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {

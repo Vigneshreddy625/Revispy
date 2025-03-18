@@ -84,7 +84,7 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, loading }) => {
           variants={backdropVariants}
         >
           <motion.div 
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full relative overflow-hidden"
+            className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-[360px] md:max-w-md w-full relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             variants={modalVariants}
             initial="hidden"

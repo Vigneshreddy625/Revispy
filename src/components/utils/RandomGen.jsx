@@ -9,96 +9,104 @@ function shuffleArray(array) {
   return newArray;
 }
 
+let randomSelectionsCache = {
+  data: {},
+  timestamp: 0,
+  productLength: 0
+};
+
 export const selectProductsItems = (state) => state.products?.items.data || [];
 
-export const getRandomFromEachGroup = createSelector(
-  [selectProductsItems],
-  (products, groupSize = 6) => {
-    if (!products || !products.length || groupSize <= 0) return [];
+function shouldRefreshCache(products) {
+  const currentTime = Date.now();
+  const twelveHoursInMs = 12 * 60 * 60 * 1000;
+  
+  return (
+    !randomSelectionsCache.timestamp ||
+    (currentTime - randomSelectionsCache.timestamp) > twelveHoursInMs ||
+    (products.length !== randomSelectionsCache.productLength)
+  );
+}
 
-    const totalGroups = Math.floor(products.length / groupSize);
-    const result = [];
-
-    for (let i = 0; i < totalGroups; i++) {
-      const groupStart = i * groupSize;
-      const randomOffset = Math.floor(Math.random() * groupSize);
-      result.push(products[groupStart + randomOffset]);
-    }
-
-    return result;
+function getOrCreateRandomSelections(products) {
+  if (shouldRefreshCache(products)) {
+    randomSelectionsCache = {
+      data: {
+        nineItems: generateRandomItems(products, 9),
+        sixItems: generateRandomItems(products, 6),
+        fourItems: generateRandomItems(products, 4),
+        twelveItems : generateRandomItems(products, 12),
+        threeToNineItems: generateRandomItems(products, Math.floor(Math.random() * 7) + 3),
+        oneItem: generateRandomItems(products, 2),
+        fromGroups: generateRandomFromEachGroup(products, 6)
+      },
+      timestamp: Date.now(),
+      productLength: products.length
+    };
   }
-);
+  
+  return randomSelectionsCache.data;
+}
 
-export const getRandomSubset = createSelector(
-  [selectProductsItems, (_, count) => count],
-  (products, count) => {
-    if (!products || !products.length) return [];
-    if (!count || count >= products.length) return [...products];
+function generateRandomItems(products, count) {
+  if (!products || !products.length) return [];
+  if (!count || count <= 0) return [];
+  if (count >= products.length) return [...products];
+  
+  const shuffled = shuffleArray(products);
+  return shuffled.slice(0, count);
+}
 
-    const shuffled = shuffleArray(products);
-    return shuffled.slice(0, count);
+function generateRandomFromEachGroup(products, groupSize = 6) {
+  if (!products || !products.length || groupSize <= 0) return [];
+  
+  const totalGroups = Math.floor(products.length / groupSize);
+  const result = [];
+  
+  for (let i = 0; i < totalGroups; i++) {
+    const groupStart = i * groupSize;
+    const randomOffset = Math.floor(Math.random() * groupSize);
+    result.push(products[groupStart + randomOffset]);
   }
-);
-
-export const getRandomItems = createSelector(
-  [selectProductsItems, (_, count) => count],
-  (products, count) => {
-    if (!products || !products.length) return [];
-    if (count <= 0) return [];
-    return getRandomSubset.resultFunc(products, count);
-  }
-);
-
-export const getRandomGroupedItems = createSelector(
-  [selectProductsItems, (_, { groupSize = 6, totalSelect }) => ({ groupSize, totalSelect })],
-  (products, { groupSize, totalSelect }) => {
-    if (groupSize <= 0) return [];
-
-    const fromGroups = getRandomFromEachGroup.resultFunc(products, groupSize);
-
-    if (totalSelect !== undefined && totalSelect < fromGroups.length) {
-      return getRandomSubset.resultFunc(fromGroups, totalSelect);
-    }
-
-    return fromGroups;
-  }
-);
+  
+  return result;
+}
 
 export const getNineRandomItems = createSelector(
-    [selectProductsItems],
-    (products) => {
-      return getRandomItems.resultFunc(products, 9);
-    }
-  );
+  [selectProductsItems],
+  (products) => getOrCreateRandomSelections(products).nineItems || []
+);
 
 export const getSixRandomItems = createSelector(
   [selectProductsItems],
-  (products) => {
-    return getRandomItems.resultFunc(products, 6);
-  }
+  (products) => getOrCreateRandomSelections(products).sixItems || []
 );
 
 export const getFourRandomItems = createSelector(
   [selectProductsItems],
-  (products) => {
-    return getRandomItems.resultFunc(products, 4);
-  }
+  (products) => getOrCreateRandomSelections(products).fourItems || []
+);
+
+export const getTwelveRandomItems = createSelector(
+  [selectProductsItems],
+  (products) => getOrCreateRandomSelections(products).twelveItems || []
 );
 
 export const getRandomThreeToNineItems = createSelector(
   [selectProductsItems],
-  (products) => {
-    const count = Math.floor(Math.random() * 7) + 3;
-    return getRandomItems.resultFunc(products, count);
-  }
+  (products) => getOrCreateRandomSelections(products).threeToNineItems || []
 );
 
 export const getOneRandomItems = createSelector(
-    [selectProductsItems],
-    (products) => {
-      return getRandomItems.resultFunc(products, 2);
-    }
-  );
+  [selectProductsItems],
+  (products) => getOrCreateRandomSelections(products).oneItem || []
+);
 
+export const getRandomFromEachGroup = createSelector(
+  [selectProductsItems],
+  (products) => getOrCreateRandomSelections(products).fromGroups || []
+);
 
-
+export const refreshRandomSelections = () => {
+  randomSelectionsCache.timestamp = 0; 
+};
