@@ -252,7 +252,7 @@ export const withAdminAuth = (Component) => {
     const { user, loading, isAuthenticated } = useAuth();
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <div>Loading in progress...</div>;
     }
 
     if (!isAuthenticated) {

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./redux/Products/productSlice";
+import { Toaster } from "sonner"; 
 
 const Orders = lazy(() => import("./components/Account/Orders"));
 const Delete = lazy(() => import("./components/Profile/Delete"));
@@ -31,19 +32,18 @@ const PageNotFound = lazy(() => import("./components/Items/PNF"));
 const SearchDesktop = lazy(() => import("./components/Search/Search"));
 const DOD = lazy(() => import("./components/MainComps/DOD"));
 const MobileAccount = lazy(() => import("./components/MobileAccount/Account"));
-import MobileOrders from "./components/MobileAccount/Orders";
-import MobileAddresses from "./components/MobileAccount/Addresses";
-import Details from "./components/MobileAccount/Details";
-import MobileDelete from "./components/MobileAccount/Delete";
-import OTP from "./components/Authentication/OTP";
+const MobileOrders = lazy(() => import("./components/MobileAccount/Orders"));
+const MobileAddresses = lazy(() => import("./components/MobileAccount/Addresses"));
+const Details = lazy(() => import("./components/MobileAccount/Details"));
+const MobileDelete = lazy(() => import("./components/MobileAccount/Delete"));
+const OTP = lazy(() => import("./components/Authentication/OTP"));
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -60,53 +60,52 @@ function App() {
   return (
     <Router>
       <Suspense fallback={<LoadingScreen />}>
+        <Toaster position="top-right" richColors offset={75} />
+
         <Routes>
-          <Route element={<ProtectedRoute/>}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/home" replace />} />
-            <Route path="home" element={<Home />} />
-            <Route path="sale" element={<SalePage />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            {!isMobile && (
-              <Route path="account" element={<Account />}>
-                <Route path="overview" element={<div>Overview</div>} />
-                <Route path="orders" element={<Orders />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="savedcards" element={<div>Saved Cards</div>} />
-                <Route path="addresses" element={<Addresses />} />
-                <Route path="delete" element={<Delete />} />
-              </Route>
-            )}
-            <Route path="/trending" element={<TrendingPage />} />
-            <Route path="/dod" element={<DOD />} />
-            <Route path="confirm-otp" element={<ConfirmOTP />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route
-              path="/categories/:categoryName"
-              element={<CategoryPage />}
-            />
-            <Route path="searchresults" element={<SearchDesktop />} />
-            <Route path="mobileaccount" element={<MobileAccount />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-          
-          
-          {isMobile && <Route path="search" element={<Search />} />}
-          {isMobile && (
-            <>
-              <Route path="account" element={<MobileAccount />} />
-              <Route path="orders" element={<MobileOrders />} />
-              <Route path="account/details" element={<Details />} />
-              <Route path="account/addresses" element={<MobileAddresses />} />
-              <Route path="account/delete" element={<MobileDelete />} />
-            </>
-          )}
-          <Route path="*" element={<PageNotFound />} />
-          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/otp" element={<OTP/>} />
+          <Route path="/otp" element={<OTP />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="home" element={<Home />} />
+              <Route path="sale" element={<SalePage />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="trending" element={<TrendingPage />} />
+              <Route path="dod" element={<DOD />} />
+              <Route path="confirm-otp" element={<ConfirmOTP />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="categories/:categoryName" element={<CategoryPage />} />
+              <Route path="searchresults" element={<SearchDesktop />} />
+
+              {!isMobile && (
+                <Route path="account" element={<Account />}>
+                  <Route path="overview" element={<div>Overview</div>} />
+                  <Route path="orders" element={<Orders />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="savedcards" element={<div>Saved Cards</div>} />
+                  <Route path="addresses" element={<Addresses />} />
+                  <Route path="delete" element={<Delete />} />
+                </Route>
+              )}
+
+              {isMobile && (
+                <>
+                  <Route path="search" element={<Search />} />
+                  <Route path="account" element={<MobileAccount />} />
+                  <Route path="orders" element={<MobileOrders />} />
+                  <Route path="account/details" element={<Details />} />
+                  <Route path="account/addresses" element={<MobileAddresses />} />
+                  <Route path="account/delete" element={<MobileDelete />} />
+                </>
+              )}
+            </Route>
+          </Route>
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </Router>

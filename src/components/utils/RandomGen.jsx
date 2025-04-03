@@ -32,7 +32,7 @@ function getOrCreateRandomSelections(products) {
   if (shouldRefreshCache(products)) {
     randomSelectionsCache = {
       data: {
-        nineItems: generateRandomItems(products, 9),
+        nineItems: generateRandomItems(products, 10),
         sixItems: generateRandomItems(products, 6),
         fourItems: generateRandomItems(products, 4),
         twelveItems : generateRandomItems(products, 12),

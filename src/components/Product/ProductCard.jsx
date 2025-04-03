@@ -3,18 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Suspense } from "react";
 import LazyImage from "../Items/LazyImage";
+import { useWishlist } from "../../wishlistContext/useWishlist";
+import { useState } from 'react';
 
-const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddToCart }) => {
+const ProductCard = ({ product, openModal, handleAddToCart }) => {
+  const { wishlistItems, addWishlistItem, removeWishlistItem } = useWishlist();
+  const [isWishlisted, setIsWishlisted] = useState(wishlistItems.some((item) => item._id === product._id));
+
+  const handleToggleWishlist = (id) => {
+    setIsWishlisted(!isWishlisted); 
+    if (isWishlisted) {
+      removeWishlistItem(id);
+    } else {
+      addWishlistItem(id);
+    }
+  };
+
   return (
     <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 min-w-72">
       <CardContent className="p-0">
         <div className="relative overflow-hidden" onClick={() => openModal(product)}>
           <Suspense fallback={<div className="w-full h-64 bg-gray-200 animate-pulse" />}>
             <div className="w-full h-64 overflow-hidden">
-              <LazyImage 
-                src={product.image} 
-                alt={product.title} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform cursor-pointer duration-500" 
+              <LazyImage
+                src={product.image}
+                alt={product.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform cursor-pointer duration-500"
               />
             </div>
           </Suspense>
@@ -31,15 +45,22 @@ const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
         </div>
         <div className="relative p-4">
           <div className="absolute -right-12 bottom-16 group-hover:right-2 transition-all duration-300 flex flex-col gap-1">
-            <button className='px-2 py-1' onClick={() => toggleWishlist(product._id)}>
-              <Heart className="h-5 w-5" fill={wishlist.includes(product._id) ? "red" : "none"} color={wishlist.includes(product._id) ? "red" : "currentColor"} />
+            <button className="px-2 py-1" onClick={() => handleToggleWishlist(product._id)}>
+              <Heart
+                className="h-5 w-5"
+                fill={isWishlisted ? "red" : "none"}
+                color={isWishlisted ? "red" : "currentColor"}
+              />
             </button>
-            <button className='px-2 py-1' onClick={() => handleAddToCart(product)}>
+            <button className="px-2 py-1" onClick={() => handleAddToCart(product)}>
               <ShoppingCart className="h-5 w-5" />
             </button>
           </div>
           <div className="flex justify-between">
-            <h3 className="text-sm font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors" onClick={() => openModal(product)}>
+            <h3
+              className="text-sm font-medium mb-2 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors"
+              onClick={() => openModal(product)}
+            >
               {product.title}
             </h3>
             {product.isBestSeller && (
@@ -48,8 +69,8 @@ const ProductCard = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
           </div>
           <div className="flex items-center mb-2">
             <div className="flex text-yellow-400">
-              {'★'.repeat(Math.floor(product.rating))}
-              {'☆'.repeat(5 - Math.floor(product.rating))}
+              {"★".repeat(Math.floor(product.rating))}
+              {"☆".repeat(5 - Math.floor(product.rating))}
             </div>
             <span className="text-sm ml-2 text-gray-600 dark:text-gray-400">({product.reviews})</span>
             {product.stockStatus === "Limited Stock" && (

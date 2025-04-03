@@ -35,6 +35,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../redux/Products/productSlice";
 import { getNineRandomItems } from "../utils/RandomGen";
+import useWishlistActions from "../utils/WishlistActions.jsx";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const SalePage = () => {
@@ -54,6 +55,7 @@ const SalePage = () => {
     categories: [],
     discountMin: 0,
   });
+  
   const itemsPerPage = 3;
 
   useEffect(() => {
@@ -136,15 +138,6 @@ const SalePage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [wishlist, setWishlist] = useState([]);
-
-  const toggleWishlist = (productId) => {
-    if (wishlist.includes(productId)) {
-      setWishlist(wishlist.filter((id) => id !== productId));
-    } else {
-      setWishlist([...wishlist, productId]);
-    }
-  };
 
   const openModal = (product) => {
     setSelectedItem(product);
@@ -550,8 +543,6 @@ const SalePage = () => {
                 key={product._id}
                 product={product}
                 openModal={openModal}
-                toggleWishlist={toggleWishlist}
-                wishlist={wishlist}
                 handleAddToCart={handleAddToCart}
               />
             ))}

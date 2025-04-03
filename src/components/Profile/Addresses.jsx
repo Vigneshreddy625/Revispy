@@ -5,7 +5,7 @@ import Edit from "../Addresses/Edit";
 import DeleteAddress from "../Addresses/Remove";
 import NewAddress from "../Addresses/NewAddress";
 import { Briefcase, Edit2, Home, MapPin, Navigation, Phone, Plus, Trash2, User } from "lucide-react";
-import LoadingScreen from "../Items/LoadingScreen";
+import ChildLoading from "./ChildLoading";
 
 export default function Addresses() {
   const [newAddress, setNewAddress] = useState(false);
@@ -19,15 +19,6 @@ export default function Addresses() {
   const loading = useSelector((state) => state.addresses.loading);
   const error = useSelector((state) => state.addresses.error);
 
-  useEffect(() => {
-    dispatch(fetchAddresses());
-  }, [dispatch]);
-
-  if (loading) {
-    return <LoadingScreen/>;
-  }
-
-
   const handleEditClick = (addressId, addressData) => {
     setSelectedAddressId(addressId);
     setSelectedAddressData(addressData);
@@ -39,6 +30,33 @@ export default function Addresses() {
     setSelectedAddressData(addressData);
     setDeleteAddress(true);
   };
+
+  const refreshAddresses = () => {
+    dispatch(fetchAddresses());
+  };
+
+  useEffect(() => {
+    refreshAddresses();
+  }, [dispatch]);
+
+  const handleAddressAdded = () => {
+    setNewAddress(false);
+    refreshAddresses();
+  };
+
+  const handleAddressUpdated = () => {
+    setEdit(false);
+    refreshAddresses();
+  };
+
+  const handleAddressDeleted = () => {
+    setDeleteAddress(false);
+    refreshAddresses();
+  };
+
+  if (loading) {
+    return <ChildLoading/>;
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -134,7 +152,7 @@ export default function Addresses() {
                       ) : (
                         <Briefcase size={12} className="text-purple-600" />
                       )}
-                      {address.type.toUpperCase()}
+                      {address.type === "home" ? "Home" : "Work"}
                     </span>
                   </div>
                 </div>
@@ -186,14 +204,20 @@ export default function Addresses() {
         onClose={() => setEdit(false)}
         addressId={selectedAddressId}
         addressData={selectedAddressData}
+        onSuccess={handleAddressUpdated}
       />
       <DeleteAddress
         isOpen={deleteAddress}
         onClose={() => setDeleteAddress(false)}
         addressId={selectedAddressId}
         address={selectedAddressData}
+        onSuccess={handleAddressDeleted}
       />
-      <NewAddress isOpen={newAddress} onClose={() => setNewAddress(false)} />
+      <NewAddress 
+        isOpen={newAddress} 
+        onClose={() => setNewAddress(false)} 
+        onSuccess={handleAddressAdded}
+      />
     </div>
   );
 }

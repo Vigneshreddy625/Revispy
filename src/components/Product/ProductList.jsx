@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { useWishlist } from "../../wishlistContext/useWishlist";
+import { Heart } from "lucide-react";
 
 const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddToCart }) => {
+  const { wishlistItems, addWishlistItem, removeWishlistItem } = useWishlist();
+    const [isWishlisted, setIsWishlisted] = useState(wishlistItems.some((item) => item._id === product._id));
+  
+    const handleToggleWishlist = (id) => {
+      setIsWishlisted(!isWishlisted); 
+      if (isWishlisted) {
+        removeWishlistItem(id);
+      } else {
+        addWishlistItem(id);
+      }
+    };
   return (
     <div className="border rounded-xl p-5 grid grid-cols-1 md:grid-cols-12 gap-6 hover:shadow-lg transition-all ">
       <div className="relative md:col-span-3">
@@ -13,25 +26,13 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
           />
         </div>
 
-        <button
-          onClick={() => toggleWishlist(product._id)}
-          className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500"
-          aria-label={wishlist.includes(product._id) ? "Remove from wishlist" : "Add to wishlist"}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill={wishlist.includes(product._id) ? "red" : "none"}
-            stroke={wishlist.includes(product._id) ? "red" : "currentColor"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-        </button>
+        <button className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500" onClick={() => handleToggleWishlist(product._id)}>
+              <Heart
+                className="h-5 w-5"
+                fill={isWishlisted ? "red" : "none"}
+                color={isWishlisted ? "red" : "currentColor"}
+              />
+            </button>
 
         {product.discount && (
           <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-lg">

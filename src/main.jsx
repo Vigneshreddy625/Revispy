@@ -6,8 +6,8 @@ import { Provider } from "react-redux";
 import store from "./redux/Store/Store.js";
 import { AuthProvider } from "./authContext/useAuth.jsx";
 import { ThemeProvider } from "./components/Darkmode/Theme-provider.jsx";
-
 import { registerSW } from "virtual:pwa-register";
+import { WishlistProvider } from "./wishlistContext/useWishlist.jsx";
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -22,7 +22,9 @@ createRoot(document.getElementById("root")).render(
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Provider store={store}>
         <AuthProvider>
-          <App />
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
         </AuthProvider>
       </Provider>
     </ThemeProvider>

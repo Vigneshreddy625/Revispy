@@ -48,7 +48,7 @@ const DealOfDay = () => {
   //   ],
   // };
 
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [wishlist, setWishlist] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -60,6 +60,20 @@ const DealOfDay = () => {
   });
 
   const isMobile = window.innerWidth < 1024;
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setViewMode("grid");
+      } else {
+        setViewMode("list");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const dealProduct = useSelector((state) => state.products?.items.data[15]);
 
