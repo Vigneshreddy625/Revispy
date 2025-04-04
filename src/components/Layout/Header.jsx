@@ -30,19 +30,20 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import SearchDropdown from "../HeaderComps/SearchDropdown";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout, user, isAuthenticated, loading } = useAuth();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { logout, user, isAuthenticated } = useAuth();
   const [cartCount, setCartCount] = useState(0);
   const { theme } = useTheme();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-  const [avatarError, setAvatarError] = useState(false);
+
+  const { cart } = useSelector((state) => state.cart);
+
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -55,12 +56,8 @@ const Header = () => {
   }, [theme]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      setCartCount(3); 
-    } else {
-      setCartCount(0);
-    }
-  }, [isAuthenticated]);
+    setCartCount(cart?.items?.length || 0);
+  }, [cart]);  
 
   const handleLogout = async () => {
     try {

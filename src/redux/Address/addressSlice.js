@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {useAuth} from "../../authContext/useAuth"
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 

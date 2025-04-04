@@ -37,10 +37,6 @@ export default function Addresses() {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   const handleEdit = (addressId, addressData) => {
     setSelectedAddressId(addressId);
     setSelectedAddressData(addressData);

@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { useWishlist } from "../../wishlistContext/useWishlist";
 import { Heart } from "lucide-react";
+import { useAddToCart } from "../utils/useAddToCart";
 
-const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddToCart }) => {
+const ProductList = ({ product, openModal }) => {
   const { wishlistItems, addWishlistItem, removeWishlistItem } = useWishlist();
-    const [isWishlisted, setIsWishlisted] = useState(wishlistItems.some((item) => item._id === product._id));
-  
-    const handleToggleWishlist = (id) => {
-      setIsWishlisted(!isWishlisted); 
-      if (isWishlisted) {
-        removeWishlistItem(id);
-      } else {
-        addWishlistItem(id);
-      }
-    };
+  const [isWishlisted, setIsWishlisted] = useState(
+    wishlistItems.some((item) => item._id === product._id)
+  );
+  const { handleAddToCart, loading } = useAddToCart();
+
+  const handleToggleWishlist = (id) => {
+    setIsWishlisted(!isWishlisted);
+    if (isWishlisted) {
+      removeWishlistItem(id);
+    } else {
+      addWishlistItem(id);
+    }
+  };
   return (
     <div className="border rounded-xl p-5 grid grid-cols-1 md:grid-cols-12 gap-6 hover:shadow-lg transition-all ">
       <div className="relative md:col-span-3">
@@ -26,13 +30,16 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
           />
         </div>
 
-        <button className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500" onClick={() => handleToggleWishlist(product._id)}>
-              <Heart
-                className="h-5 w-5"
-                fill={isWishlisted ? "red" : "none"}
-                color={isWishlisted ? "red" : "currentColor"}
-              />
-            </button>
+        <button
+          className="absolute top-0 right-3 p-2 rounded-full text-black shadow-md transition border border-gray-500"
+          onClick={() => handleToggleWishlist(product._id)}
+        >
+          <Heart
+            className="h-5 w-5"
+            fill={isWishlisted ? "red" : "none"}
+            color={isWishlisted ? "red" : "currentColor"}
+          />
+        </button>
 
         {product.discount && (
           <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-lg">
@@ -71,20 +78,34 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
               {Array.from({ length: 5 }).map((_, i) => (
                 <span
                   key={i}
-                  className={i < Math.floor(product.rating) ? "text-yellow-400" : "text-gray-300"}
+                  className={
+                    i < Math.floor(product.rating)
+                      ? "text-yellow-400"
+                      : "text-gray-300"
+                  }
                 >
                   ★
                 </span>
               ))}
             </div>
-            <span className="ml-2 text-sm text-gray-500">({product.reviews} reviews)</span>
+            <span className="ml-2 text-sm text-gray-500">
+              ({product.reviews} reviews)
+            </span>
           </div>
 
-          <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+          <p className="text-gray-600 text-sm line-clamp-2">
+            {product.description}
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center mt-3 text-sm">
-          <span className={`${product.stockStatus === "In Stock" ? "text-green-600" : "text-orange-600"} mr-4`}>
+          <span
+            className={`${
+              product.stockStatus === "In Stock"
+                ? "text-green-600"
+                : "text-orange-600"
+            } mr-4`}
+          >
             • {product.stockStatus}
           </span>
           <span>• {product.shipping}</span>
@@ -98,7 +119,7 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
             {product.originalPrice && (
               <>
                 <span className="ml-2 text-gray-500 line-through text-sm">
-                ₹{product.originalPrice}
+                  ₹{product.originalPrice}
                 </span>
               </>
             )}
@@ -107,7 +128,8 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
 
         <div className="flex flex-col gap-3 mt-5">
           <button
-            onClick={() => handleAddToCart(product)}
+            onClick={() => handleAddToCart(product._id)}
+            disabled={loading}
             className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center"
           >
             <svg
@@ -126,7 +148,7 @@ const ProductList = ({ product, openModal, toggleWishlist, wishlist, handleAddTo
               <circle cx="20" cy="21" r="1"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
-            Add to Cart
+            {loading ? "Adding..." : "Add to Cart"}
           </button>
 
           <button

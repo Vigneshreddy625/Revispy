@@ -5,10 +5,12 @@ import { Suspense } from "react";
 import LazyImage from "../Items/LazyImage";
 import { useWishlist } from "../../wishlistContext/useWishlist";
 import { useState } from 'react';
+import { useAddToCart } from "../utils/useAddToCart";
 
-const ProductCard = ({ product, openModal, handleAddToCart }) => {
+const ProductCard = ({ product, openModal }) => {
   const { wishlistItems, addWishlistItem, removeWishlistItem } = useWishlist();
   const [isWishlisted, setIsWishlisted] = useState(wishlistItems.some((item) => item._id === product._id));
+  const { handleAddToCart, loading } = useAddToCart();
 
   const handleToggleWishlist = (id) => {
     setIsWishlisted(!isWishlisted); 

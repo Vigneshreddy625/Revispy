@@ -92,7 +92,10 @@ function App() {
                 </Route>
               )}
 
-              {isMobile && (
+              
+            </Route>
+          </Route>
+          {isMobile && (
                 <>
                   <Route path="search" element={<Search />} />
                   <Route path="account" element={<MobileAccount />} />
@@ -102,9 +105,6 @@ function App() {
                   <Route path="account/delete" element={<MobileDelete />} />
                 </>
               )}
-            </Route>
-          </Route>
-
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
