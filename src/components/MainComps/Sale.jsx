@@ -35,7 +35,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../redux/Products/productSlice";
 import { getNineRandomItems } from "../utils/RandomGen";
-import useWishlistActions from "../utils/WishlistActions.jsx";
 const LazyImage = React.lazy(() => import("../Items/LazyImage"));
 
 const SalePage = () => {
