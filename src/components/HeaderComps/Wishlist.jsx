@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useWishlist } from "../../wishlistContext/useWishlist";
 import { Button } from "../ui/button";
 import LoadingScreen from "../Items/LoadingScreen";
 import { useNavigate } from "react-router-dom";
+import { useAddToCart } from "../utils/useAddToCart";
 
 const LazyImage = React.lazy(() =>
   Promise.resolve({
@@ -24,12 +25,30 @@ const ImagePlaceholder = () => (
 );
 
 const Wishlist = () => {
-  const { wishlistItems, loading, error, removeWishlistItem } = useWishlist();
+  const { wishlistItems, loading: wishlistLoading, removeWishlistItem, refetch } = useWishlist();
+  const { handleAddToCart, loading: addToCartLoading } = useAddToCart();
+
+  useEffect(() => {
+    refetch();
+  },[]);
 
   const navigate = useNavigate();
 
-  if (loading) {
+  if (wishlistLoading) {
     return <LoadingScreen />;
+  }
+
+  if(addToCartLoading) {
+    return <LoadingScreen />;
+  }
+
+  const toggleWishlist = (item) => {
+    if (item.stockStatus === "In Stock") {
+      handleAddToCart(item);
+      removeWishlistItem(item._id);
+    } else {
+        navigate(`/categories/${item.category.toLowerCase().trim().replace(/\s+/g, "")}`);  
+    }
   }
 
   return (
@@ -61,7 +80,7 @@ const Wishlist = () => {
                   />
                 </Suspense>
                 <button
-                  onClick={() => removeWishlistItem(item._id)} // Corrected line
+                  onClick={() => removeWishlistItem(item._id)} 
                   className="absolute top-2 right-2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                   aria-label="Remove item"
                 >
@@ -105,7 +124,7 @@ const Wishlist = () => {
                     )}
                   </div>
                 </div>
-                <button
+                <button onClick={() => toggleWishlist(item)}
                   className={`md:mt-4 py-2 w-full border-t dark:border-gray-600 text-sm font-medium ${
                     item.stockStatus === "In Stock"
                       ? "text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900"

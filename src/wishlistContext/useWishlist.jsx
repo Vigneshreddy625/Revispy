@@ -67,6 +67,7 @@ export const WishlistProvider = ({ children }) => {
     error,
     addWishlistItem,
     removeWishlistItem,
+    refetch: fetchWishlistItems,
   };
 
   return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;

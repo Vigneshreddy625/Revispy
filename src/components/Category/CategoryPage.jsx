@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, ChevronLeft, Grid, List, X } from "lucide-react";
+import { Grid, List, X } from "lucide-react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ProductCard from "../Product/ProductCard";
 import ProductList from "../Product/ProductList";
@@ -114,31 +114,7 @@ const CategoryPage = () => {
     setFilteredProducts(filtered);
   }, [categoryName, query, searchParams, filters, sortBy]);
 
-  const toggleWishlist = (productId) => {
-    setWishlist((prev) => {
-      if (prev.includes(productId)) {
-        return prev.filter((id) => id !== productId);
-      } else {
-        return [...prev, productId];
-      }
-    });
-  };
-
   const isMobile = window.innerWidth < 1024;
-
-  const handleAddToCart = (product) => {
-    console.log(`Added to cart: ${product.title}`);
-    showToast(`${product.title} added to cart`);
-  };
-
-  const [toast, setToast] = useState({ visible: false, message: "" });
-
-  const showToast = (message) => {
-    setToast({ visible: true, message });
-    setTimeout(() => {
-      setToast({ visible: false, message: "" });
-    }, 3000);
-  };
 
   const openModal = (product) => {
     setSelectedItem(product);
@@ -250,9 +226,6 @@ const CategoryPage = () => {
               key={product._id}
               product={product}
               openModal={openModal}
-              toggleWishlist={toggleWishlist}
-              wishlist={wishlist}
-              handleAddToCart={handleAddToCart}
             />
           ))}
         </div>
@@ -263,9 +236,6 @@ const CategoryPage = () => {
               key={product._id}
               product={product}
               openModal={openModal}
-              toggleWishlist={toggleWishlist}
-              wishlist={wishlist}
-              handleAddToCart={handleAddToCart}
             />
           ))}
         </div>
@@ -275,14 +245,7 @@ const CategoryPage = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         product={selectedItem}
-        onAddToCart={handleAddToCart}
       />
-
-      {toast.visible && (
-        <div className="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fadeIn">
-          {toast.message}
-        </div>
-      )}
     </div>
   );
 };
