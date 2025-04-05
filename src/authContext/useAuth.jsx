@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `/api/v1/users/current-user`
+          `/api/v1/users/current-user`, {withCredentials: true}
         );
         if (response.data.data) {
           setUser(response.data.data);
@@ -63,7 +63,10 @@ export const AuthProvider = ({ children }) => {
 
       const response = await axios.post(
         `/api/v1/users/register`,
-        userData
+        userData,
+        {
+          withCredentials: true,
+        }
       );
 
       return response.data;
