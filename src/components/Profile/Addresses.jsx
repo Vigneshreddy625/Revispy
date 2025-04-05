@@ -5,7 +5,7 @@ import Edit from "../Addresses/Edit";
 import DeleteAddress from "../Addresses/Remove";
 import NewAddress from "../Addresses/NewAddress";
 import { Briefcase, Edit2, Home, MapPin, Navigation, Phone, Plus, Trash2, User } from "lucide-react";
-import ChildLoading from "./ChildLoading";
+import ChildLoading from "../Items/ChildLoading";
 
 export default function Addresses() {
   const [newAddress, setNewAddress] = useState(false);
