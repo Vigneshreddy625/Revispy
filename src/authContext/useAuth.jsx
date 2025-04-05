@@ -6,7 +6,6 @@ import LoadingScreen from "../components/Items/LoadingScreen"
 
 const AuthContext = createContext(null);
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 axios.defaults.withCredentials = true;
 
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${BACKEND_URL}/api/v1/users/current-user`
+          `/backend/api/v1/users/current-user`
         );
         if (response.data.data) {
           setUser(response.data.data);
@@ -60,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/users/register`,
+        `/backend/api/v1/users/register`,
         userData
       );
 
@@ -87,7 +86,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/users/login`,
+        `/backend/api/v1/users/login`,
         credentials,
         {
           withCredentials: true,
@@ -97,7 +96,6 @@ export const AuthProvider = ({ children }) => {
       const { user: userData } = response.data.data;
       setUser(userData);
       dispatch(addUser(userData));
-      console.log(response.data);
       return response.data;
     } catch (err) {
       setError(err.response?.data?.message || err.message || "Login failed");
@@ -113,7 +111,7 @@ export const AuthProvider = ({ children }) => {
       setError(null);
 
       await axios.post(
-        `${BACKEND_URL}/api/v1/users/logout`,
+        `/backend/api/v1/users/logout`,
         {},
         {
           withCredentials: true,
@@ -131,7 +129,7 @@ export const AuthProvider = ({ children }) => {
   const refreshToken = async () => {
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/users/refresh-token`,
+        `/backend/api/v1/users/refresh-token`,
         {},
         { withCredentials: true }
       );
@@ -154,7 +152,7 @@ const deleteUser = async (userId) => {
     setError(null);
 
     await axios.post(
-      `${BACKEND_URL}/api/v1/users/delete-user/${userId}`, 
+      `/backend/api/v1/users/delete-user/${userId}`, 
       {}, 
       {
         withCredentials: true,

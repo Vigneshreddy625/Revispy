@@ -8,12 +8,11 @@ export const WishlistProvider = ({ children }) => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const fetchWishlistItems = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${BACKEND_URL}/api/v1/wishlist`);
+      const response = await axios.get(`/backend/api/v1/wishlist`);
       setWishlistItems(response.data.data);
     } catch (err) {
       setError(err.response?.data || err.message);
@@ -29,7 +28,7 @@ export const WishlistProvider = ({ children }) => {
   const addWishlistItem = async (productId) => {
     try {
       await axios.post(
-        `${BACKEND_URL}/api/v1/wishlist`,
+        `/backend/api/v1/wishlist`,
         { productId },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -44,7 +43,7 @@ export const WishlistProvider = ({ children }) => {
   const removeWishlistItem = async (productId) => {
     setLoading(true);
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/wishlist`, {
+      await axios.delete(`/backend/api/v1/wishlist`, {
         headers: { 'Content-Type': 'application/json' },
         data: { productId },
       });

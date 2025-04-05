@@ -44,7 +44,6 @@ const Header = () => {
 
   const { cart } = useSelector((state) => state.cart);
 
-
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     window.addEventListener("resize", handleResize);
@@ -57,7 +56,7 @@ const Header = () => {
 
   useEffect(() => {
     setCartCount(cart?.items?.length || 0);
-  }, [cart]);  
+  }, [cart]);
 
   const handleLogout = async () => {
     try {
@@ -83,7 +82,6 @@ const Header = () => {
       navigate(`/product/${product.id}`);
     }
   };
-
 
   const getUserInitials = () => {
     if (!user) return "U";
@@ -196,17 +194,16 @@ const Header = () => {
               )}
               <ToggleMode />
 
-
-                <>
-                  {isAuthenticated ? (
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="hover:bg-gray-100 dark:hover:bg-gray-800 p-0"
-                        >
-                          {/* <Avatar className="h-6 w-6">
+              <>
+                {isAuthenticated ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="hover:bg-gray-100 dark:hover:bg-gray-800 p-0"
+                      >
+                        {/* <Avatar className="h-6 w-6">
                             <AvatarImage
                               src={getUserAvatar()}
                               alt="User avatar"
@@ -216,43 +213,42 @@ const Header = () => {
                               {getUserInitials()}
                             </AvatarFallback>
                           </Avatar> */}
-                          <UserIcon className="w-4 h-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-56">
-                        <div className="px-2 py-1.5 text-sm font-medium">
-                          {user.fullName || user.username}
-                        </div>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => navigate("/account")}
-                        >
-                          <User className="h-4 w-4 mr-2" />
-                          Account
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="cursor-pointer text-red-500 hover:text-red-600"
-                          onClick={handleLogout}
-                        >
-                          <LogOut className="h-4 w-4 mr-2" />
-                          Logout
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  ) : (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => navigate("/login")}
-                      className="hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
-                      <LogIn className="h-5 w-5" />
-                    </Button>
-                  )}
-                </>
-              
+                        <UserIcon className="w-4 h-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">
+                      <div className="px-2 py-1.5 text-sm font-medium">
+                        {user.fullName || user.username}
+                      </div>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={() => navigate("/account")}
+                      >
+                        <User className="h-4 w-4 mr-2" />
+                        Account
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        className="cursor-pointer text-red-500 hover:text-red-600"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => navigate("/login")}
+                    className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    <LogIn className="h-5 w-5" />
+                  </Button>
+                )}
+              </>
             </div>
           </div>
         </div>

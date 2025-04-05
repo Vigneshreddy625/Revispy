@@ -12,11 +12,9 @@ const ImageMagnifier = ({ src, alt, lensSize = 100, zoomLevel = 2.5 }) => {
       
       const { left, top, width, height } = imageRef.current.getBoundingClientRect();
       
-      // Calculate cursor position relative to image
       const x = ((e.clientX - left) / width) * 100;
       const y = ((e.clientY - top) / height) * 100;
       
-      // Keep lens within image boundaries
       const lensX = Math.min(Math.max(x, lensSize / 2 / width * 100), 100 - lensSize / 2 / width * 100);
       const lensY = Math.min(Math.max(y, lensSize / 2 / height * 100), 100 - lensSize / 2 / height * 100);
       
@@ -44,7 +42,6 @@ const ImageMagnifier = ({ src, alt, lensSize = 100, zoomLevel = 2.5 }) => {
             className="w-full h-full object-cover"
           />
           
-          {/* Magnifier Lens */}
           {showMagnifier && (
             <div 
               className="absolute border-2 border-white rounded-full shadow-lg pointer-events-none z-10"
@@ -62,7 +59,6 @@ const ImageMagnifier = ({ src, alt, lensSize = 100, zoomLevel = 2.5 }) => {
           )}
         </div>
         
-        {/* Zoom control button */}
         <button 
           onClick={toggleZoomMode}
           className="absolute top-3 right-3 bg-white/80 p-2 rounded-full shadow-md z-10 hover:bg-white"
@@ -71,7 +67,6 @@ const ImageMagnifier = ({ src, alt, lensSize = 100, zoomLevel = 2.5 }) => {
           <ZoomIn size={18} className={isZoomMode ? "text-blue-500" : "text-gray-700"} />
         </button>
         
-        {/* Zoom status indicator */}
         {isZoomMode && (
           <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded-md z-10">
             Zoom {Math.round(zoomLevel * 100)}%

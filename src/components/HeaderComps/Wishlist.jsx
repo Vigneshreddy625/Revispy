@@ -32,10 +32,6 @@ const Wishlist = () => {
     return <LoadingScreen />;
   }
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div className="px-4 py-8">
       <div className="flex items-center justify-between mb-8">

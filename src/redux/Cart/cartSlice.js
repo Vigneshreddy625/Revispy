@@ -2,13 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "sonner";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/cart/add`, { productId });
+      const response = await axios.post(`/backend/api/v1/cart/add`, { productId });
       toast.success("Item added to cart!");
       return response.data;
     } catch (err) {
@@ -22,7 +21,7 @@ export const updateCartItem = createAsyncThunk(
   "cart/updateCartItem",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${BACKEND_URL}/api/v1/cart/update`, { productId, quantity });
+      const response = await axios.put(`/backend/api/v1/cart/update`, { productId, quantity });
       return response.data;
     } catch (err) {
         toast.error(err.response?.data?.message || "Update quantity failed");
@@ -35,7 +34,7 @@ export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${BACKEND_URL}/api/v1/cart/remove/${productId}`);
+      const response = await axios.delete(`/backend/api/v1/cart/remove/${productId}`);
       toast.success("Item removed from cart!");
       return response.data;
     } catch (err) {
@@ -49,7 +48,7 @@ export const clearCart = createAsyncThunk(
   "cart/clearCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/cart/clear`);
+      const response = await axios.post(`/backend/api/v1/cart/clear`);
       return response.data;
     } catch (err) {
         toast.error(err.response?.data?.message || "Remove item failed");
@@ -62,7 +61,7 @@ export const applyPromoCode = createAsyncThunk(
   "cart/applyPromoCode",
   async ({ code, discount, discountType }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/cart/promo`, { code, discount, discountType });
+      const response = await axios.post(`/backend/api/v1/cart/promo`, { code, discount, discountType });
       toast.success("Promocode applied!");
       return response.data;
     } catch (err) {
@@ -76,7 +75,7 @@ export const updateShipping = createAsyncThunk(
   "cart/updateShipping",
   async ({ method }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/cart/shipping`, { method });
+      const response = await axios.post(`/backend/api/v1/cart/shipping`, { method });
       return response.data;
     } catch (err) {
         toast.error(err.response?.data?.message || "Update shipping failed");
@@ -89,7 +88,7 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BACKEND_URL}/api/v1/cart/`);
+      const response = await axios.get(`/backend/api/v1/cart/`);
       return response.data;
     } catch (err) {
         toast.error(err.response?.data?.message || "Remove item failed");

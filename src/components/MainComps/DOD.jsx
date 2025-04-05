@@ -6,7 +6,6 @@ import Product from "../Modals/Product";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { useSelector } from "react-redux";
-import { getOneRandomItems } from "../utils/RandomGen";
 
 const DealOfDay = () => {
   // const dealProduct = 
@@ -75,7 +74,7 @@ const DealOfDay = () => {
     };
   }, []);
 
-  const dealProduct = useSelector((state) => state.products?.items.data[15]);
+  const dealProduct = useSelector((state) => state.products?.items.data[32]);
 
   useEffect(() => {
     const timer = setInterval(() => {

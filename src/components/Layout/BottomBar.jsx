@@ -1,7 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   Home,
   ShoppingBag,
@@ -16,12 +15,16 @@ import {
   FaChartBar,
   FaThLarge 
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function BottomBar() {
+  const [cartCount, setCartCount] = useState(0);
   const location = useLocation();
   const currentPath = location.pathname;
-  
-  const msgCount = 5;
+  const { cart } = useSelector((state) => state.cart);
+  useEffect(() => {
+    setCartCount(cart?.items?.length || 0);
+    }, [cart]);
 
   const icons = [
     {
@@ -97,9 +100,9 @@ function BottomBar() {
       icon: (
         <div className="relative">
           <ShoppingBag className="w-6 h-6" />
-          {msgCount > 0 && (
+          {cartCount > 0 && (
             <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-              {msgCount}
+              {cartCount}
             </span>
           )}
         </div>
@@ -107,9 +110,9 @@ function BottomBar() {
       activeIcon: (
         <div className="relative">
           <FaShoppingBag className="w-6 h-6" />
-          {msgCount > 0 && (
+          {cartCount > 0 && (
             <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-              {msgCount}
+              {cartCount}
             </span>
           )}
         </div>

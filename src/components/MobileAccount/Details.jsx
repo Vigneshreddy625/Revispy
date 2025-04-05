@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Details = () => {
   const [userInfo, setUserInfo] = useState({
-    mobileNumber: "9381964889",
-    fullName: "Vignesh Reddy",
-    email: "vigneshreddy625@gmail.com",
+    mobileNumber: "93XXXXXXXX",
+    fullName: "Your Name",
+    email: "youremail@gmail.com",
     alternateNumber: "",
     hintName: ""
   });
