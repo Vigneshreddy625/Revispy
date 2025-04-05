@@ -2,6 +2,9 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
+const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+axios.defaults.baseURL = API_URL;
+
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
@@ -12,7 +15,7 @@ export const WishlistProvider = ({ children }) => {
   const fetchWishlistItems = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/backend/api/v1/wishlist`);
+      const response = await axios.get(`/api/v1/wishlist`);
       setWishlistItems(response.data.data);
     } catch (err) {
       setError(err.response?.data || err.message);
@@ -28,7 +31,7 @@ export const WishlistProvider = ({ children }) => {
   const addWishlistItem = async (productId) => {
     try {
       await axios.post(
-        `/backend/api/v1/wishlist`,
+        `/api/v1/wishlist`,
         { productId },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -43,7 +46,7 @@ export const WishlistProvider = ({ children }) => {
   const removeWishlistItem = async (productId) => {
     setLoading(true);
     try {
-      await axios.delete(`/backend/api/v1/wishlist`, {
+      await axios.delete(`/api/v1/wishlist`, {
         headers: { 'Content-Type': 'application/json' },
         data: { productId },
       });

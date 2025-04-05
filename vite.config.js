@@ -23,7 +23,7 @@ export default defineConfig({
       '/backend': {
         target: process.env.VITE_BACKEND_URL,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path.replace(/^\/backend/, ''),
       },
     },

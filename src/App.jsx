@@ -5,10 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchProducts } from "./redux/Products/productSlice";
-import { fetchCart } from "./redux/Cart/cartSlice";
-import { fetchAddresses } from "./redux/Address/addressSlice";
 import { Toaster } from "sonner"; 
 
 const Orders = lazy(() => import("./components/Account/Orders"));
@@ -42,19 +38,6 @@ const OTP = lazy(() => import("./components/Authentication/OTP"));
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchAddresses());
-  }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {
