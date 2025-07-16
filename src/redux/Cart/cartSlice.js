@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "sonner";
+
 const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 axios.defaults.baseURL = API_URL;
 
@@ -9,10 +10,8 @@ export const addToCart = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.post(`/api/v1/cart/add`, { productId });
-      toast.success("Item added to cart!");
       return response.data;
     } catch (err) {
-        toast.error(err.response?.data?.message || "Add to cart failed");
       return rejectWithValue(err.response?.data?.message || "Add to cart failed");
     }
   }
@@ -25,7 +24,6 @@ export const updateCartItem = createAsyncThunk(
       const response = await axios.put(`/api/v1/cart/update`, { productId, quantity });
       return response.data;
     } catch (err) {
-        toast.error(err.response?.data?.message || "Update quantity failed");
       return rejectWithValue(err.response?.data?.message || "Update quantity failed");
     }
   }
@@ -36,51 +34,9 @@ export const removeFromCart = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`/api/v1/cart/remove/${productId}`);
-      toast.success("Item removed from cart!");
       return response.data;
     } catch (err) {
-        toast.error(err.response?.data?.message || "Remove item failed");
       return rejectWithValue(err.response?.data?.message || "Remove item failed");
-    }
-  }
-);
-
-export const clearCart = createAsyncThunk(
-  "cart/clearCart",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`/api/v1/cart/clear`);
-      return response.data;
-    } catch (err) {
-        toast.error(err.response?.data?.message || "Remove item failed");
-      return rejectWithValue(err.response?.data?.message || "Clear cart failed");
-    }
-  }
-);
-
-export const applyPromoCode = createAsyncThunk(
-  "cart/applyPromoCode",
-  async ({ code, discount, discountType }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`/api/v1/cart/promo`, { code, discount, discountType });
-      toast.success("Promocode applied!");
-      return response.data;
-    } catch (err) {
-        toast.error(err.response?.data?.message || "Apply promo failed");
-      return rejectWithValue(err.response?.data?.message || "Apply promo failed");
-    }
-  }
-);
-
-export const updateShipping = createAsyncThunk(
-  "cart/updateShipping",
-  async ({ method }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`/api/v1/cart/shipping`, { method });
-      return response.data;
-    } catch (err) {
-        toast.error(err.response?.data?.message || "Update shipping failed");
-      return rejectWithValue(err.response?.data?.message || "Update shipping failed");
     }
   }
 );
@@ -89,57 +45,92 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/v1/cart/`);
+      const response = await axios.get(`/api/v1/cart`);
       return response.data;
     } catch (err) {
-        toast.error(err.response?.data?.message || "Remove item failed");
       return rejectWithValue(err.response?.data?.message || "Fetch cart failed");
     }
   }
 );
 
+const initialState = {
+  cart: null,
+  loading: {
+    fetch: false,
+    add: false,
+    update: false,
+    remove: false,
+  },
+  error: null,
+};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    cart: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     resetCartState: (state) => {
       state.cart = null;
-      state.loading = false;
+      state.loading = { fetch: false, add: false, update: false, remove: false };
       state.error = null;
+    },
+    addToCartOptimistic: (state, action) => {
+      if (!state.cart) return;
+      const product = action.payload;
+      const existing = state.cart.items.find((i) => i.product._id === product._id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        state.cart.items.push({
+          _id: Date.now().toString(),
+          product,
+          quantity: 1,
+        });
+      }
     },
   },
   extraReducers: (builder) => {
-    const actions = [
-      fetchCart,
-      addToCart,
-      updateCartItem,
-      removeFromCart,
-      clearCart,
-      applyPromoCode,
-      updateShipping,
-    ];
+    builder
+      .addCase(fetchCart.pending, (state) => {
+        state.loading.fetch = true;
+        state.error = null;
+      })
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading.fetch = false;
+        state.cart = action.payload;
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.loading.fetch = false;
+        state.error = action.payload;
+      })
+      .addCase(addToCart.pending, (state) => {
+        state.loading.add = true;
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.loading.add = false;
+        state.cart = action.payload;
+        toast.success("Item added to cart!");
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.loading.add = false;
+        toast.error(action.payload);
+        state.error = action.payload;
+      })
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading.remove = true;
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        state.loading.remove = false;
+        state.cart = action.payload; 
+        toast.success("Item removed from cart!");
+      })
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.loading.remove = false;
+        state.error = action.payload;
+        toast.error(action.payload || "Remove failed");
+      });
 
-    actions.forEach((action) => {
-      builder
-        .addCase(action.pending, (state) => {
-          state.loading = true;
-          state.error = null;
-        })
-        .addCase(action.fulfilled, (state, action) => {
-          state.loading = false;
-          state.cart = action.payload;
-        })
-        .addCase(action.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.payload;
-        });
-    });
   },
 });
 
-export const { resetCartState } = cartSlice.actions;
+export const { resetCartState, addToCartOptimistic } = cartSlice.actions;
 export default cartSlice.reducer;

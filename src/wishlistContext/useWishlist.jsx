@@ -1,3 +1,4 @@
+// wishlistContext/useWishlist.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -30,13 +31,10 @@ export const WishlistProvider = ({ children }) => {
 
   const addWishlistItem = async (productId) => {
     try {
-      await axios.post(
-        `/api/v1/wishlist`,
-        { productId },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      fetchWishlistItems();
+      await axios.post(`/api/v1/wishlist`, { productId });
+      setWishlistItems((prev) => [...prev, { _id: productId }]); // optional optimistic add
       toast.success("Item added to wishlist.");
+      fetchWishlistItems(); // re-sync
     } catch (err) {
       setError(err.response?.data || err.message);
       toast.error("Failed to add item to wishlist.");
@@ -44,33 +42,37 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const removeWishlistItem = async (productId) => {
-    setLoading(true);
+    // ✅ Optimistic remove
+    const prevItems = [...wishlistItems];
+    setWishlistItems((prev) => prev.filter((item) => item._id !== productId));
+
     try {
       await axios.delete(`/api/v1/wishlist`, {
-        headers: { 'Content-Type': 'application/json' },
         data: { productId },
+        headers: { 'Content-Type': 'application/json' },
       });
-      setWishlistItems((prevItems) => prevItems.filter((item) => item._id !== productId));
       toast.success("Item removed from wishlist.");
     } catch (err) {
+      setWishlistItems(prevItems); // revert
       setError(err.response?.data || err.message);
       toast.error("Failed to remove item from wishlist.");
-      fetchWishlistItems();
-    } finally {
-      setLoading(false);
     }
   };
 
-  const value = {
-    wishlistItems,
-    loading,
-    error,
-    addWishlistItem,
-    removeWishlistItem,
-    refetch: fetchWishlistItems,
-  };
-
-  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
+  return (
+    <WishlistContext.Provider
+      value={{
+        wishlistItems,
+        loading,
+        error,
+        addWishlistItem,
+        removeWishlistItem,
+        refetch: fetchWishlistItems,
+      }}
+    >
+      {children}
+    </WishlistContext.Provider>
+  );
 };
 
 export const useWishlist = () => useContext(WishlistContext);

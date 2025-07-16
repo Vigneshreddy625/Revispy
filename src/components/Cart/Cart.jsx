@@ -31,7 +31,7 @@ const Cart = () => {
     dispatch(fetchCart());
   }, [dispatch]);
 
-  if (loading) return <LoadingScreen />;
+  if (!cart && loading.fetch) return <LoadingScreen />;
   if (error) return <p className="text-red-500">{error}</p>;
 
   if (!cart || !cart.items || cart.items.length === 0) {
