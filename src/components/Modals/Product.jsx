@@ -131,6 +131,7 @@ const Product = ({ isOpen, onClose, product, onAddToCart }) => {
     }
   };
 
+
   useEffect(() => {
     if (product) {
       setSelectedColor(product.colors?.[0]?.value || "black");
@@ -340,7 +341,7 @@ const Product = ({ isOpen, onClose, product, onAddToCart }) => {
 
             <div className="flex gap-3 pt-2">
               <button
-                onClick={() => handleAddToCart(product._id)}
+                onClick={() => handleAddToCart(product)}
                 disabled={loading}
                 className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center"
               >

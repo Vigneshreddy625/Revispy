@@ -12,7 +12,9 @@ export const addToCart = createAsyncThunk(
       const response = await axios.post(`/api/v1/cart/add`, { productId });
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Add to cart failed");
+      return rejectWithValue(
+        err.response?.data?.message || "Add to cart failed"
+      );
     }
   }
 );
@@ -21,10 +23,15 @@ export const updateCartItem = createAsyncThunk(
   "cart/updateCartItem",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`/api/v1/cart/update`, { productId, quantity });
+      const response = await axios.put(`/api/v1/cart/update`, {
+        productId,
+        quantity,
+      });
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Update quantity failed");
+      return rejectWithValue(
+        err.response?.data?.message || "Update quantity failed"
+      );
     }
   }
 );
@@ -36,7 +43,9 @@ export const removeFromCart = createAsyncThunk(
       const response = await axios.delete(`/api/v1/cart/remove/${productId}`);
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Remove item failed");
+      return rejectWithValue(
+        err.response?.data?.message || "Remove item failed"
+      );
     }
   }
 );
@@ -48,7 +57,9 @@ export const fetchCart = createAsyncThunk(
       const response = await axios.get(`/api/v1/cart`);
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Fetch cart failed");
+      return rejectWithValue(
+        err.response?.data?.message || "Fetch cart failed"
+      );
     }
   }
 );
@@ -70,13 +81,20 @@ const cartSlice = createSlice({
   reducers: {
     resetCartState: (state) => {
       state.cart = null;
-      state.loading = { fetch: false, add: false, update: false, remove: false };
+      state.loading = {
+        fetch: false,
+        add: false,
+        update: false,
+        remove: false,
+      };
       state.error = null;
     },
     addToCartOptimistic: (state, action) => {
       if (!state.cart) return;
       const product = action.payload;
-      const existing = state.cart.items.find((i) => i.product._id === product._id);
+      const existing = state.cart.items.find(
+        (i) => i.product._id === product._id
+      );
       if (existing) {
         existing.quantity += 1;
       } else {
@@ -86,6 +104,80 @@ const cartSlice = createSlice({
           quantity: 1,
         });
       }
+    },
+    removeFromCartOptimistic: (state, action) => {
+      if (!state.cart) return;
+      const { productId } = action.payload;
+      state.cart.items = state.cart.items.filter(
+        (i) => i.product._id !== productId
+      );
+    },
+    updateCartItemOptimistic: (state, action) => {
+      if (!state.cart) return;
+
+      const { productId, quantity } = action.payload;
+      const item = state.cart.items.find((i) => i.product._id === productId);
+
+      if (item) {
+        item.quantity = quantity;
+      }
+
+      const subtotal = state.cart.items.reduce(
+        (total, item) =>
+          total + Number((item.product.price * item.quantity).toFixed(2)),
+        0
+      );
+
+      const taxRate = 0.07;
+      const tax = subtotal * taxRate;
+
+      let discount = 0;
+      if (state.cart.promoCode?.code) {
+        discount =
+          state.cart.promoCode.discountType === "percentage"
+            ? (subtotal * state.cart.promoCode.discount) / 100
+            : state.cart.promoCode.discount;
+      }
+
+      const shippingCost = subtotal > 1000 ? 0 : 5.99;
+
+      state.cart.shipping = {
+        cost: shippingCost,
+      };
+
+      const total = Math.max(0, subtotal + tax + shippingCost - discount);
+
+      state.cart.subtotal = parseFloat(subtotal.toFixed(2));
+      state.cart.tax = parseFloat(tax.toFixed(2));
+      state.cart.total = parseFloat(total.toFixed(2));
+    },
+
+    applyCouponLocally: (state, action) => {
+      const coupon = action.payload;
+      state.cart.promoCode = coupon;
+
+      const subtotal = state.cart.items.reduce(
+        (total, item) => total + item.product.price * item.quantity,
+        0
+      );
+
+      const tax = subtotal * 0.07;
+
+      let discount = 0;
+      if (coupon?.code) {
+        discount =
+          coupon.discountType === "percentage"
+            ? (subtotal * coupon.discount) / 100
+            : coupon.discount;
+      }
+
+      const shipping = subtotal > 1000 ? 0 : 5.99;
+      const total = Math.max(0, subtotal + tax + shipping - discount);
+
+      state.cart.subtotal = parseFloat(subtotal.toFixed(2));
+      state.cart.tax = parseFloat(tax.toFixed(2));
+      state.cart.discount = parseFloat(discount.toFixed(2));
+      state.cart.total = parseFloat(total.toFixed(2));
     },
   },
   extraReducers: (builder) => {
@@ -120,17 +212,34 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.loading.remove = false;
-        state.cart = action.payload; 
+        state.cart = action.payload;
         toast.success("Item removed from cart!");
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading.remove = false;
         state.error = action.payload;
         toast.error(action.payload || "Remove failed");
+      })
+      .addCase(updateCartItem.pending, (state) => {
+        state.loading.update = true;
+      })
+      .addCase(updateCartItem.fulfilled, (state, action) => {
+        state.loading.update = false;
+        state.cart = action.payload;
+      })
+      .addCase(updateCartItem.rejected, (state, action) => {
+        state.loading.update = false;
+        state.error = action.payload;
+        toast.error(action.payload || "Update failed");
       });
-
   },
 });
 
-export const { resetCartState, addToCartOptimistic } = cartSlice.actions;
+export const {
+  resetCartState,
+  addToCartOptimistic,
+  updateCartItemOptimistic,
+  removeFromCartOptimistic,
+  applyCouponLocally
+} = cartSlice.actions;
 export default cartSlice.reducer;

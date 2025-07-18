@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchCart,
   updateCartItem,
+  updateCartItemOptimistic,
+  removeFromCartOptimistic,
   removeFromCart,
 } from '../../redux/Cart/cartSlice';
 import LoadingScreen from '../Items/LoadingScreen';
@@ -20,12 +22,6 @@ const Cart = () => {
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [promoError, setPromoError] = useState('');
-
-  const shippingCosts = {
-    standard: 5.99,
-    express: 15.99,
-    free: 0,
-  };
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -41,22 +37,18 @@ const Cart = () => {
   const handleUpdateQuantity = (cartItemId, newQty) => {
     const item = cart.items.find((i) => i._id === cartItemId);
     if (!item || newQty < 1) return;
+
+    dispatch(updateCartItemOptimistic({ productId: item.product._id, quantity: newQty }));
+
     dispatch(updateCartItem({ productId: item.product._id, quantity: newQty }));
   };
 
   const handleRemoveItem = (cartItemId) => {
     const item = cart.items.find((i) => i._id === cartItemId);
     if (!item) return;
+    dispatch(removeFromCartOptimistic(item.product._id));
     dispatch(removeFromCart(item.product._id));
   };
-
-  const calculateSubtotal = () => {
-    return cart.items.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
-    }, 0);
-  };
-
-  const calculateTax = (subtotal) => subtotal * 0.07;
 
   const applyPromoCode = () => {
     const code = cart.promoCode?.code?.toUpperCase();
@@ -67,19 +59,9 @@ const Cart = () => {
     }
   };
 
-  const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    const discount = cart.promoCode?.discount || 0;
-    const tax = calculateTax(subtotal - discount);
-    const shipping =
-      shippingCosts[cart.shipping.method.toLowerCase()] ??
-      shippingCosts.standard;
-    return subtotal - discount + tax + shipping;
-  };
-
   return isCheckingOut ? (
     <Checkout
-    cartItems={cart.items.map((item) => ({
+      cartItems={cart.items.map((item) => ({
       id: item._id, 
       name: item.product.title,
       image: item.product.image,
@@ -89,16 +71,15 @@ const Cart = () => {
       price: item.product.price,
       originalPrice: item.product.originalPrice,
     }))}
-      calculateSubtotal={calculateSubtotal}
-      calculateTotal={calculateTotal}
-      calculateTax={calculateTax}
+      calculateSubtotal={cart.subtotal}
+      calculateTotal={cart.total}
+      calculateTax={cart.tax}
       discount={cart.promoCode.discount}
-      shippingMethod={cart.shipping.method}
-      shippingCosts={shippingCosts}
+      shippingCosts={cart.shipping.cost}
       setIsCheckingOut={setIsCheckingOut}
     />
   ) : (
-    <div className="w-full min-h-screen flex flex-col lg:flex-row gap-8 bg-white dark:bg-black mt-2">
+    <div className="w-full lg:min-w-[1024px] min-h-screen flex flex-col lg:flex-row gap-8 bg-white dark:bg-black mt-2">
       <div className="flex-grow p-4 lg:p-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -111,44 +92,30 @@ const Cart = () => {
         <hr className="mb-4" />
         <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
           <span className="text-sm text-gray-500 dark:text-gray-400">PRODUCT</span>
-          <div className="flex gap-16">
+          <div className="flex gap-24">
             <span className="hidden md:flex text-sm text-gray-500 dark:text-gray-400">PRICE</span>
             <span className="text-sm text-gray-500 dark:text-gray-400">TOTAL</span>
           </div>
         </div>
 
         <CartItems
-          cartItems={cart.items.map((item) => ({
-            id: item._id, 
-            name: item.product.title,
-            image: item.product.image,
-            itemNo: item.product._id.slice(-6),
-            color: item.product.colors[0]?.name || 'Default',
-            qty: item.quantity,
-            price: item.product.price,
-            originalPrice: item.product.originalPrice,
-          }))}
+          cartItems={cart.items}
+          loading={loading}
           updateQuantity={handleUpdateQuantity}
           removeItem={handleRemoveItem}
         />
       </div>
 
-      <CartSummary
-        cartItems={cart.items}
-        calculateSubtotal={calculateSubtotal}
-        calculateTotal={calculateTotal}
-        calculateTax={calculateTax}
-        promoCode={cart.promoCode.code || ''}
-        setPromoCode={() => {}}
-        discount={cart.promoCode.discount}
-        promoError={promoError}
-        applyPromoCode={applyPromoCode}
-        shippingMethod={cart.shipping.method}
-        setShippingMethod={() => {}}
-        shippingCosts={shippingCosts}
-        setIsCheckingOut={setIsCheckingOut}
-        navigate={navigate}
-      />
+    <CartSummary
+      cartItems={cart.items}
+      cart={cart}
+      setPromoCode={() => {}}
+      promoError={promoError}
+      applyPromoCode={applyPromoCode}
+      setIsCheckingOut={setIsCheckingOut}
+      navigate={navigate}
+    />
+
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 axios.defaults.baseURL = API_URL;
 
@@ -8,7 +8,7 @@ const getToken = (user) => {
 };
 
 export const fetchAddresses = createAsyncThunk(
-  'addresses/fetchAddresses',
+  "addresses/fetchAddresses",
   async (_, { getState }) => {
     const { user } = getState().auth;
     const token = getToken(user);
@@ -18,7 +18,7 @@ export const fetchAddresses = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      return response.data; 
+      return response.data;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -26,7 +26,7 @@ export const fetchAddresses = createAsyncThunk(
 );
 
 export const addAddress = createAsyncThunk(
-  'addresses/addAddress',
+  "addresses/addAddress",
   async (addressData, { getState }) => {
     const { user } = getState().auth;
     const token = getToken(user);
@@ -36,7 +36,7 @@ export const addAddress = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      return response.data; 
+      return response.data;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -44,17 +44,21 @@ export const addAddress = createAsyncThunk(
 );
 
 export const updateAddress = createAsyncThunk(
-  'addresses/updateAddress',
+  "addresses/updateAddress",
   async ({ addressId, addressData }, { getState }) => {
     const { user } = getState().auth;
     const token = getToken(user);
     try {
-      const response = await axios.put(`/api/v1/addresses/${addressId}`, addressData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data; 
+      const response = await axios.put(
+        `/api/v1/addresses/${addressId}`,
+        addressData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -62,7 +66,7 @@ export const updateAddress = createAsyncThunk(
 );
 
 export const deleteAddress = createAsyncThunk(
-  'addresses/deleteAddress',
+  "addresses/deleteAddress",
   async (addressId, { getState }) => {
     const { user } = getState().auth;
     const token = getToken(user);
@@ -72,7 +76,7 @@ export const deleteAddress = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      return addressId; 
+      return addressId;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -80,7 +84,7 @@ export const deleteAddress = createAsyncThunk(
 );
 
 const addressSlice = createSlice({
-  name: 'addresses',
+  name: "addresses",
   initialState: {
     addresses: [],
     loading: false,
@@ -103,6 +107,9 @@ const addressSlice = createSlice({
       })
       .addCase(addAddress.fulfilled, (state, action) => {
         const newAddresses = action.payload.data || [];
+        if (action.payload.data) {
+          state.addresses.push(action.payload.data);
+        }
         if (newAddresses.length > 0) {
           state.addresses = newAddresses;
         } else if (action.payload.data) {
@@ -121,14 +128,14 @@ const addressSlice = createSlice({
         );
       })
       .addMatcher(
-        (action) => action.type.endsWith('/pending'),
+        (action) => action.type.endsWith("/pending"),
         (state) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           state.loading = false;
           state.error = action.error.message;

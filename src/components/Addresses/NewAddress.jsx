@@ -162,7 +162,7 @@ const NewAddress = ({ isOpen, onClose }) => {
               Add New Address
             </h2>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-start space-x-2 sm:space-x-3">
                   <div className="mt-1 flex-shrink-0">
