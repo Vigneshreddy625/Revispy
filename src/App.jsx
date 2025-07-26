@@ -5,8 +5,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { Toaster } from "sonner"; 
-
+import { Toaster } from "sonner";
+import GenericPage from "./admin/Generics";
+import OrdersPage from "./admin/Orders";
+import DashboardPage from "./admin/Dashboard";
+import ProductList from "./components/Product/ProductList";
+import AdminProductsList from "./admin/Products";
+const Admin = lazy(() => import("./admin/Layout"));
 const Orders = lazy(() => import("./components/Account/Orders"));
 const Delete = lazy(() => import("./components/Profile/Delete"));
 const Addresses = lazy(() => import("./components/Profile/Addresses"));
@@ -31,7 +36,9 @@ const SearchDesktop = lazy(() => import("./components/Search/Search"));
 const DOD = lazy(() => import("./components/MainComps/DOD"));
 const MobileAccount = lazy(() => import("./components/MobileAccount/Account"));
 const MobileOrders = lazy(() => import("./components/MobileAccount/Orders"));
-const MobileAddresses = lazy(() => import("./components/MobileAccount/Addresses"));
+const MobileAddresses = lazy(() =>
+  import("./components/MobileAccount/Addresses")
+);
 const Details = lazy(() => import("./components/MobileAccount/Details"));
 const MobileDelete = lazy(() => import("./components/MobileAccount/Delete"));
 const OTP = lazy(() => import("./components/Authentication/OTP"));
@@ -71,7 +78,10 @@ function App() {
               <Route path="dod" element={<DOD />} />
               <Route path="confirm-otp" element={<ConfirmOTP />} />
               <Route path="categories" element={<Categories />} />
-              <Route path="categories/:categoryName" element={<CategoryPage />} />
+              <Route
+                path="categories/:categoryName"
+                element={<CategoryPage />}
+              />
               <Route path="searchresults" element={<SearchDesktop />} />
 
               {!isMobile && (
@@ -84,21 +94,31 @@ function App() {
                   <Route path="delete" element={<Delete />} />
                 </Route>
               )}
-
-              
             </Route>
           </Route>
           {isMobile && (
-                <>
-                  <Route path="search" element={<Search />} />
-                  <Route path="account" element={<MobileAccount />} />
-                  <Route path="orders" element={<MobileOrders />} />
-                  <Route path="account/details" element={<Details />} />
-                  <Route path="account/addresses" element={<MobileAddresses />} />
-                  <Route path="account/delete" element={<MobileDelete />} />
-                </>
-              )}
+            <>
+              <Route path="search" element={<Search />} />
+              <Route path="account" element={<MobileAccount />} />
+              <Route path="orders" element={<MobileOrders />} />
+              <Route path="account/details" element={<Details />} />
+              <Route path="account/addresses" element={<MobileAddresses />} />
+              <Route path="account/delete" element={<MobileDelete />} />
+            </>
+          )}
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/admin" element={<Admin />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="products" element={<AdminProductsList />} />
+            <Route path="customers" element={<GenericPage />} />
+            <Route path="reports" element={<GenericPage />} />
+            <Route path="statistic" element={<GenericPage />} />
+            <Route path="notification" element={<GenericPage />} />
+            <Route path="help" element={<GenericPage />} />
+            <Route path="settings" element={<GenericPage />} />
+          </Route>
         </Routes>
       </Suspense>
     </Router>

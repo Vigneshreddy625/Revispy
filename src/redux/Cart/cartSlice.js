@@ -131,54 +131,19 @@ const cartSlice = createSlice({
       const taxRate = 0.07;
       const tax = subtotal * taxRate;
 
-      let discount = 0;
-      if (state.cart.promoCode?.code) {
-        discount =
-          state.cart.promoCode.discountType === "percentage"
-            ? (subtotal * state.cart.promoCode.discount) / 100
-            : state.cart.promoCode.discount;
-      }
-
       const shippingCost = subtotal > 1000 ? 0 : 5.99;
 
       state.cart.shipping = {
         cost: shippingCost,
       };
 
-      const total = Math.max(0, subtotal + tax + shippingCost - discount);
+      const total = Math.max(0, subtotal + tax + shippingCost);
 
       state.cart.subtotal = parseFloat(subtotal.toFixed(2));
       state.cart.tax = parseFloat(tax.toFixed(2));
       state.cart.total = parseFloat(total.toFixed(2));
     },
 
-    applyCouponLocally: (state, action) => {
-      const coupon = action.payload;
-      state.cart.promoCode = coupon;
-
-      const subtotal = state.cart.items.reduce(
-        (total, item) => total + item.product.price * item.quantity,
-        0
-      );
-
-      const tax = subtotal * 0.07;
-
-      let discount = 0;
-      if (coupon?.code) {
-        discount =
-          coupon.discountType === "percentage"
-            ? (subtotal * coupon.discount) / 100
-            : coupon.discount;
-      }
-
-      const shipping = subtotal > 1000 ? 0 : 5.99;
-      const total = Math.max(0, subtotal + tax + shipping - discount);
-
-      state.cart.subtotal = parseFloat(subtotal.toFixed(2));
-      state.cart.tax = parseFloat(tax.toFixed(2));
-      state.cart.discount = parseFloat(discount.toFixed(2));
-      state.cart.total = parseFloat(total.toFixed(2));
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -240,6 +205,5 @@ export const {
   addToCartOptimistic,
   updateCartItemOptimistic,
   removeFromCartOptimistic,
-  applyCouponLocally
 } = cartSlice.actions;
 export default cartSlice.reducer;

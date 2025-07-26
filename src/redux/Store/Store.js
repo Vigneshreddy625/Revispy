@@ -4,6 +4,7 @@ import authReducer from "../Auth/authSlice"
 import productReducer from "../Products/productSlice"
 import cartReducer from "../Cart/cartSlice"
 import couponReducer from "../Coupon/couponSlice"
+import orderReducer from"../Orders/orderSlice"
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         coupon : couponReducer,
         addresses : addressReducer,
         products : productReducer,
-        auth : authReducer
+        auth : authReducer,
+        orders : orderReducer
     }
 })
 

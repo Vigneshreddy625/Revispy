@@ -107,13 +107,8 @@ const addressSlice = createSlice({
       })
       .addCase(addAddress.fulfilled, (state, action) => {
         const newAddresses = action.payload.data || [];
-        if (action.payload.data) {
-          state.addresses.push(action.payload.data);
-        }
         if (newAddresses.length > 0) {
           state.addresses = newAddresses;
-        } else if (action.payload.data) {
-          state.addresses = [...state.addresses, action.payload.data];
         }
       })
       .addCase(updateAddress.fulfilled, (state, action) => {

@@ -88,7 +88,7 @@ const CartItems = ({ cartItems, updateQuantity, removeItem, loading }) => {
               </span>
               {item.product.originalPrice && (
                 <span className="text-green-600 text-xs mt-1">
-                  Save Rs.{item.product.originalPrice - item.product.price}
+                  Save Rs.{(item.product.originalPrice - item.product.price).toFixed(0)}
                 </span>
               )}
             </div>

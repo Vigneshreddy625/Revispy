@@ -4,7 +4,6 @@ const OrderSummary = ({
   calculateSubtotal,
   calculateTotal,
   calculateTax,
-  discount = 0,
   shippingCosts,
 }) => {
   return (
@@ -13,12 +12,6 @@ const OrderSummary = ({
         <span className="text-sm text-gray-700 dark:text-gray-300">Subtotal</span>
         <span className="text-sm text-gray-900 dark:text-white">Rs.{calculateSubtotal}</span>
       </div>
-      {discount > 0 && (
-        <div className="flex justify-between mb-2">
-          <span className="text-sm text-gray-700 dark:text-gray-300">Discount</span>
-          <span className="text-sm text-green-600 dark:text-white">-Rs.{discount}</span>
-        </div>
-      )}
       <div className="flex justify-between mb-2">
         <span className="text-sm text-gray-700 dark:text-gray-300">Tax</span>
         <span className="text-sm text-gray-900 dark:text-white">Rs.{calculateTax}</span>

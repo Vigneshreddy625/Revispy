@@ -4,7 +4,7 @@ import { X, MapPin, User, Phone, Home, Building, Map } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addAddress } from "../../redux/Address/addressSlice";
 
-const NewAddress = ({ isOpen, onClose }) => {
+const NewAddress = ({ isOpen, onClose, onSuccess }) => { 
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -83,10 +83,36 @@ const NewAddress = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addAddress(formData));
-    onClose();
+    
+    try {
+      dispatch(addAddress(formData));
+      
+      if (onSuccess) {
+        onSuccess();
+      }
+      
+      setFormData({
+        name: "",
+        mobile: "",
+        houseNo: "",
+        postalCode: "",
+        state: "",
+        street: "",
+        locality: "",
+        city: "",
+        district: "",
+        country: "India",
+        type: "home",
+      });
+      
+      // Close modal
+      onClose();
+    } catch (error) {
+      console.error("Error adding address:", error);
+      // Handle error appropriately (show toast, etc.)
+    }
   };
 
   useEffect(() => {
@@ -157,6 +183,7 @@ const NewAddress = ({ isOpen, onClose }) => {
           </div>
         </div>
 
+        <form onSubmit={handleSubmit} className="flex flex-col flex-grow">
           <div className="p-4 sm:p-6 pt-10 sm:pt-12 overflow-y-auto flex-grow">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               Add New Address
@@ -220,7 +247,7 @@ const NewAddress = ({ isOpen, onClose }) => {
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <div className="flex items-start space-x-2 sm:space-x-3">
+                <div className="flex items-start space-x-2 sm:space-x-3">
                   <div className="mt-1 flex-shrink-0">
                     <MapPin className="w-5 h-5 text-gray-400 dark:text-gray-500" />
                   </div>
@@ -248,19 +275,18 @@ const NewAddress = ({ isOpen, onClose }) => {
                     {loading ? (
                       <div className="w-full h-6 mt-1 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
                     ) : (
-                    <input
-                      type="text"
-                      name="locality"
-                      value={formData.locality}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
-                      placeholder="Enter House/Flat No."
-                      required
-                    />
+                      <input
+                        type="text"
+                        name="locality"
+                        value={formData.locality}
+                        onChange={handleInputChange}
+                        className="w-full p-2 mt-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-600 focus:border-transparent transition-all text-sm"
+                        placeholder="Enter Locality"
+                        required
+                      />
                     )}
                   </div>
                 </div>
-
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -362,35 +388,35 @@ const NewAddress = ({ isOpen, onClose }) => {
               </div>
 
               <div className="flex items-center pt-1">
-              <input
-                type="checkbox"
-                id="isHome"
-                name="isHome"
-                checked={formData.type === "home"} 
-                onChange={handleInputChange}
-                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="isHome"
-                className="ml-3 block text-sm text-gray-700 dark:text-gray-300"
-              >
-                Set as home address
-              </label>
-            </div>
+                <input
+                  type="checkbox"
+                  id="isHome"
+                  name="isHome"
+                  checked={formData.type === "home"} 
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="isHome"
+                  className="ml-3 block text-sm text-gray-700 dark:text-gray-300"
+                >
+                  Set as home address
+                </label>
+              </div>
             </div>
           </div>
 
-        <div className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50">
+          <div className="p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50">
             <div className="flex gap-3 sm:gap-4">
               <button
                 type="submit"
                 className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 text-sm font-medium bg-gradient-to-r from-blue-400 to-indigo-500 dark:from-blue-500 dark:to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg transform transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 order-1 xs:order-2"
-                onClick={handleSubmit}
               >
                 Save Address
               </button>
             </div>
           </div>
+        </form>
       </motion.div>
     </motion.div>
   );

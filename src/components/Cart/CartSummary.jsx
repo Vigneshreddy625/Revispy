@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { CreditCard, Tag } from 'lucide-react';
 import OrderSummary from './OrderSummary';
-import { useDispatch } from 'react-redux';
-import { applyCoupon } from '../../redux/Coupon/couponSlice';
-import CouponInput from '../Coupon/CouponInput';
 
 const CartSummary = ({
   cart,
@@ -19,7 +16,6 @@ const CartSummary = ({
         calculateSubtotal={cart.subtotal}
         calculateTotal={cart.total}
         calculateTax={cart.tax}
-        discount={cart.promoCode.discount}
         shippingCosts={cart.shipping.cost}
       />
 

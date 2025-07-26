@@ -4,7 +4,7 @@ import { X, Trash2, Home } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAddress } from "../../redux/Address/addressSlice";
 
-const DeleteAddress = ({ isOpen, onClose, addressId, address }) => {
+const DeleteAddress = ({ isOpen, onClose, addressId, address, onSuccess }) => {
   const popupRef = useRef(null);
   const dispatch = useDispatch();
   const addressDeleteLoading = useSelector((state) => state.addresses.loading);
@@ -34,14 +34,16 @@ const DeleteAddress = ({ isOpen, onClose, addressId, address }) => {
   }, [onClose]);
 
   const handleDelete = () => {
-    dispatch(deleteAddress(addressId));
-  };
-
-  useEffect(() => {
-    if (!addressDeleteLoading && !addressDeleteError && addressDeleteError !== null && isOpen) {
-        onClose();
+    try {
+      dispatch(deleteAddress(addressId));
+      if (onSuccess) {
+        onSuccess();
+      }
+      onClose();
+    } catch (error) {
+      console.error("Error deleting address:", error);
     }
-  }, [addressDeleteLoading, addressDeleteError, onClose, isOpen]);
+  };
 
   if (!isOpen) return null;
 
