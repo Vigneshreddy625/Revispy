@@ -15,10 +15,6 @@ const MainLayout = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const isMobile = useIsMobile();
-  const location = useLocation();
-  const isOrdersPage = location.pathname.includes("/admin/orders");
-  const isProductsPage = location.pathname.includes("/admin/products");
-  const showFilters = isOrdersPage || isProductsPage;
 
   return (
     <div className="flex h-screen font-sans bg-black relative overflow-hidden">
@@ -44,9 +40,6 @@ const MainLayout = () => {
 
         <div className="flex-1 flex overflow-y-auto">
           <div className="flex-1 overflow-y-auto">
-            {showFilters && (
-            <FilterBar isOrdersPage={isOrdersPage} isProductsPage={isProductsPage}/>
-            )}
             <Outlet context={{ selectedOrder, setSelectedOrder }} />
           </div>
 

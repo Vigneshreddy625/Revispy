@@ -1,17 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ClipboardCheck, X } from 'lucide-react'; 
 
 const OrderSuccessModal = ({ isOpen, onClose }) => {
+  const [countdown, setCountdown] = useState(5);
+
   useEffect(() => {
     let timer;
+    let countdownTimer;
+    
     if (isOpen) {
-      timer = setTimeout(() => {
-        onClose();
-      }, 5000); 
+      // Reset countdown when modal opens
+      setCountdown(5);
+      
+      // Countdown timer that updates every second
+      countdownTimer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownTimer);
+            onClose(); // Close when countdown reaches 0
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
+    
     return () => {
-      clearTimeout(timer); 
+      clearTimeout(timer);
+      clearInterval(countdownTimer);
     };
   }, [isOpen, onClose]);
 
@@ -92,8 +109,8 @@ const OrderSuccessModal = ({ isOpen, onClose }) => {
             exit="exit"
           >
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-green-400/10 to-blue-500/10 rounded-full blur-3xl"></div> {/* Changed colors */}
-              <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-teal-400/10 to-lime-500/10 rounded-full blur-3xl"></div> {/* Changed colors */}
+              <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-green-400/10 to-blue-500/10 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-teal-400/10 to-lime-500/10 rounded-full blur-3xl"></div>
             </div>
             
             <motion.button 
@@ -109,8 +126,8 @@ const OrderSuccessModal = ({ isOpen, onClose }) => {
               className="relative z-10 mx-auto w-20 h-20 my-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg"
               variants={iconVariants}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-blue-400 rounded-full opacity-10"></div> {/* Changed colors */}
-              <ClipboardCheck size={32} className="text-green-500" strokeWidth={2} /> {/* Changed icon and color */}
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-blue-400 rounded-full opacity-10"></div>
+              <ClipboardCheck size={32} className="text-green-500" strokeWidth={2} />
             </motion.div>
             
             <div className="relative z-10 px-8 pb-8 pt-2">
@@ -132,7 +149,7 @@ const OrderSuccessModal = ({ isOpen, onClose }) => {
                   Your order has been successfully placed and is being processed.
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 text-center mb-1">
-                  This modal will close automatically in 5 seconds.
+                  This modal will close automatically in <span className="font-bold text-green-500">{countdown}</span> seconds.
                 </p>
                 <hr className='my-4'/>
               </motion.div>

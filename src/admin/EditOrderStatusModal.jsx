@@ -18,14 +18,15 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-const statusOptions = ["Paid", "Processing", "Completed", "Delivered", "Cancelled"];
+
+const statusOptions = ["Pending", "Processing", "Completed", "Delivered", "Cancelled"];
 
 const EditOrderStatusModal = ({ isOpen, onClose,  order }) => {
-  const [status, setStatus] = useState(order.status);
+  const [status, setStatus] = useState(order.orderStatus);
 
   useEffect(() => {
   if (order) {
-    setStatus(order.status);
+    setStatus(order.orderStatus);
   }
 }, [order]);
 
@@ -53,7 +54,7 @@ const EditOrderStatusModal = ({ isOpen, onClose,  order }) => {
           <div className="p-3 bg-white border rounded-xl">
             <Label className="text-sm text-gray-700">Order ID</Label>
             <Input
-              value={order.id}
+              value={order.orderId}
               disabled
               className="mt-1 bg-white border text-black"
             />

@@ -114,7 +114,7 @@ const Cart = () => {
         type: shippingAddress.type,
         name: shippingAddress.name,
         mobile: shippingAddress.mobile,
-        houseNo: shippingAddress.houseNo,
+        // houseNo: shippingAddress.houseNo,
         locality: shippingAddress.locality,
         street: shippingAddress.street,
         city: shippingAddress.city,
@@ -127,6 +127,7 @@ const Cart = () => {
 
     console.log("Order Payload:", orderPayload);
     dispatch(createOrder(orderPayload));
+    dispatch(fetchCart()); // Refresh cart after order creation
   };
 
   return (
